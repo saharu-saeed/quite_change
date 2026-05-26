@@ -1,0 +1,2245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quiet Change — multi-year</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2f3a;
+    --text: #e6e8eb; --muted: #8a93a3; --accent: #5aa9ff;
+    --pos: #2ecc71; --neg: #e74c3c; --flat: #f1c40f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px; font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5;
+  }
+  h1 { margin: 0 0 8px; font-size: 22px; }
+  .sub { color: var(--muted); margin-bottom: 20px; font-size: 13px; }
+  .controls {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: end;
+    background: var(--card); padding: 16px; border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 20px;
+  }
+  .controls label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .controls input {
+    background: #0a0c10; color: var(--text); border: 1px solid var(--border);
+    padding: 8px 10px; border-radius: 6px; font: inherit;
+  }
+  .controls input[type=text] { width: 380px; }
+  .controls input[type=number] { width: 90px; }
+  button {
+    background: var(--accent); color: #061018; border: 0; font-weight: 600;
+    padding: 9px 16px; border-radius: 6px; cursor: pointer; font: inherit;
+  }
+  button:disabled { opacity: 0.5; cursor: wait; }
+  .status { margin-bottom: 16px; color: var(--muted); font-size: 13px; }
+  .fetched { margin: -10px 0 16px; color: var(--muted); font-size: 11px; opacity: .7; }
+  .fetched.stale { color: var(--neg); opacity: 1; font-weight: 600; }
+
+  /* "Run accuracy tests" checkbox */
+  .toggle-switch { display: inline-flex; align-items: center; gap: 8px;
+                   color: var(--text); font-size: 13px; cursor: pointer;
+                   user-select: none; padding: 9px 14px; border: 1px solid var(--border);
+                   border-radius: 6px; background: #0a0c10; }
+  .toggle-switch input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+
+  /* Per-pair test result panel */
+  .test-panel { margin-top: 12px; padding: 10px 12px; border-radius: 6px;
+                background: #0a0c10; border-left: 3px solid var(--border);
+                font-size: 12px; }
+  .test-panel.pass    { border-left-color: var(--pos); }
+  .test-panel.partial { border-left-color: var(--flat); }
+  .test-panel.fail    { border-left-color: var(--neg); }
+  .test-panel-head { display: flex; align-items: center; gap: 10px;
+                     font-weight: 700; font-size: 12px; }
+  .test-panel-head .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .test-panel.pass    .dot { background: var(--pos); }
+  .test-panel.partial .dot { background: var(--flat); }
+  .test-panel.fail    .dot { background: var(--neg); }
+  .test-panel-list { margin: 8px 0 0; padding-left: 0; list-style: none; }
+  .test-panel-list li { padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .test-panel-list .icon { flex: 0 0 14px; font-weight: 800; line-height: 1.4; }
+  .test-panel-list .ok   .icon { color: var(--pos); }
+  .test-panel-list .bad  .icon { color: var(--neg); }
+  .test-panel-list .label { color: var(--text); }
+  .test-panel-list .detail { color: var(--neg); font-size: 11px; margin-left: 4px; }
+  .test-evidence {
+    margin: 4px 0 4px 22px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #060810;
+    overflow: hidden;
+  }
+  .test-evidence table {
+    width: 100%; border-collapse: collapse; font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .test-evidence td {
+    padding: 3px 8px; border-bottom: 1px solid var(--border);
+  }
+  .test-evidence td:first-child { color: var(--muted); width: 45%; }
+  .test-evidence td:last-child  { color: var(--text); font-weight: 600; }
+  .test-evidence tr:last-child td { border-bottom: 0; }
+  .evidence-toggle {
+    margin-left: 22px; margin-top: 2px; font-size: 11px;
+    color: var(--accent); cursor: pointer; user-select: none;
+    background: none; border: 0; padding: 0; font-family: inherit;
+  }
+  .evidence-toggle:hover { text-decoration: underline; }
+
+  /* Segment breakdown — collapsible per pair */
+  .segment-section { margin-top: 14px; }
+  .segment-toggle {
+    display: flex; align-items: center; gap: 8px;
+    background: transparent; border: 0; padding: 6px 0;
+    color: var(--muted); font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: inherit; width: 100%; text-align: left;
+  }
+  .segment-toggle:hover { color: var(--text); }
+  .segment-toggle .chev {
+    font-size: 11px; transition: transform .15s ease;
+    display: inline-block; color: var(--accent);
+  }
+  .segment-section.open .segment-toggle .chev { transform: rotate(90deg); }
+  .segment-body { display: none; padding-top: 4px; }
+  .segment-section.open .segment-body { display: block; }
+  .segment-section table { width: 100%; border-collapse: collapse;
+                            font-size: 12px; font-variant-numeric: tabular-nums; }
+  .segment-section th { text-align: left; color: var(--muted);
+                         font-size: 11px; text-transform: uppercase;
+                         padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .segment-section td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .segment-section td.num { text-align: right; }
+  .segment-section th.num { text-align: right; }
+  .seg-pos { color: var(--pos); }
+  .seg-neg { color: var(--neg); }
+  .company {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .toggle {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; cursor: pointer; user-select: none;
+  }
+  .toggle:hover { background: #20242d; }
+  .toggle .left { display: flex; gap: 12px; align-items: baseline; }
+  .toggle h2 { margin: 0; font-size: 16px; font-weight: 600; }
+  .toggle .code { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .toggle .chev { color: var(--muted); transition: transform .15s; }
+  .open .chev { transform: rotate(90deg); }
+  .body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--border); }
+  .open .body { display: block; }
+  .chart-wrap { background: #0a0c10; border-radius: 6px; padding: 12px; margin: 14px 0; }
+  .composition-chart-wrap { padding: 8px; margin: 6px 0 8px; }
+  .composition-row { font-size: 12px; color: var(--muted); margin: 4px 0 6px;
+                     line-height: 1.5; }
+  .composition-row .composition-label { font-weight: 600; color: #c8ccd4;
+                                        margin-right: 6px; text-transform: uppercase;
+                                        letter-spacing: .04em; font-size: 11px; }
+  .composition-row .seg-share { color: #c8ccd4; font-variant-numeric: tabular-nums; }
+  .composition-row .seg-share .arrow { color: var(--muted); margin: 0 2px; }
+  .div-flag-badge { display: inline-block; padding: 2px 8px; border-radius: 4px;
+                    font-size: 10px; font-weight: 700; letter-spacing: .04em;
+                    background: rgba(241, 196, 15, .18); color: var(--flat);
+                    margin-left: 6px; cursor: help; }
+  /* Phase-match panel — appears beneath rationale only when the candidate
+     has insufficient history for trajectory_similarity (Phase C v1). */
+  .phase-match-panel { margin-top: 12px; padding: 10px 12px; border-radius: 6px;
+                       background: rgba(155, 89, 182, .08);
+                       border: 1px dashed rgba(155, 89, 182, .35);
+                       font-size: 12px; }
+  .phase-match-panel .phase-header { display: flex; align-items: center;
+                                     gap: 10px; margin-bottom: 6px; }
+  .phase-match-panel .phase-label { font-weight: 600; color: #c8b3e0;
+                                    text-transform: uppercase; letter-spacing: .04em;
+                                    font-size: 11px; }
+  .phase-confidence-pill { display: inline-block; padding: 2px 8px;
+                           border-radius: 4px; font-size: 11px; font-weight: 700;
+                           background: rgba(155, 89, 182, .22); color: #d4b8ee;
+                           cursor: help; font-variant-numeric: tabular-nums; }
+  .phase-disclaimer { color: var(--muted); font-style: italic; font-size: 11px;
+                      margin: 0 0 10px; line-height: 1.4; }
+  .phase-prediction-band { color: #c8ccd4; margin: 4px 0 10px;
+                           font-variant-numeric: tabular-nums; }
+  .phase-prediction-band .pp-mid { font-weight: 700; color: #d4b8ee; }
+  .phase-anchor-card { padding: 8px 10px; margin: 6px 0; border-radius: 4px;
+                       background: rgba(0, 0, 0, .15);
+                       border-left: 3px solid rgba(155, 89, 182, .5); }
+  .phase-anchor-card .pa-head { display: flex; justify-content: space-between;
+                                align-items: center; gap: 8px; }
+  .phase-anchor-card .pa-name { font-weight: 600; color: #c8ccd4; }
+  .phase-anchor-card .pa-window { color: var(--muted); font-size: 11px; }
+  .phase-anchor-card .pa-cagr { font-variant-numeric: tabular-nums;
+                                color: #c8ccd4; font-weight: 600; }
+  .phase-anchor-card .pa-narr { color: #c8ccd4; margin-top: 4px;
+                                font-size: 12px; line-height: 1.45; }
+  .phase-traj-svg { display: block; margin: 4px 0 4px;
+                    background: rgba(0, 0, 0, .25); border-radius: 3px; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+  td.num { text-align: right; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .pos { background: rgba(46,204,113,.15); color: var(--pos); }
+  .neg { background: rgba(231,76,60,.15); color: var(--neg); }
+  .flat { background: rgba(241,196,15,.15); color: var(--flat); }
+  .pair { padding: 12px 0; border-bottom: 1px dashed var(--border); }
+  .pair:last-child { border-bottom: 0; }
+  .pair h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
+  .pair p { margin: 6px 0 0; font-size: 14px; }
+  .explain-block { margin-top: 10px; }
+  .explain-tag { display: inline-block; font-size: 10px; font-weight: 700;
+                 letter-spacing: .06em; text-transform: uppercase;
+                 padding: 2px 7px; border-radius: 3px; margin-right: 8px;
+                 vertical-align: middle; }
+  .explain-tag.simple   { background: rgba(46,204,113,.18); color: var(--pos); }
+  .explain-tag.advanced { background: rgba(90,169,255,.18); color: var(--accent); }
+  .explain-block p { margin: 4px 0 0; font-size: 14px; }
+  .err { color: var(--neg); padding: 12px 18px; font-size: 13px; }
+  details { margin-top: 6px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 12px; }
+
+  .tabs {
+    display: flex; gap: 4px; margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding: 10px 18px; cursor: pointer; user-select: none;
+    color: var(--muted); border-bottom: 2px solid transparent;
+    font-weight: 600; font-size: 14px; margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .rel-pill { display: inline-block; min-width: 38px; text-align: center;
+              padding: 3px 8px; border-radius: 12px; font-weight: 700;
+              font-size: 12px; font-variant-numeric: tabular-nums; }
+  .rel-hi { background: rgba(46,204,113,.20); color: var(--pos); }
+  .rel-md { background: rgba(241,196,15,.20); color: var(--flat); }
+  .rel-lo { background: rgba(231,76,60,.18); color: var(--neg); }
+
+  /* Size-similarity badge — separate signal from relatedness; rendered in a
+     muted neutral palette so it doesn't compete visually with the primary
+     relatedness pill. Borderless ring + small label, professional report look. */
+  .size-pill {
+    display: inline-block; min-width: 38px; text-align: center;
+    padding: 3px 8px; border-radius: 12px; font-weight: 600;
+    font-size: 11px; font-variant-numeric: tabular-nums;
+    background: rgba(148,163,184,.12); color: var(--muted);
+    border: 1px solid rgba(148,163,184,.20);
+  }
+  .size-pill-label {
+    display: inline-block; font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    margin-left: 4px; font-weight: 500;
+  }
+  .scores-cell { display: flex; flex-direction: column; gap: 4px;
+                 align-items: flex-start; }
+  .scores-cell .row { display: flex; align-items: center; gap: 6px; }
+
+  /* Combined score pill — accent-tinted to signal it's a derived/composite
+     metric, not a primary signal. Tooltip exposes the weighting explicitly. */
+  .combined-pill {
+    display: inline-block; min-width: 38px; text-align: center;
+    padding: 3px 8px; border-radius: 12px; font-weight: 600;
+    font-size: 11px; font-variant-numeric: tabular-nums;
+    background: rgba(99,102,241,.12); color: #a5b4fc;
+    border: 1px dashed rgba(165,180,252,.30);
+  }
+
+  /* Detailed-view toggle — small inline switch styled like the level-toggle
+     used elsewhere in the page so the visual language stays consistent. */
+  .detail-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin: 6px 0 10px; font-size: 12px; color: var(--muted);
+  }
+  .detail-toggle button {
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 14px;
+    padding: 3px 12px; font-size: 11px; cursor: pointer;
+    font-weight: 500; transition: all .12s ease;
+  }
+  .detail-toggle button:hover { color: var(--text); border-color: var(--accent); }
+  .detail-toggle button.on {
+    background: rgba(99,102,241,.10); color: #a5b4fc;
+    border-color: rgba(165,180,252,.40);
+  }
+
+  /* Default-hidden detailed-mode content. Shown when the parent .anchor-body
+     gets the .detailed-on class via the toggle JS. Keeps the default view
+     clean; one click of the toggle reveals revenue-chart + combined-pill. */
+  .detailed-only { display: none; }
+  .anchor-body.detailed-on .detailed-only { display: block; }
+  .anchor-body.detailed-on .detailed-only-row { display: flex; }
+
+  .revenue-compare-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 12px; margin: 8px 0 14px;
+  }
+  .revenue-compare-wrap .chart-title {
+    font-size: 12px; color: var(--muted); margin-bottom: 6px;
+    font-weight: 600; letter-spacing: .02em;
+  }
+  .revenue-compare-wrap .legend-note {
+    font-size: 10px; color: var(--muted); margin-top: 6px;
+    font-style: italic;
+  }
+  .feature-chip { display: inline-block; background: #232732; color: var(--text);
+                  padding: 3px 9px; border-radius: 12px; font-size: 12px;
+                  margin: 2px 4px 2px 0; }
+  .size-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px;
+              background: #232732; color: var(--muted); margin-left: 6px;
+              text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+
+  /* Similar Company UX additions */
+  .help-banner {
+    margin: -8px 0 16px; padding: 10px 14px; background: #1a1d24;
+    border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 6px; color: var(--muted); font-size: 12px; line-height: 1.5;
+  }
+  .score-legend {
+    display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 14px; align-items: center;
+    color: var(--muted); font-size: 11px;
+  }
+  .score-legend .item {
+    display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px;
+    border-radius: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .score-legend .swatch {
+    width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+  }
+  .legend-hi .swatch { background: var(--pos); } .legend-hi { color: var(--pos); }
+  .legend-md .swatch { background: var(--flat); } .legend-md { color: var(--flat); }
+  .legend-lo .swatch { background: var(--neg); } .legend-lo { color: var(--neg); }
+
+  .heatmap-section {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px; margin-bottom: 18px;
+  }
+  .heatmap-section h3 { margin: 0 0 8px; font-size: 14px; color: var(--text); }
+  .heatmap-wrap { overflow-x: auto; }
+  .heatmap {
+    border-collapse: collapse; font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .heatmap th, .heatmap td {
+    padding: 5px 8px; border: 1px solid #0a0c10;
+    text-align: center; min-width: 44px;
+  }
+  .heatmap th {
+    background: #20242d; color: var(--muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: .03em; font-size: 10px;
+  }
+  .heatmap th.row-label, .heatmap td.row-label {
+    text-align: left; background: #20242d; color: var(--text);
+    font-weight: 600; min-width: 130px; white-space: nowrap;
+  }
+  .heatmap td.cell { color: #f7f9fa; font-weight: 600; cursor: default; }
+  .heatmap td.cell.empty { background: #14181f; color: var(--muted); font-weight: 400; }
+
+  /* Anchor card per-anchor bar chart */
+  .anchor-bar-wrap {
+    background: #0a0c10; border-radius: 6px; padding: 10px 12px; margin: 12px 0;
+  }
+  .anchor-bar-wrap .chart-title {
+    font-size: 11px; color: var(--muted); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: .04em; font-weight: 600;
+  }
+
+  /* Future stock note */
+  .future-note {
+    margin-top: 6px; padding: 6px 10px; border-radius: 4px;
+    background: rgba(241,196,15,.06); border-left: 3px solid var(--flat);
+    font-size: 12px; color: var(--text);
+  }
+  .future-note .label {
+    font-size: 10px; color: var(--flat); text-transform: uppercase;
+    letter-spacing: .04em; font-weight: 700; display: block; margin-bottom: 3px;
+  }
+
+  /* Help cursor on tooltips */
+  th[title], .tooltip-host { cursor: help; border-bottom: 1px dotted var(--muted); }
+
+  /* Restated-basis note inside Quiet Change company cards */
+  .restated-note {
+    margin: 6px 0 12px; padding: 8px 12px; background: #1a1d24;
+    border: 1px solid var(--border); border-left: 3px solid var(--flat);
+    border-radius: 4px; color: var(--muted); font-size: 11px; line-height: 1.55;
+  }
+
+  .header-row { display: flex; justify-content: space-between; align-items: flex-start;
+                gap: 16px; margin-bottom: 4px; }
+  .lang-toggle { display: flex; gap: 0; border: 1px solid var(--border);
+                 border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+  .lang-toggle button {
+    background: transparent; color: var(--muted); border: 0; border-radius: 0;
+    padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
+    font-family: inherit; letter-spacing: .04em;
+  }
+  .lang-toggle button.active { background: var(--accent); color: #061018; }
+  .lang-toggle button:not(.active):hover { color: var(--text); background: #20242d; }
+
+  /* Simple/Advanced switch — same shape as .lang-toggle, different colour */
+  .level-toggle { display: flex; gap: 0; border: 1px solid var(--border);
+                  border-radius: 6px; overflow: hidden; }
+  .level-toggle button {
+    background: transparent; color: var(--muted); border: 0; border-radius: 0;
+    padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer;
+    font-family: inherit; letter-spacing: .04em;
+  }
+  .level-toggle button.active { background: var(--pos); color: #061018; }
+  .level-toggle button.active.adv { background: var(--accent); }
+  .level-toggle button:not(.active):hover { color: var(--text); background: #20242d; }
+
+  /* Per-pair inline variant — sits on the explanation line, smaller. */
+  .inline-level-toggle { display: inline-flex; vertical-align: middle;
+                         margin-right: 10px; }
+  .inline-level-toggle button { padding: 3px 9px; font-size: 11px;
+                                letter-spacing: .03em; }
+</style>
+</head>
+<body>
+
+<div class="header-row">
+  <div>
+    <h1 data-i18n="app_title">Tempest AI — agent console</h1>
+    <div class="sub" data-i18n="app_subtitle">EDINET 有価証券報告書 + yfinance. Two independent agents.</div>
+  </div>
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button id="lang-en" class="active">EN</button>
+    <button id="lang-ja">日本語</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" data-tab="quiet" data-i18n="tab_quiet">Quiet Change</div>
+  <div class="tab" data-tab="similar" data-i18n="tab_similar">Similar Company (IT 5250)</div>
+</div>
+
+<div id="tab-quiet" class="tab-panel active">
+
+<div class="controls">
+  <div>
+    <label data-i18n="codes_label">Codes (comma-separated, 4-digit)</label>
+    <input id="codes" type="text" value="6758, 9983, 9432, 8001, 9984">
+  </div>
+  <div>
+    <label data-i18n="from_fy_label">From fiscal year</label>
+    <input id="minYear" type="number" value="2020" min="2000" max="2100">
+  </div>
+  <label class="toggle-switch">
+    <input id="runTests" type="checkbox">
+    <span data-i18n="run_tests_label">Run accuracy tests</span>
+  </label>
+  <button id="run" data-i18n="run_btn">Run</button>
+</div>
+
+<div id="status" class="status"></div>
+<div id="fetched" class="fetched" style="display:none"></div>
+<div id="results"></div>
+
+</div><!-- /tab-quiet -->
+
+<div id="tab-similar" class="tab-panel">
+
+<div class="controls">
+  <div>
+    <label data-i18n="sc_sector_label">Sector (JPX 33業種)</label>
+    <select id="simSector">
+      <option value="5250" selected>5250 — IT &amp; Communications / 情報・通信業</option>
+      <option value="7050">7050 — Banking / 銀行業</option>
+      <option value="7100">7100 — Securities &amp; Futures / 証券、商品先物取引業</option>
+      <option value="7150">7150 — Insurance / 保険業</option>
+      <option value="7200">7200 — Other Financial / その他金融業</option>
+      <option value="8050">8050 — Real Estate / 不動産業</option>
+      <option value="5050">5050 — Land Transport / 陸運業</option>
+      <option value="5100">5100 — Marine Transport / 海運業</option>
+      <option value="5150">5150 — Air Transport / 空運業</option>
+      <option value="5200">5200 — Warehousing / 倉庫・運輸関連業</option>
+      <option value="9050">9050 — Services / サービス業</option>
+      <option value="3050">3050 — Foods / 食料品</option>
+      <option value="3650">3650 — Pharmaceutical / 医薬品</option>
+    </select>
+  </div>
+  <div>
+    <label data-i18n="anchors_label">Number of anchors (top N by revenue)</label>
+    <input id="simAnchors" type="number" value="5" min="1" max="10">
+  </div>
+  <div>
+    <label data-i18n="from_fy_label">From fiscal year</label>
+    <input id="simMinYear" type="number" value="2020" min="2000" max="2100">
+  </div>
+  <label class="toggle-switch">
+    <input id="simRunTests" type="checkbox">
+    <span data-i18n="sc_run_tests_label">Run accuracy tests</span>
+  </label>
+  <button id="simRun" data-i18n="run_btn">Run</button>
+</div>
+
+<div id="simStatus" class="status"></div>
+<div id="simFetched" class="fetched" style="display:none"></div>
+<div id="simResults"></div>
+
+</div><!-- /tab-similar -->
+
+<script>
+// ============================================================
+// i18n
+// ============================================================
+const T = {
+  en: {
+    app_title: 'Tempest AI — agent console',
+    app_subtitle: 'EDINET 有価証券報告書 + yfinance. Two independent agents.',
+    tab_quiet: 'Quiet Change',
+    tab_similar: 'Similar Company',
+    codes_label: 'Codes (comma-separated, 4-digit)',
+    from_fy_label: 'From fiscal year',
+    anchors_label: 'Number of anchors (top N by revenue)',
+    sc_sector_label: 'Sector (JPX 33業種)',
+    sc_sector_universe_count: (n, label) => `${n} companies in ${label}`,
+    sc_phase_label: 'Phase-match prediction',
+    sc_phase_disclaimer: 'Phase-matching is a heuristic, not a forecast. Use it to surface candidates worth watching, not to make decisions. Older filers with similar early-history growth patterns are shown alongside what came next for them; past patterns are not guaranteed to repeat.',
+    sc_phase_confidence: (c, cap) => `Confidence ${c}/${cap}`,
+    sc_phase_confidence_tip: (b) => `Confidence is hard-capped at 40 because phase-matching is intrinsically speculative. Factor breakdown: phase length ${b.phase_length_factor}, match count ${b.match_count_factor}, match closeness ${b.match_closeness_factor}, era ${b.era_factor}.`,
+    sc_phase_no_anchors: 'No older filers with comparable early-history phases were found in this sector.',
+    sc_phase_prediction_band: (n, p25, p50, p75) => `Predicted 3y CAGR across ${n} matched anchors: <span class="pp-mid">median ${p50}</span> (p25 ${p25} · p75 ${p75})`,
+    sc_phase_window: (start, end) => `phase FY${start}-FY${end}`,
+    sc_phase_subseq_cagr: (cagr) => `subsequent 3y CAGR: ${cagr}`,
+    run_btn: 'Run',
+    qc_status_running: (n, y) => `Running ${n} code(s) from FY${y}… (one LLM call per YoY pair, ~3-5s each)`,
+    qc_status_done: (n) => `Returned ${n} compan${n === 1 ? 'y' : 'ies'}.`,
+    qc_status_no_codes: 'Enter at least one code.',
+    qc_status_error: (e) => `Error: ${e}`,
+    qc_card_summary: (yc, pc) => `${yc} annual reports · ${pc} YoY pairs`,
+    qc_table_h1: 'Year-by-year YoY',
+    qc_th_years: 'Years', qc_th_revenue: 'Revenue (prev → curr)', qc_th_delta: 'Δ %',
+    qc_th_status: 'Status', qc_th_filing: 'Filing', qc_th_stock5d: '5d stock', qc_th_direction: 'Direction',
+    qc_explain_h: 'Why each year (LLM)',
+    qc_explain_simple: 'Simple',
+    qc_explain_advanced: 'Advanced',
+    qc_no_explanation: '(no explanation)',
+    qc_restated_note: 'ⓘ Revenue figures use the restated 5-year history from the latest ASR (matches IR materials and Sony-style post-IFRS 17 revisions). Prior-year values may differ from each year\'s as-originally-reported figure.',
+    qc_history_only_note: (yrs) => `ⓘ Years ${yrs} are shown from the latest ASR\'s 5-year-history table (no local ZIP for those years → no YoY pair / segments / LLM explanation). To get full per-year analysis, download those years\' ASRs from EDINET and place them in data/edinet/<code>/.`,
+    qc_chart_only_badge: 'chart only',
+    qc_autofetch_note: (dl) => `ⓘ Auto-fetched from EDINET: ASR for FY${dl.join(', FY')}.`,
+    qc_autofetch_missing: (yrs) => `ⓘ EDINET search did not find ASRs for FY${yrs.join(', FY')} (company may not have filed for those years yet).`,
+    qc_coverage_warn_label: 'Coverage flag',
+    qc_coverage_warn_intro: 'The filing mentions topics this explanation does not surface:',
+    qc_coverage_rule_explicit_offset: 'Explicit-offset clause (相殺) in source not preserved',
+    qc_coverage_rule_mixed_drivers_despite: 'Mixed-driver "despite" clause (〜ものの) in source not preserved',
+    qc_coverage_rule_acquisition_driver: 'Acquisition / 買収 mentioned in source, not in explanation',
+    qc_coverage_rule_divestiture_driver: 'Business divestiture / 子会社売却 mentioned in source, not in explanation',
+    qc_coverage_rule_volume_decline: 'Volume / unit-sales decline (販売台数減少) in source not surfaced',
+    qc_coverage_rule_no_expectations_invented: 'Explanation invokes analyst expectations the filing does not provide',
+    qc_coverage_rule_composition_share_present: 'Explanation does not name top segments by share of revenue (composition opener missing)',
+    qc_coverage_rule_divergence_addressed: 'Profit and stock moved in opposite directions but explanation does not propose a hedged reason',
+    qc_coverage_rule_foreign_tangent_check: 'Explanation references foreign company / market not present in the filing',
+    qc_coverage_rule_bs_citation_missing: 'Profit and stock diverged with material BS movements available, but explanation did not cite them',
+    qc_coverage_rule_stock_reaction_missing: 'Stock data was available but explanation skipped the stock-reaction paragraph (likely budget-pressure drop)',
+    qc_coverage_rule_named_acquisition_omission: 'A named acquisition (e.g. Crunchyroll, Bungie, AWAL) appears in the filing but was not surfaced in the explanation',
+    qc_coverage_rule_music_streaming_driver: 'Narrative attributes Music-segment growth to streaming / paid subscriptions but explanation does not mention streaming',
+    qc_coverage_rule_financial_attribution_mismatch: 'Financial-segment decline attributed to subsidiary consolidation, but the narrative cites investment-account / separate-account losses as the real cause',
+    qc_coverage_rule_unit_discipline_trillion: 'Unit error: a comma-formatted number is paired with "trillion" / 兆 — almost certainly a billion that got mislabeled (real Japanese filers are not in the quadrillion-yen range)',
+    qc_composition_label: 'Revenue composition',
+    qc_composition_chart_title: 'Composition shift (prev → curr)',
+    qc_op_label: 'Operating profit',
+    qc_op_th: 'Op. profit (Δ)',
+    qc_divergence_badge: 'Profit↔Stock diverge',
+    qc_divergence_tooltip: 'Operating profit and the 5-day post-filing stock move went in opposite directions. The explanation should propose a hedged reason.',
+    qc_weak_response_badge: 'Weak stock response',
+    qc_weak_response_tooltip: 'Operating profit moved meaningfully but the stock barely reacted (under-reaction). The explanation should propose why the market discounted the result — e.g. one-time gain, mix shift, BS-side concerns.',
+    run_tests_label: 'Run accuracy tests',
+    test_passed: 'Tests passed',
+    test_partial: 'Tests partial',
+    test_failed: 'Tests failed',
+    test_summary: (p, t) => `${p}/${t} checks passed`,
+    test_details: 'Test details',
+    test_evidence_show: 'Show evidence',
+    test_evidence_hide: 'Hide evidence',
+    seg_section_h: 'Segment breakdown (from XBRL filings)',
+    seg_th_segment: 'Segment',
+    seg_th_prev: 'Prev (JPY)',
+    seg_th_curr: 'Curr (JPY)',
+    seg_th_delta: 'Δ (JPY)',
+    seg_th_delta_pct: 'Δ %',
+    seg_empty: 'No segment-level breakdown disclosed in this filing.',
+    bs_section_h: 'Balance sheet (from XBRL filings)',
+    bs_th_item: 'Item',
+    bs_th_prev: 'Prev (JPY)',
+    bs_th_curr: 'Curr (JPY)',
+    bs_th_delta_pct: 'Δ %',
+    bs_th_pct_assets: '% of assets',
+    bs_empty: 'BS data not extracted for this filer.',
+    bs_framework_label: (fw) => `Framework: ${fw}`,
+    bs_framework_changed_note: 'Framework changed between prev and curr — YoY deltas marked n/a.',
+    bs_mover_legend: 'Bold rows = material movers (cited as divergence reasons).',
+    bs_item_total_assets: 'Total assets',
+    bs_item_tangible_fixed_assets: 'Tangible fixed assets',
+    bs_item_intangible_assets: 'Intangible assets',
+    bs_item_goodwill: 'Goodwill',
+    bs_item_inventory: 'Inventory',
+    bs_item_trade_receivables: 'Trade receivables',
+    bs_item_cash_and_equivalents: 'Cash & equivalents',
+    bs_item_interest_bearing_debt: 'Interest-bearing debt',
+    bs_item_equity: 'Equity',
+    bs_item_impairment_loss: 'Impairment loss (P/L)',
+    bs_item_extraordinary_loss_total: 'Extraordinary loss (P/L)',
+    pl_section_h: 'Profit & loss + margins (from XBRL filings)',
+    pl_th_item: 'Item',
+    pl_th_prev: 'Prev (JPY)',
+    pl_th_curr: 'Curr (JPY)',
+    pl_th_delta_pct: 'Δ %',
+    pl_empty: 'P/L data not extracted for this filer.',
+    pl_mover_legend: 'Bold rows = material movers (cited in outlook reasoning).',
+    pl_margins_h: 'Margin trend',
+    pl_th_pp: 'Δ pp',
+    pl_item_revenue: 'Revenue (net sales)',
+    pl_item_cost_of_sales: 'Cost of sales',
+    pl_item_gross_profit: 'Gross profit',
+    pl_item_sga_expenses: 'SG&A expenses',
+    pl_item_operating_income: 'Operating income',
+    pl_item_ordinary_income: 'Ordinary / pre-tax income',
+    pl_item_income_taxes: 'Income taxes',
+    pl_item_net_income: 'Net income (owners)',
+    pl_item_comprehensive_income: 'Comprehensive income',
+    pl_item_depreciation_amortization: 'Depreciation & amortisation',
+    pl_item_rd_expense: 'R&D expense',
+    pl_item_basic_eps: 'Basic EPS (¥)',
+    pl_margin_gross_margin_pct: 'Gross margin',
+    pl_margin_op_margin_pct: 'Operating margin',
+    pl_margin_ordinary_margin_pct: 'Ordinary margin',
+    pl_margin_net_margin_pct: 'Net margin',
+    outlook_section_h: 'Forward outlook (filter signal)',
+    outlook_growth_likely: 'Growth likely',
+    outlook_growth_unlikely: 'Growth unlikely',
+    outlook_uncertain: 'Uncertain',
+    outlook_no_reason: '(no outlook reasoning produced)',
+    qc_coverage_rule_outlook_reason_missing: 'Outlook judgment was set but no reasoning text was produced',
+    qc_coverage_rule_outlook_no_accounting_item: 'Outlook reasoning does not cite any specific accounting item (operating margin, net income, goodwill, etc.)',
+    fetched_at: (timeStr, rel) => `Last fetched: ${timeStr} (${rel})`,
+    rel_just_now: 'just now',
+    rel_seconds: (s) => `${s} sec ago`,
+    rel_minutes: (m) => `${m} min ago`,
+    rel_hours: (h) => `${h} hr ago`,
+    rel_stale: 'stale — re-run',
+    qc_raw_summary: 'Raw revenue series',
+    qc_raw_th_fy: 'FY', qc_raw_th_filing: 'Filing date', qc_raw_th_revenue: 'Revenue (JPY)',
+    chart_revenue: 'Revenue (¥B)', chart_stock: 'Stock 5d return (%)',
+    sc_status_running: (n, y) => `Running with ${n} anchors from FY${y}… first run can take several minutes (LLM calls cached on disk).`,
+    sc_status_done: (uc, ac, cc) => `IT universe: ${uc} companies (JPX 5250). ${ac} anchors, ${cc} candidates.`,
+    sc_status_error: (e) => `Error: ${e}`,
+    sc_card_summary: (rev, n) => `revenue ¥${fmt(rev/1e9)}B · ${n} candidates`,
+    sc_th_code: 'Code', sc_th_candidate: 'Candidate', sc_th_revenue: 'Revenue (JPY)',
+    sc_th_relatedness: 'Relatedness', sc_th_scores: 'Relatedness · Size', sc_th_shared: 'Shared features', sc_th_rationale: 'Rationale',
+    sc_feat_model: 'Model', sc_feat_customers: 'Customers', sc_feat_monetization: 'Monetisation',
+    sc_feat_tech: 'Tech', sc_feat_geo: 'Geo',
+    sc_help_banner: 'ⓘ Anchors are the top-N IT companies (JPX 5250) by latest revenue. Each candidate is scored 0-100 against each anchor by an LLM and assigned to its closest anchor.',
+    sc_distinct_anchor_hint: 'ⓘ This anchor\'s top match scores below 50. Its business model may be structurally distinct (e.g. holding company, conglomerate) — most IT operators in the pool aren\'t direct peers.',
+    sc_empty_anchor_hint: 'ⓘ No candidates were assigned to this anchor — its closest peers were claimed by other anchors with marginally higher scores. Lower the anchor count to surface them as candidates here.',
+    sc_filing_label: 'Filing used',
+    sc_filing_tip: (pe, fd) => `Annual report (有価証券報告書), period ending ${pe}${fd ? `, filed ${fd}` : ''}`,
+    sc_size_label: 'Size',
+    sc_size_th: 'Size match',
+    sc_size_tooltip: 'Size-only signal: 100 = same revenue, 75 ≈ 10× gap, 50 ≈ 100× gap, 0 ≈ 10,000× gap. Computed deterministically from latest annual revenue. Does NOT measure growth, profitability, or financial health — read alongside the relatedness score, not blended with it.',
+    sc_combined_label: 'Combined',
+    sc_combined_tooltip: 'Equal-weighted mean of the available signals: (Relatedness + Size + Trajectory) ÷ 3 when all three are computable, otherwise (Relatedness + Size) ÷ 2 (Trajectory needs ≥ 3 overlapping growth-years). Convenience metric — read the underlying scores for the real signal; this combined number is opinionated, not authoritative.',
+    sc_trajectory_label: 'Trajectory',
+    sc_trajectory_tooltip: 'Year-over-year revenue growth correlation across overlapping years (Pearson on log-growth, mapped to 0-100). 100 = perfectly co-growing; 50 = unrelated; 0 = perfectly opposite. SECONDARY signal — high score does NOT imply businesses are similar, only that growth patterns happened to rhyme. Hidden when fewer than 3 overlapping years are available.',
+    sc_trajectory_unavailable: 'Trajectory unavailable: this pair has fewer than 3 overlapping years of revenue history. Ingest more historical filings for one or both companies via the EDINET fetcher (set min_year ≤ 2020 when running fetch_it_peers.py).',
+    sc_trajectory_chart_title: 'Revenue trajectory (indexed)',
+    sc_trajectory_chart_note: 'Each line is INDEXED to 100 at its first available year — so the chart shows shape (who grew, who declined, who held flat) regardless of absolute size. Anchor highlighted; up to 5 highest-relatedness candidates shown. The snapshot chart above covers absolute revenue.',
+    sc_trajectory_axis_y: 'Indexed revenue (first year = 100)',
+    sc_trajectory_axis_x: 'Fiscal year',
+    sc_detail_toggle: 'Detailed view',
+    sc_detail_toggle_tip: 'Show combined score + revenue comparison chart. Default view shows the two primary scores only.',
+    sc_revenue_chart_title: 'Revenue comparison (latest annual, log scale)',
+    sc_revenue_chart_note: 'Anchor highlighted in accent. Log-scale x-axis lets ¥1B and ¥10T appear on the same chart.',
+    sc_revenue_axis_label: 'Latest annual revenue (B JPY, log scale)',
+    sc_tooltip_anchor: 'Top-N IT companies by revenue, used as reference points',
+    sc_tooltip_candidate: 'Other IT companies scored against the anchors',
+    sc_tooltip_relatedness: '0-100 score from LLM business-feature comparison. ≥70 = very similar.',
+    sc_score_legend_high: '≥70 Very similar',
+    sc_score_legend_mid: '40–69 Somewhat similar',
+    sc_score_legend_low: '<40 Loosely related',
+    sc_simple: 'Simple',
+    sc_advanced: 'Advanced',
+    sc_future_stock_label: 'Stock co-movement (hypothesis)',
+    sc_heatmap_title: 'Relatedness matrix (anchors × candidates)',
+    sc_chart_title_per_anchor: 'Candidates ranked by relatedness',
+    sc_run_tests_label: 'Run accuracy tests',
+    sc_run_tests_panel_title: 'Run integrity (universe + assignment)',
+    sc_anchor_tests_panel_title: 'Quality checks (LLM output completeness + parity)',
+    profit_profit: 'profit', profit_loss: 'loss', profit_flat: 'flat',
+    direction_positive: 'positive', direction_negative: 'negative',
+    direction_unchanged: 'unchanged', direction_unknown: 'unknown',
+    size_small: 'SMALL', size_mid: 'MID', size_large: 'LARGE', size_unknown: 'UNK',
+  },
+  ja: {
+    app_title: 'Tempest AI — エージェントコンソール',
+    app_subtitle: 'EDINET 有価証券報告書 + yfinance。2つの独立エージェント。',
+    tab_quiet: '静かな変化',
+    tab_similar: '類似企業',
+    codes_label: '銘柄コード(4桁、カンマ区切り)',
+    from_fy_label: '対象開始年度',
+    anchors_label: 'アンカー企業数(売上上位N社)',
+    sc_sector_label: '業種 (JPX 33業種)',
+    sc_sector_universe_count: (n, label) => `${label}に${n}社`,
+    sc_phase_label: 'フェーズマッチ予測',
+    sc_phase_disclaimer: 'フェーズマッチはヒューリスティクスであり、将来予測ではありません。投資判断ではなく「注視に値する候補」を浮かび上がらせる用途でご利用ください。同業種で初期成長パターンが類似する古参企業を提示し、その後の3年間の推移を併せて表示しますが、過去のパターンが繰り返される保証はありません。',
+    sc_phase_confidence: (c, cap) => `信頼度 ${c}/${cap}`,
+    sc_phase_confidence_tip: (b) => `フェーズマッチは本質的に推測的であるため、信頼度は40を上限としています。要素内訳: フェーズ長 ${b.phase_length_factor}, 一致件数 ${b.match_count_factor}, 一致近接度 ${b.match_closeness_factor}, 時代 ${b.era_factor}`,
+    sc_phase_no_anchors: '同業種で比較可能な古参企業のフェーズが見つかりませんでした。',
+    sc_phase_prediction_band: (n, p25, p50, p75) => `${n}社のマッチに基づく今後3年CAGRの推定: <span class="pp-mid">中央値 ${p50}</span> (p25 ${p25} · p75 ${p75})`,
+    sc_phase_window: (start, end) => `FY${start}〜FY${end}のフェーズ`,
+    sc_phase_subseq_cagr: (cagr) => `その後3年CAGR: ${cagr}`,
+    run_btn: '実行',
+    qc_status_running: (n, y) => `${n}社をFY${y}以降で実行中… (年度ペアごとにLLM呼び出し、約3〜5秒)`,
+    qc_status_done: (n) => `${n}社の結果を取得しました。`,
+    qc_status_no_codes: '銘柄コードを1件以上入力してください。',
+    qc_status_error: (e) => `エラー: ${e}`,
+    qc_card_summary: (yc, pc) => `有価証券報告書 ${yc} 件 · YoYペア ${pc} 件`,
+    qc_table_h1: '年度別 前年比',
+    qc_th_years: '年度', qc_th_revenue: '売上高(前期 → 当期)', qc_th_delta: 'Δ %',
+    qc_th_status: '判定', qc_th_filing: '提出日', qc_th_stock5d: '5日株価', qc_th_direction: '方向',
+    qc_explain_h: '年度別の要因(LLM)',
+    qc_explain_simple: 'やさしい説明',
+    qc_explain_advanced: '詳細(分析向け)',
+    qc_no_explanation: '(説明なし)',
+    qc_restated_note: 'ⓘ 売上高は最新有報の5年推移(主要な経営指標等の推移)に基づき遡及修正後の数値を使用しています(IR資料やソニーのIFRS 17適用後の修正値と一致)。各年度の当時の開示値とは異なる場合があります。',
+    qc_history_only_note: (yrs) => `ⓘ ${yrs} の年度は最新有報の5年推移表のみから表示しています(該当年度のZIPファイルが未取得のため、YoYペア・セグメント・LLM説明は未生成)。年度別の完全な分析には、EDINETから該当年度の有報をダウンロードし data/edinet/<銘柄コード>/ に配置してください。`,
+    qc_chart_only_badge: 'グラフのみ',
+    qc_autofetch_note: (dl) => `ⓘ EDINETから自動取得しました: FY${dl.join('、FY')}の有価証券報告書。`,
+    qc_autofetch_missing: (yrs) => `ⓘ EDINET検索でFY${yrs.join('、FY')}の有報が見つかりませんでした(該当年度はまだ提出されていない可能性があります)。`,
+    qc_coverage_warn_label: 'カバレッジ警告',
+    qc_coverage_warn_intro: '有報に記載されているが、本説明文には反映されていない項目:',
+    qc_coverage_rule_explicit_offset: '「相殺」を伴う明示的な相殺記述が説明に含まれていません',
+    qc_coverage_rule_mixed_drivers_despite: '「〜ものの／〜にもかかわらず」の混在ドライバー記述が反映されていません',
+    qc_coverage_rule_acquisition_driver: '有報に記載の買収・取得が説明に含まれていません',
+    qc_coverage_rule_divestiture_driver: '有報に記載の事業譲渡・子会社売却が説明に含まれていません',
+    qc_coverage_rule_volume_decline: '有報に記載の販売台数減少が説明に含まれていません',
+    qc_coverage_rule_no_expectations_invented: '有報には記載のないアナリスト予想・市場予想を援用しています',
+    qc_coverage_rule_composition_share_present: '上位セグメントの売上構成比(%)が説明の冒頭で示されていません',
+    qc_coverage_rule_divergence_addressed: '営業利益と株価が逆方向に動いているのに、説明が仮説的な理由を提示していません',
+    qc_coverage_rule_foreign_tangent_check: '有報に記載のない海外企業・海外市場への言及があります',
+    qc_coverage_rule_bs_citation_missing: '営業利益と株価が逆方向に動き、重要なBS変動項目があるのに、説明がそれらを引用していません',
+    qc_coverage_rule_stock_reaction_missing: '株価データはあるのに、説明文に株価反応の段落が含まれていません(出力長制約で省略された可能性)',
+    qc_coverage_rule_named_acquisition_omission: '有報に記載の固有名詞付き買収案件(Crunchyroll、Bungie、AWAL等)が説明文で言及されていません',
+    qc_coverage_rule_music_streaming_driver: '有報は音楽分野の増収理由としてストリーミング・有料会員制を挙げているのに、説明文がこれに触れていません',
+    qc_coverage_rule_financial_attribution_mismatch: '金融分野の減収を子会社化に帰因しているが、有報は実際には特別勘定・運用益の減少を原因として挙げています',
+    qc_coverage_rule_unit_discipline_trillion: '単位エラー: カンマ区切りの数値に「兆/trillion」が付いています — 億/billionが「兆/trillion」と誤記された可能性が極めて高いです',
+    qc_composition_label: '売上構成',
+    qc_composition_chart_title: '構成比の変化(前期→当期)',
+    qc_op_label: '営業利益',
+    qc_op_th: '営業利益(Δ)',
+    qc_divergence_badge: '利益↔株価の逆行',
+    qc_divergence_tooltip: '営業利益と提出後5日間の株価が逆方向に動きました。説明には仮説的な理由(「〜の可能性」など)が含まれるべきです。',
+    qc_weak_response_badge: '株価の反応が弱い',
+    qc_weak_response_tooltip: '営業利益は大きく動いたのに、株価がほぼ反応していません(過小反応)。市場が結果を割り引いた理由(一時的な利益、構成比の変化、BSの懸念など)を仮説として提示すべきです。',
+    run_tests_label: '精度テストを実行',
+    test_passed: 'テスト成功',
+    test_partial: 'テスト一部失敗',
+    test_failed: 'テスト失敗',
+    test_summary: (p, t) => `${p}/${t} 項目合格`,
+    test_details: 'テスト詳細',
+    test_evidence_show: '根拠データを表示',
+    test_evidence_hide: '根拠データを非表示',
+    seg_section_h: 'セグメント別売上(XBRL有報より)',
+    seg_th_segment: 'セグメント',
+    seg_th_prev: '前期(円)',
+    seg_th_curr: '当期(円)',
+    seg_th_delta: 'Δ (円)',
+    seg_th_delta_pct: 'Δ %',
+    seg_empty: 'この有報にはセグメント別の内訳が開示されていません。',
+    bs_section_h: '貸借対照表(XBRL有報より)',
+    bs_th_item: '項目',
+    bs_th_prev: '前期(円)',
+    bs_th_curr: '当期(円)',
+    bs_th_delta_pct: 'Δ %',
+    bs_th_pct_assets: '総資産比',
+    bs_empty: 'この有報からは貸借対照表データを抽出できませんでした。',
+    bs_framework_label: (fw) => `会計基準: ${fw}`,
+    bs_framework_changed_note: '前期と当期で会計基準が変わっています — 該当項目のΔ%は表示しません。',
+    bs_mover_legend: '太字の行 = 重要な変動項目(乖離理由として説明文で言及される候補)。',
+    bs_item_total_assets: '総資産',
+    bs_item_tangible_fixed_assets: '有形固定資産',
+    bs_item_intangible_assets: '無形固定資産',
+    bs_item_goodwill: 'のれん',
+    bs_item_inventory: '棚卸資産',
+    bs_item_trade_receivables: '売上債権',
+    bs_item_cash_and_equivalents: '現金及び預金',
+    bs_item_interest_bearing_debt: '有利子負債',
+    bs_item_equity: '純資産',
+    bs_item_impairment_loss: '減損損失(P/L)',
+    bs_item_extraordinary_loss_total: '特別損失(P/L)',
+    pl_section_h: '損益計算書 + マージン推移(XBRL有報より)',
+    pl_th_item: '項目',
+    pl_th_prev: '前期(円)',
+    pl_th_curr: '当期(円)',
+    pl_th_delta_pct: 'Δ %',
+    pl_empty: 'この有報からは損益計算書データを抽出できませんでした。',
+    pl_mover_legend: '太字の行 = 重要な変動項目(将来見通しの根拠として説明文で言及される候補)。',
+    pl_margins_h: 'マージン推移',
+    pl_th_pp: 'Δ pp',
+    pl_item_revenue: '売上高',
+    pl_item_cost_of_sales: '売上原価',
+    pl_item_gross_profit: '売上総利益(粗利)',
+    pl_item_sga_expenses: '販売費及び一般管理費',
+    pl_item_operating_income: '営業利益',
+    pl_item_ordinary_income: '経常利益・税引前利益',
+    pl_item_income_taxes: '法人税等',
+    pl_item_net_income: '親会社株主に帰属する当期純利益',
+    pl_item_comprehensive_income: '包括利益',
+    pl_item_depreciation_amortization: '減価償却費',
+    pl_item_rd_expense: '研究開発費',
+    pl_item_basic_eps: '基本EPS(円)',
+    pl_margin_gross_margin_pct: '売上総利益率(粗利率)',
+    pl_margin_op_margin_pct: '営業利益率',
+    pl_margin_ordinary_margin_pct: '経常利益率',
+    pl_margin_net_margin_pct: '純利益率',
+    outlook_section_h: '将来見通し(フィルター判定)',
+    outlook_growth_likely: '成長継続の可能性',
+    outlook_growth_unlikely: '成長失速の可能性',
+    outlook_uncertain: '判定保留',
+    outlook_no_reason: '(将来見通しの理由が出力されていません)',
+    qc_coverage_rule_outlook_reason_missing: '将来見通しの判定は出力されましたが、理由文が生成されていません',
+    qc_coverage_rule_outlook_no_accounting_item: '将来見通しの理由文に勘定科目(営業利益率、純利益、のれん等)への言及がありません',
+    fetched_at: (timeStr, rel) => `最終取得: ${timeStr} (${rel})`,
+    rel_just_now: 'たった今',
+    rel_seconds: (s) => `${s}秒前`,
+    rel_minutes: (m) => `${m}分前`,
+    rel_hours: (h) => `${h}時間前`,
+    rel_stale: '古い — 再実行してください',
+    qc_raw_summary: '売上高 原データ',
+    qc_raw_th_fy: '年度', qc_raw_th_filing: '提出日', qc_raw_th_revenue: '売上高(円)',
+    chart_revenue: '売上高 (¥B)', chart_stock: '5日株価リターン (%)',
+    sc_status_running: (n, y) => `アンカー${n}社、FY${y}以降で実行中… 初回は数分かかります(LLM結果はキャッシュされます)。`,
+    sc_status_done: (uc, ac, cc) => `IT母集団: ${uc}社 (JPX 5250)。アンカー${ac}社、候補${cc}社。`,
+    sc_status_error: (e) => `エラー: ${e}`,
+    sc_card_summary: (rev, n) => `売上高 ¥${fmt(rev/1e9)}B · 候補${n}社`,
+    sc_th_code: 'コード', sc_th_candidate: '候補企業', sc_th_revenue: '売上高(円)',
+    sc_th_relatedness: '関連度', sc_th_scores: '関連度・規模', sc_th_shared: '共通特徴', sc_th_rationale: '根拠',
+    sc_feat_model: 'モデル', sc_feat_customers: '顧客', sc_feat_monetization: '収益化',
+    sc_feat_tech: '技術', sc_feat_geo: '地域',
+    sc_help_banner: 'ⓘ アンカーは売上上位N社のIT企業(JPX 5250)。各候補企業はLLMで各アンカーに対し0〜100点で評価され、最も近いアンカーに割り当てられます。',
+    sc_distinct_anchor_hint: 'ⓘ このアンカーの最高スコアが50未満です。事業モデルが構造的に特殊な可能性があります（持株会社・コングロマリット等）。本IT企業群には直接的な同業他社が存在しない場合があります。',
+    sc_empty_anchor_hint: 'ⓘ このアンカーには候補企業が割り当てられていません。最も近い類似企業は、僅差で他のアンカーに割り当てられた可能性があります。アンカー数を減らすと、ここに候補として表示される場合があります。',
+    sc_filing_label: '使用した報告書',
+    sc_filing_tip: (pe, fd) => `有価証券報告書（決算期 ${pe}${fd ? `、提出日 ${fd}` : ''}）`,
+    sc_size_label: '規模',
+    sc_size_th: '規模一致度',
+    sc_size_tooltip: '規模のみの指標：100＝同等売上、75＝約10倍差、50＝約100倍差、0＝約1万倍差。最新年度売上高から決定論的に算出。成長率・収益性・財務健全性は測定しません。関連性スコアと併読してください（合算しないでください）。',
+    sc_combined_label: '統合',
+    sc_combined_tooltip: '利用可能なシグナルの均等加重平均：3つすべて算出可能な場合は（関連度＋規模＋推移）÷ 3、それ以外は（関連度＋規模）÷ 2（推移は重複3年以上が必要）。便宜的な指標です — 真のシグナルは個別スコアにあります。',
+    sc_trajectory_label: '推移',
+    sc_trajectory_tooltip: '重複年度における前年比成長率の相関（対数成長率のピアソン相関、0〜100にマッピング）。100＝完全連動、50＝無相関、0＝完全逆相関。補助シグナル — 高スコアでも事業が類似しているとは限らず、成長パターンが偶然一致しただけの場合があります。重複年度が3年未満の場合は非表示。',
+    sc_trajectory_unavailable: '推移スコア算出不可：このペアは重複する売上高履歴が3年未満です。fetch_it_peers.py 実行時に min_year を 2020 以下に設定して、より古い有報を取得してください。',
+    sc_trajectory_chart_title: '売上高推移（基準化）',
+    sc_trajectory_chart_note: '各線は最初の年度を100として基準化されています — 絶対規模に関わらず形状（成長・減少・横ばい）を比較できます。アンカーを強調表示、関連度上位5社まで表示。絶対売上は上記スナップショットチャートをご覧ください。',
+    sc_trajectory_axis_y: '基準化売上高（初年度＝100）',
+    sc_trajectory_axis_x: '会計年度',
+    sc_detail_toggle: '詳細表示',
+    sc_detail_toggle_tip: '統合スコアと売上高比較グラフを表示します。デフォルト表示は2つの主要スコアのみです。',
+    sc_revenue_chart_title: '売上高比較（最新年度・対数軸）',
+    sc_revenue_chart_note: 'アンカー企業はアクセントカラーで強調。対数軸により¥1Bから¥10Tまで同一チャートで比較可能。',
+    sc_revenue_axis_label: '最新年度売上高（10億円・対数軸）',
+    sc_tooltip_anchor: '売上上位N社のIT企業(基準企業)',
+    sc_tooltip_candidate: 'アンカーと比較される他のIT企業',
+    sc_tooltip_relatedness: 'LLMがビジネス特徴を比較した0〜100点。70以上=非常に類似。',
+    sc_score_legend_high: '70以上 非常に類似',
+    sc_score_legend_mid: '40〜69 やや類似',
+    sc_score_legend_low: '40未満 関連性低い',
+    sc_simple: 'やさしい',
+    sc_advanced: '詳細',
+    sc_future_stock_label: '株価連動性(仮説)',
+    sc_heatmap_title: '関連度マトリックス(アンカー × 候補)',
+    sc_chart_title_per_anchor: '候補企業の関連度ランキング',
+    sc_run_tests_label: '精度テストを実行',
+    sc_run_tests_panel_title: '実行整合性チェック(母集団+割り当て)',
+    sc_anchor_tests_panel_title: '品質チェック(LLM出力の完全性・整合性)',
+    profit_profit: '増収', profit_loss: '減収', profit_flat: '横ばい',
+    direction_positive: '上昇', direction_negative: '下落',
+    direction_unchanged: '変化なし', direction_unknown: '不明',
+    size_small: '小', size_mid: '中', size_large: '大', size_unknown: '不明',
+  },
+};
+let LANG = localStorage.getItem('tempest_lang') === 'ja' ? 'ja' : 'en';
+const t = (key, ...args) => {
+  const v = T[LANG][key];
+  return typeof v === 'function' ? v(...args) : (v ?? key);
+};
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.title = t('app_title');
+  document.getElementById('lang-en').classList.toggle('active', LANG === 'en');
+  document.getElementById('lang-ja').classList.toggle('active', LANG === 'ja');
+}
+function setLang(lang) {
+  LANG = lang;
+  localStorage.setItem('tempest_lang', lang);
+  applyI18n();
+  // Re-render any cached results so dynamic strings (table headers, badges) update.
+  if (lastQuietData) renderQuietResults(lastQuietData);
+  if (lastSimilarData) renderSimilarResults(lastSimilarData);
+  refreshFetchedLines();
+}
+
+// ============================================================
+// tab toggle
+// ============================================================
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+}));
+</script>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => n == null ? '—' : Number(n).toLocaleString('en-US', {maximumFractionDigits: 0});
+const pct = (n) => n == null ? '—' : (n >= 0 ? '+' : '') + Number(n).toFixed(2) + '%';
+const cls = (status) => status === 'profit' || status === 'positive' ? 'pos'
+                       : status === 'loss' || status === 'negative' ? 'neg' : 'flat';
+
+// Translate raw status keys (kept in EN in the JSON response) to display strings.
+const trStatus = (s) => t(`profit_${s}`) !== `profit_${s}` ? t(`profit_${s}`)
+                       : t(`direction_${s}`) !== `direction_${s}` ? t(`direction_${s}`)
+                       : s;
+
+function badge(text, status) {
+  return `<span class="badge ${cls(status)}">${text}</span>`;
+}
+
+// Caches so language toggle can re-render without re-fetching.
+let lastQuietData = null;
+let lastSimilarData = null;
+
+// Fetched-at timestamps (Date objects, set when each Run completes).
+let lastQuietAt = null;
+let lastSimilarAt = null;
+const STALE_AFTER_MS = 30 * 60 * 1000;   // 30 min → mark as "stale, re-run"
+
+function _relTime(ts) {
+  if (!ts) return '';
+  const dMs = Date.now() - ts.getTime();
+  if (dMs >= STALE_AFTER_MS) return t('rel_stale');
+  if (dMs < 30_000)        return t('rel_just_now');
+  if (dMs < 60_000)        return t('rel_seconds', Math.floor(dMs / 1000));
+  if (dMs < 60 * 60_000)   return t('rel_minutes', Math.floor(dMs / 60_000));
+  return t('rel_hours', Math.floor(dMs / 3_600_000));
+}
+
+function _renderFetched(divId, ts) {
+  const el = document.getElementById(divId);
+  if (!el) return;
+  if (!ts) { el.style.display = 'none'; return; }
+  const timeStr = ts.toLocaleTimeString();
+  const rel = _relTime(ts);
+  el.textContent = t('fetched_at', timeStr, rel);
+  el.classList.toggle('stale', rel === t('rel_stale'));
+  el.style.display = 'block';
+}
+
+function refreshFetchedLines() {
+  _renderFetched('fetched', lastQuietAt);
+  _renderFetched('simFetched', lastSimilarAt);
+}
+setInterval(refreshFetchedLines, 30_000);   // keep relative time fresh
+
+
+// Generic test-results panel renderer. `tr` is a dict with shape
+// {checks: [...], passed: int, total: int}. `titleOverride` lets callers
+// (Similar Company) replace the default "Tests passed/partial/failed" title
+// with a domain-specific one (e.g., "Run integrity"). Returns '' for empty.
+function renderTestResultsPanel(tr, titleOverride) {
+  if (!tr || !Array.isArray(tr.checks) || tr.checks.length === 0) return '';
+  const passed = tr.passed;
+  const total = tr.total;
+  const pct = passed / total;
+  let cls, label;
+  if (pct === 1)        { cls = 'pass';    label = t('test_passed'); }
+  else if (pct >= 0.5)  { cls = 'partial'; label = t('test_partial'); }
+  else                  { cls = 'fail';    label = t('test_failed'); }
+  if (titleOverride) label = titleOverride + ' — ' + label;
+
+  const items = tr.checks.map((c, i) => {
+    const evidenceRows = c.evidence
+      ? Object.entries(c.evidence).map(
+          ([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`
+        ).join('')
+      : '';
+    const evidenceBlock = evidenceRows
+      ? `<button class="evidence-toggle" type="button"
+                 onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';
+                          this.textContent = this.nextElementSibling.style.display === 'block' ? t_label('test_evidence_hide') : t_label('test_evidence_show');">
+           ${t('test_evidence_show')}
+         </button>
+         <div class="test-evidence" style="display:none">
+           <table>${evidenceRows}</table>
+         </div>`
+      : '';
+    const label  = pick(c, 'name')   || c.name   || '';
+    const detail = pick(c, 'detail') || c.detail || '';
+    return `<li class="${c.passed ? 'ok' : 'bad'}">
+      <span class="icon">${c.passed ? '✓' : '✗'}</span>
+      <span class="label">${label}${detail ? ` <span class="detail">— ${detail}</span>` : ''}</span>
+    </li>${evidenceBlock}`;
+  }).join('');
+
+  return `<div class="test-panel ${cls}">
+    <div class="test-panel-head">
+      <span class="dot"></span>
+      <span>${label}</span>
+      <span style="font-weight:400;color:var(--muted)">${t('test_summary', passed, total)}</span>
+    </div>
+    <ul class="test-panel-list">${items}</ul>
+  </div>`;
+}
+
+// Quiet Change wrapper: per-pair test panel.
+function renderTestPanel(pair) {
+  return renderTestResultsPanel(pair && pair.test_results);
+}
+
+// Tiny helper so the inline onclick handler above can read i18n.
+function t_label(key) { return t(key); }
+
+// Render the inline "Revenue composition" header line — top segments by
+// share-of-total, prev → curr. Mirrors the composition opener that the LLM
+// is asked to write so the user gets the same scan even when the LLM skips
+// the opener (which the coverage rule will then flag).
+function renderCompositionRow(pair) {
+  const segs = (pair && pair.segments) || [];
+  if (!segs.length) return '';
+  const totalPrev = segs.reduce((a, s) => a + (s.prev || 0), 0) || 1;
+  const totalCurr = segs.reduce((a, s) => a + (s.curr || 0), 0) || 1;
+  const ranked = segs
+    .map(s => ({
+      name: pick(s, 'name') || s.name || '',
+      sharePrev: 100 * (s.prev || 0) / totalPrev,
+      shareCurr: 100 * (s.curr || 0) / totalCurr,
+    }))
+    .sort((a, b) => b.shareCurr - a.shareCurr)
+    .slice(0, 4);
+  const inline = ranked
+    .map(r => `<span class="seg-share">${r.name} ${r.sharePrev.toFixed(0)}%<span class="arrow">→</span>${r.shareCurr.toFixed(0)}%</span>`)
+    .join(' &middot; ');
+  return `<div class="composition-row">
+    <span class="composition-label">${t('qc_composition_label')}</span>
+    ${inline}
+  </div>`;
+}
+
+// Render the segment breakdown table from XBRL extraction. Always renders
+// a toggleable header so the section is visually consistent across pairs
+// (including filers that don't disclose segment-level revenue).
+function renderSegmentTable(pair) {
+  const segs = (pair && pair.segments) || [];
+  const count = segs.length;
+  const headerLabel = count
+    ? `${t('seg_section_h')} (${count})`
+    : t('seg_section_h');
+
+  let body = '';
+  if (count === 0) {
+    body = `<div class="segment-body">
+      <p style="font-size:12px;color:var(--muted);margin:0;padding:10px 4px">
+        ${t('seg_empty')}
+      </p>
+    </div>`;
+  } else {
+    const rows = segs.map(s => {
+      const cls = s.delta > 0 ? 'seg-pos' : (s.delta < 0 ? 'seg-neg' : '');
+      const segLabel = pick(s, 'name') || s.name || '';
+      return `<tr>
+        <td>${segLabel}</td>
+        <td class="num">${fmt(s.prev)}</td>
+        <td class="num">${fmt(s.curr)}</td>
+        <td class="num ${cls}">${s.delta >= 0 ? '+' : ''}${fmt(s.delta)}</td>
+        <td class="num ${cls}">${pct(s.delta_pct)}</td>
+      </tr>`;
+    }).join('');
+    body = `<div class="segment-body"><table>
+      <thead><tr>
+        <th>${t('seg_th_segment')}</th>
+        <th class="num">${t('seg_th_prev')}</th>
+        <th class="num">${t('seg_th_curr')}</th>
+        <th class="num">${t('seg_th_delta')}</th>
+        <th class="num">${t('seg_th_delta_pct')}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+  }
+
+  return `<div class="segment-section">
+    <button type="button" class="segment-toggle">
+      <span class="chev">▶</span>
+      <span>${headerLabel}</span>
+    </button>
+    ${body}
+  </div>`;
+}
+
+// Render the per-pair BS table next to the segment table. Always renders
+// (per locked-in plan choice) — empty/unavailable BS shows the "no data"
+// row rather than being hidden, so the section is visually consistent.
+// Movers (asterisked in the LLM prompt) get bold rows + a visible marker
+// so the reader can scan to the items the explanation may reference.
+const BS_DISPLAY_ORDER = [
+  'total_assets', 'tangible_fixed_assets', 'intangible_assets', 'goodwill',
+  'inventory', 'trade_receivables', 'cash_and_equivalents',
+  'interest_bearing_debt', 'equity', 'impairment_loss',
+  'extraordinary_loss_total',
+];
+
+const PL_DISPLAY_ORDER = [
+  'revenue', 'cost_of_sales', 'gross_profit', 'sga_expenses',
+  'operating_income', 'ordinary_income', 'income_taxes',
+  'net_income', 'comprehensive_income',
+  'depreciation_amortization', 'rd_expense', 'basic_eps',
+];
+
+const PL_MARGIN_DISPLAY_ORDER = [
+  'gross_margin_pct', 'op_margin_pct', 'ordinary_margin_pct', 'net_margin_pct',
+];
+
+function renderProfitLoss(pair) {
+  const pl = pair && pair.pl_yoy;
+  const headerLabel = t('pl_section_h');
+  if (!pl || ((!pl.items || Object.keys(pl.items).length === 0)
+              && (!pl.margins || Object.keys(pl.margins).length === 0))) {
+    return `<div class="segment-section">
+      <button type="button" class="segment-toggle">
+        <span class="chev">▶</span>
+        <span>${headerLabel}</span>
+      </button>
+      <div class="segment-body">
+        <p style="font-size:12px;color:var(--muted);margin:0;padding:10px 4px">${t('pl_empty')}</p>
+      </div>
+    </div>`;
+  }
+  const items = pl.items || {};
+  const margins = pl.margins || {};
+
+  const moverCount = PL_DISPLAY_ORDER.reduce(
+    (n, k) => n + (items[k] && items[k].is_mover ? 1 : 0), 0)
+    + PL_MARGIN_DISPLAY_ORDER.reduce(
+      (n, k) => n + (margins[k] && margins[k].is_mover ? 1 : 0), 0);
+  const headerWithCount = moverCount > 0
+    ? `${headerLabel} (${moverCount} ★)`
+    : headerLabel;
+
+  const itemRows = PL_DISPLAY_ORDER.map(k => {
+    const item = items[k];
+    if (!item) return '';
+    const label = t('pl_item_' + k);
+    // EPS is a per-share figure, not a yen value — format with 2 decimals.
+    const isEps = (k === 'basic_eps');
+    const prevStr = (item.prev == null) ? '—'
+      : (isEps ? item.prev.toFixed(2) : fmt(item.prev));
+    const currStr = (item.curr == null) ? '—'
+      : (isEps ? item.curr.toFixed(2) : fmt(item.curr));
+    const dpStr = (item.delta_pct == null) ? '—' : pct(item.delta_pct);
+    const cls = (item.delta_pct != null)
+      ? (item.delta_pct > 0 ? 'seg-pos' : (item.delta_pct < 0 ? 'seg-neg' : ''))
+      : '';
+    const moverMark = item.is_mover ? ' ★' : '';
+    const rowStyle = item.is_mover ? ' style="font-weight:600"' : '';
+    return `<tr${rowStyle}>
+      <td>${label}${moverMark}</td>
+      <td class="num">${prevStr}</td>
+      <td class="num">${currStr}</td>
+      <td class="num ${cls}">${dpStr}</td>
+    </tr>`;
+  }).join('');
+
+  const marginRows = PL_MARGIN_DISPLAY_ORDER.map(k => {
+    const m = margins[k];
+    if (!m) return '';
+    const label = t('pl_margin_' + k);
+    const prevStr = (m.prev == null) ? '—' : m.prev.toFixed(2) + '%';
+    const currStr = (m.curr == null) ? '—' : m.curr.toFixed(2) + '%';
+    const ppStr = (m.pp_delta == null) ? '—'
+      : (m.pp_delta >= 0 ? '+' : '') + m.pp_delta.toFixed(2) + 'pp';
+    const cls = (m.pp_delta != null)
+      ? (m.pp_delta > 0 ? 'seg-pos' : (m.pp_delta < 0 ? 'seg-neg' : ''))
+      : '';
+    const moverMark = m.is_mover ? ' ★' : '';
+    const rowStyle = m.is_mover ? ' style="font-weight:600"' : '';
+    return `<tr${rowStyle}>
+      <td>${label}${moverMark}</td>
+      <td class="num">${prevStr}</td>
+      <td class="num">${currStr}</td>
+      <td class="num ${cls}">${ppStr}</td>
+    </tr>`;
+  }).join('');
+
+  const marginsTable = marginRows
+    ? `<div style="margin-top:10px;font-size:12px;font-weight:600;color:var(--muted)">${t('pl_margins_h')}</div>
+       <table>
+         <thead><tr>
+           <th>${t('pl_th_item')}</th>
+           <th class="num">${t('pl_th_prev')}</th>
+           <th class="num">${t('pl_th_curr')}</th>
+           <th class="num">${t('pl_th_pp')}</th>
+         </tr></thead>
+         <tbody>${marginRows}</tbody>
+       </table>`
+    : '';
+
+  const moverLegend = moverCount > 0
+    ? `<div style="font-size:11px;color:var(--muted);margin-top:6px;">${t('pl_mover_legend')}</div>`
+    : '';
+
+  return `<div class="segment-section">
+    <button type="button" class="segment-toggle">
+      <span class="chev">▶</span>
+      <span>${headerWithCount}</span>
+    </button>
+    <div class="segment-body">
+      <table>
+        <thead><tr>
+          <th>${t('pl_th_item')}</th>
+          <th class="num">${t('pl_th_prev')}</th>
+          <th class="num">${t('pl_th_curr')}</th>
+          <th class="num">${t('pl_th_delta_pct')}</th>
+        </tr></thead>
+        <tbody>${itemRows}</tbody>
+      </table>
+      ${marginsTable}
+      ${moverLegend}
+    </div>
+  </div>`;
+}
+
+// Forward-outlook card — the agent's headline filter signal.
+// Rendered above the bilingual explanation block so it's the first thing the
+// reader sees. The judgment badge colour-codes the filter decision; the
+// reasoning paragraph below quotes the LLM's evidence (with 勘定科目 + macro
+// framing) so the user can audit why.
+function renderOutlookCard(pair) {
+  const judgment = pair && pair.outlook_judgment;
+  if (!judgment) return '';
+  const reason = pick(pair, 'outlook_reason') || '';
+  let bg, fg, border;
+  if (judgment === 'growth_likely') {
+    bg = '#ecfdf5'; fg = '#065f46'; border = '#10b981';
+  } else if (judgment === 'growth_unlikely') {
+    bg = '#fef2f2'; fg = '#991b1b'; border = '#ef4444';
+  } else {
+    bg = '#fffbeb'; fg = '#92400e'; border = '#f59e0b';
+  }
+  const label = t('outlook_' + judgment);
+  const reasonHtml = reason
+    ? reason.toString().replace(/\n/g, '<br>')
+    : `<i style="color:var(--muted)">${t('outlook_no_reason')}</i>`;
+  return `<div style="margin:8px 0 12px;padding:10px 12px;background:${bg};border-left:4px solid ${border};border-radius:6px;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.6px;color:${fg};opacity:0.8;font-weight:600;margin-bottom:4px;">${t('outlook_section_h')}</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span style="background:${border};color:#fff;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;">${label}</span>
+    </div>
+    <div style="font-size:13px;color:${fg};line-height:1.5;">${reasonHtml}</div>
+  </div>`;
+}
+
+function renderBalanceSheet(pair) {
+  const bs = pair && pair.bs_yoy;
+  const headerLabel = t('bs_section_h');
+  if (!bs || !bs.items) {
+    return `<div class="segment-section">
+      <button type="button" class="segment-toggle">
+        <span class="chev">▶</span>
+        <span>${headerLabel}</span>
+      </button>
+      <div class="segment-body">
+        <p style="font-size:12px;color:var(--muted);margin:0;padding:10px 4px">${t('bs_empty')}</p>
+      </div>
+    </div>`;
+  }
+
+  const items = bs.items;
+  const moverCount = BS_DISPLAY_ORDER.reduce(
+    (n, k) => n + (items[k] && items[k].is_mover ? 1 : 0), 0);
+  const headerWithCount = moverCount > 0
+    ? `${headerLabel} (${moverCount} ★)`
+    : headerLabel;
+
+  const rows = BS_DISPLAY_ORDER.map(k => {
+    const item = items[k];
+    if (!item) return '';
+    const label = t('bs_item_' + k);
+    const prevStr = (item.prev == null) ? '—' : fmt(item.prev);
+    const currStr = (item.curr == null) ? '—' : fmt(item.curr);
+    let dpStr = '—';
+    if (item.framework_changed) dpStr = '<i style="color:var(--muted)">n/a</i>';
+    else if (item.delta_pct != null) dpStr = pct(item.delta_pct);
+    const cls = (item.delta_pct != null && !item.framework_changed)
+      ? (item.delta_pct > 0 ? 'seg-pos' : (item.delta_pct < 0 ? 'seg-neg' : ''))
+      : '';
+    const pctAssets = (item.pct_of_assets_curr == null)
+      ? '—'
+      : item.pct_of_assets_curr.toFixed(1) + '%';
+    const moverMark = item.is_mover ? ' ★' : '';
+    const rowStyle = item.is_mover ? ' style="font-weight:600"' : '';
+    return `<tr${rowStyle}>
+      <td>${label}${moverMark}</td>
+      <td class="num">${prevStr}</td>
+      <td class="num">${currStr}</td>
+      <td class="num ${cls}">${dpStr}</td>
+      <td class="num">${pctAssets}</td>
+    </tr>`;
+  }).join('');
+
+  const fwLine = bs.framework_changed
+    ? `<div style="font-size:11px;color:#b45309;margin-top:6px;">${t('bs_framework_changed_note')}</div>`
+    : `<div style="font-size:11px;color:var(--muted);margin-top:6px;">${t('bs_framework_label', bs.framework_curr || bs.framework_prev || 'unknown')}</div>`;
+  const moverLegend = moverCount > 0
+    ? `<div style="font-size:11px;color:var(--muted);margin-top:2px;">${t('bs_mover_legend')}</div>`
+    : '';
+
+  return `<div class="segment-section">
+    <button type="button" class="segment-toggle">
+      <span class="chev">▶</span>
+      <span>${headerWithCount}</span>
+    </button>
+    <div class="segment-body"><table>
+      <thead><tr>
+        <th>${t('bs_th_item')}</th>
+        <th class="num">${t('bs_th_prev')}</th>
+        <th class="num">${t('bs_th_curr')}</th>
+        <th class="num">${t('bs_th_delta_pct')}</th>
+        <th class="num">${t('bs_th_pct_assets')}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>${fwLine}${moverLegend}</div>
+  </div>`;
+}
+
+// Fiscal-year label formatter — uses the YEAR-ENDED convention in both
+// languages, which is what analysts and financial news (Bloomberg, Reuters,
+// Nikkei, Sony's own English IR site) use:
+//   EN: "FY2025"      — the period ending in calendar 2025
+//   JA: "2025年3月期"  — the period ending March 2025 (期 = "year-ended")
+// Note: the literal Japanese PDF often uses 「2024年度」 for the SAME period
+// because 年度 is "year-started". Both labels point to the identical window
+// (Apr 2024 - Mar 2025); we picked 期 because it's analyst-standard.
+// `periodEnd` (optional, "YYYY-MM-DD") is used to derive the month — if
+// missing, defaults to "3月期" (most Japanese fiscal years end in March).
+function formatFY(year, periodEnd) {
+  if (year == null) return '';
+  if (LANG === 'ja') {
+    let month = '3';
+    if (periodEnd && periodEnd.length >= 7) {
+      // periodEnd looks like "2025-03-31" → month = "3" (no leading zero)
+      month = String(parseInt(periodEnd.substring(5, 7), 10));
+    }
+    return `${year}年${month}月期`;
+  }
+  return `FY${year}`;
+}
+
+// Bilingual picker. Handles BOTH naming conventions in the response:
+//   * Similar Company features:  bare key = EN, '_ja' suffix = JA
+//     (e.g. business_model / business_model_ja)
+//   * Quiet Change explanations: '_en' suffix = EN, '_ja' suffix = JA
+//     (e.g. explanation_simple_en / explanation_simple_ja)
+// Try-order based on language; non-empty wins.
+function pick(obj, key) {
+  if (!obj) return '';
+  const candidates = LANG === 'ja'
+    ? [key + '_ja', key, key + '_en']
+    : [key, key + '_en', key + '_ja'];
+  for (const k of candidates) {
+    const v = obj[k];
+    if (v === undefined || v === null) continue;
+    if (Array.isArray(v)) {
+      if (v.length) return v;
+    } else if (String(v).trim() !== '') {
+      return v;
+    }
+  }
+  return '';
+}
+
+function renderCompany(c, idx) {
+  if (c.error) {
+    return `<div class="company"><div class="toggle"><div class="left">
+      <h2>${c.code}</h2><span class="code">${c.name || ''}</span>
+    </div></div><div class="err">${c.error}</div></div>`;
+  }
+  const yearsRows = c.years.map(y =>
+    `<tr><td>${formatFY(y.fiscal_year, y.period_end)}${y.chart_only ? ` <span class="badge" style="background:#fef3c7;color:#92400e;font-size:10px;padding:1px 6px;border-radius:6px;margin-left:4px;">${t('qc_chart_only_badge')}</span>` : ''}</td><td>${y.filing_date || '—'}</td><td class="num">${fmt(y.revenue)}</td></tr>`
+  ).join('');
+
+  const pairsRows = c.pairs.map(p => {
+    const ho = p.history_only;
+    const hoBadge = ho ? ` <span class="badge" style="background:#fef3c7;color:#92400e;font-size:10px;padding:1px 6px;border-radius:6px;margin-left:4px;">${t('qc_chart_only_badge')}</span>` : '';
+    return `<tr${ho ? ' style="background:#fffbeb"' : ''}>
+      <td>${formatFY(p.prev_fiscal_year, p.prev_period_end)} → ${formatFY(p.curr_fiscal_year, p.curr_period_end)}${hoBadge}</td>
+      <td class="num">${fmt(p.prev_revenue)} → ${fmt(p.curr_revenue)}</td>
+      <td class="num">${badge(pct(p.revenue_delta_pct), p.profit_status)}</td>
+      <td>${badge(trStatus(p.profit_status), p.profit_status)}</td>
+      <td>${ho ? '—' : p.curr_filing_date}</td>
+      <td class="num">${ho ? '—' : pct(p.stock_5d_return_pct)}</td>
+      <td>${ho ? '—' : badge(trStatus(p.stock_direction), p.stock_direction)}</td>
+    </tr>`;
+  }).join('');
+
+  const explanations = c.pairs.map((p, pi) => {
+    if (p.history_only) {
+      return `<div class="pair" style="background:#fffbeb;border-left:3px solid #f59e0b;">
+        <h4>${formatFY(p.prev_fiscal_year, p.prev_period_end)} → ${formatFY(p.curr_fiscal_year, p.curr_period_end)} &middot; ${pct(p.revenue_delta_pct)} &middot; <span class="badge" style="background:#fef3c7;color:#92400e;font-size:10px;padding:1px 6px;border-radius:6px;">${t('qc_chart_only_badge')}</span></h4>
+        <div style="color:var(--muted);font-size:13px;margin:6px 0 4px;">${t('qc_history_only_note', String(p.prev_fiscal_year))}</div>
+        ${renderTestPanel(p)}
+      </div>`;
+    }
+    const noExpl = `<i style="color:var(--muted)">${t('qc_no_explanation')}</i>`;
+    // Honest fallback: if a level wasn't returned by the LLM, say so explicitly
+    // instead of duplicating the other level (which makes the toggle look broken).
+    const rawSimple   = pick(p, 'explanation_simple');
+    const rawAdvanced = pick(p, 'explanation_advanced') || pick(p, 'explanation');
+    const simpleHtml = rawSimple
+      ? rawSimple.toString().replace(/\n/g, '<br>')
+      : noExpl;
+    const advancedHtml = rawAdvanced
+      ? rawAdvanced.toString().replace(/\n/g, '<br>')
+      : noExpl;
+    const warnings = (p.narrative_coverage_warnings || []);
+    const headerWarn = warnings.length
+      ? ` <span class="badge cov-warn-badge" title="${t('qc_coverage_warn_intro')}" style="background:#fef3c7;color:#92400e;font-size:10px;padding:1px 6px;border-radius:6px;cursor:help;">⚠ ${warnings.length}</span>`
+      : '';
+    const warnList = warnings.length
+      ? `<div class="coverage-warn" style="background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 10px;margin:6px 0 10px;font-size:12px;color:#92400e;">
+           <div style="font-weight:600;margin-bottom:4px;">⚠ ${t('qc_coverage_warn_label')} — ${t('qc_coverage_warn_intro')}</div>
+           <ul style="margin:0;padding-left:18px;">${warnings.map(w => {
+             const key = 'qc_coverage_rule_' + w.rule;
+             const label = t(key);
+             return `<li>${label === key ? w.message : label}</li>`;
+           }).join('')}</ul>
+         </div>`
+      : '';
+    const opPct = (p.op_profit_delta_pct == null) ? '' : ` &middot; ${t('qc_op_label')} ${pct(p.op_profit_delta_pct)}`;
+    // Stock-response anomaly badge — covers two cases:
+    //   "divergence"    — profit and stock moved in opposite directions
+    //   "weak_response" — same direction but stock barely reacted (under-reaction)
+    // Fall back to the legacy boolean for older payloads without the class field.
+    const respClass = p.stock_response_class || (p.profit_stock_divergence ? 'divergence' : null);
+    let divergenceBadge = '';
+    if (respClass === 'divergence') {
+      divergenceBadge = ` <span class="div-flag-badge" title="${t('qc_divergence_tooltip').replace(/"/g,'&quot;')}">⚠ ${t('qc_divergence_badge')}</span>`;
+    } else if (respClass === 'weak_response') {
+      divergenceBadge = ` <span class="div-flag-badge" style="background:#fef3c7;color:#92400e;border-color:#fde68a" title="${t('qc_weak_response_tooltip').replace(/"/g,'&quot;')}">⚠ ${t('qc_weak_response_badge')}</span>`;
+    }
+    return `<div class="pair">
+      <h4>${formatFY(p.prev_fiscal_year, p.prev_period_end)} → ${formatFY(p.curr_fiscal_year, p.curr_period_end)} &middot; ${pct(p.revenue_delta_pct)}${opPct} &middot; ${pct(p.stock_5d_return_pct)}${divergenceBadge}${headerWarn}</h4>
+      ${warnList}
+      ${renderOutlookCard(p)}
+      ${renderCompositionRow(p)}
+      ${(p.segments && p.segments.length)
+        ? `<div class="chart-wrap composition-chart-wrap"><canvas id="comp-${idx}-${pi}" height="80"></canvas></div>`
+        : ''}
+      <div class="explain-block">
+        <div class="level-toggle inline-level-toggle" role="group" aria-label="Explanation level">
+          <button type="button" class="active" data-level="simple">${t('qc_explain_simple')}</button>
+          <button type="button" data-level="advanced">${t('qc_explain_advanced')}</button>
+        </div>
+        <span class="lvl-simple"   style="display:inline">${simpleHtml}</span>
+        <span class="lvl-advanced" style="display:none">${advancedHtml}</span>
+      </div>
+      ${renderSegmentTable(p)}
+      ${renderProfitLoss(p)}
+      ${renderBalanceSheet(p)}
+      ${renderTestPanel(p)}
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="company" id="co-${idx}">
+      <div class="toggle" onclick="document.getElementById('co-${idx}').classList.toggle('open')">
+        <div class="left">
+          <h2>${c.name || c.code}</h2>
+          <span class="code">${c.code} &middot; ${t('qc_card_summary', c.years.length, c.pairs.length)}</span>
+        </div>
+        <span class="chev">▶</span>
+      </div>
+      <div class="body">
+        ${(c.fetch_report && c.fetch_report.downloaded_years && c.fetch_report.downloaded_years.length) ? `<div class="restated-note" style="border-color:#10b981;background:#ecfdf5;color:#065f46">${t('qc_autofetch_note', c.fetch_report.downloaded_years)}</div>` : ''}
+        ${(c.fetch_report && c.fetch_report.still_missing_years && c.fetch_report.still_missing_years.length) ? `<div class="restated-note">${t('qc_autofetch_missing', c.fetch_report.still_missing_years)}</div>` : ''}
+        ${c.using_restated_history ? `<div class="restated-note">${t('qc_restated_note')}</div>` : ''}
+        ${(c.history_only_years && c.history_only_years.length) ? `<div class="restated-note">${t('qc_history_only_note', c.history_only_years.join(', '))}</div>` : ''}
+        <div class="chart-wrap"><canvas id="chart-${idx}" height="120"></canvas></div>
+
+        <h3 style="margin:16px 0 6px;font-size:14px;">${t('qc_table_h1')}</h3>
+        <table>
+          <thead><tr>
+            <th>${t('qc_th_years')}</th><th>${t('qc_th_revenue')}</th><th>${t('qc_th_delta')}</th><th>${t('qc_th_status')}</th>
+            <th>${t('qc_th_filing')}</th><th>${t('qc_th_stock5d')}</th><th>${t('qc_th_direction')}</th>
+          </tr></thead>
+          <tbody>${pairsRows}</tbody>
+        </table>
+
+        <h3 style="margin:18px 0 6px;font-size:14px;">${t('qc_explain_h')}</h3>
+        ${explanations}
+
+        <details><summary>${t('qc_raw_summary')}</summary>
+          <table style="margin-top:8px">
+            <thead><tr><th>${t('qc_raw_th_fy')}</th><th>${t('qc_raw_th_filing')}</th><th class="num">${t('qc_raw_th_revenue')}</th></tr></thead>
+            <tbody>${yearsRows}</tbody>
+          </table>
+        </details>
+      </div>
+    </div>`;
+}
+
+function renderQuietResults(data) {
+  $('#status').textContent = t('qc_status_done', data.count);
+  $('#results').innerHTML = data.results.map((c, i) => renderCompany(c, i)).join('');
+  data.results.forEach((c, i) => {
+    if (c.error) return;
+    drawChart('chart-' + i, c);
+    (c.pairs || []).forEach((p, pi) => {
+      if (!p.history_only && p.segments && p.segments.length) {
+        drawCompositionChart('comp-' + i + '-' + pi, p);
+      }
+    });
+  });
+  const first = document.querySelector('#tab-quiet .company');
+  if (first) first.classList.add('open');
+}
+
+// Stacked horizontal bars showing each segment's share of total revenue for
+// prev vs curr year — same colour for the same segment across both bars so
+// the eye reads composition shift, not absolute size.
+const _COMP_PALETTE = [
+  '#5aa9ff', '#2ecc71', '#f1c40f', '#e74c3c', '#9b59b6',
+  '#1abc9c', '#e67e22', '#3498db', '#95a5a6', '#34495e',
+];
+function drawCompositionChart(canvasId, pair) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  const segs = pair.segments || [];
+  if (!segs.length) return;
+  const totalPrev = segs.reduce((a, s) => a + (s.prev || 0), 0) || 1;
+  const totalCurr = segs.reduce((a, s) => a + (s.curr || 0), 0) || 1;
+  // Sort by current share descending so the largest segments anchor the
+  // bottom of each stacked bar (Chart.js renders datasets in array order).
+  const ranked = segs
+    .map(s => ({
+      name: pick(s, 'name') || s.name || '',
+      sharePrev: 100 * (s.prev || 0) / totalPrev,
+      shareCurr: 100 * (s.curr || 0) / totalCurr,
+    }))
+    .sort((a, b) => b.shareCurr - a.shareCurr);
+  const datasets = ranked.map((r, i) => ({
+    label: r.name,
+    data: [r.sharePrev, r.shareCurr],
+    backgroundColor: _COMP_PALETTE[i % _COMP_PALETTE.length],
+    borderWidth: 0,
+  }));
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels: [LANG === 'ja' ? '前期' : 'Prev', LANG === 'ja' ? '当期' : 'Curr'], datasets },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#c8ccd4', boxWidth: 10, font: { size: 10 } } },
+        title: { display: true, text: t('qc_composition_chart_title'),
+                 color: '#c8ccd4', font: { size: 11 } },
+        tooltip: { callbacks: { label: (ti) => `${ti.dataset.label}: ${ti.parsed.x.toFixed(1)}%` } },
+      },
+      scales: {
+        x: { stacked: true, max: 100, ticks: { color: '#8a93a3',
+              callback: v => v + '%' }, grid: { color: '#2a2f3a' } },
+        y: { stacked: true, ticks: { color: '#8a93a3' }, grid: { color: '#2a2f3a' } },
+      },
+    },
+  });
+}
+
+function drawChart(canvasId, c) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  const labels = c.years.map(y => formatFY(y.fiscal_year, y.period_end));
+  const revenue = c.years.map(y => y.revenue / 1e9);   // billions
+  // Stock 5d return aligned to curr_fiscal_year of each pair
+  const stockMap = Object.fromEntries(c.pairs.map(p => [p.curr_fiscal_year, p.stock_5d_return_pct]));
+  const stock = c.years.map(y => stockMap[y.fiscal_year] ?? null);
+
+  new Chart(ctx, {
+    data: {
+      labels,
+      datasets: [
+        { type: 'bar', label: t('chart_revenue'), data: revenue, yAxisID: 'y',
+          backgroundColor: 'rgba(90,169,255,.55)', borderColor: 'rgba(90,169,255,1)', borderWidth: 1 },
+        { type: 'line', label: t('chart_stock'), data: stock, yAxisID: 'y1',
+          borderColor: '#2ecc71', backgroundColor: '#2ecc71', tension: .25,
+          spanGaps: true, pointRadius: 4 },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#e6e8eb' } } },
+      scales: {
+        x: { ticks: { color: '#8a93a3' }, grid: { color: '#2a2f3a' } },
+        y: { position: 'left', ticks: { color: '#5aa9ff' }, grid: { color: '#2a2f3a' },
+             title: { display: true, text: t('chart_revenue'), color: '#5aa9ff' } },
+        y1: { position: 'right', ticks: { color: '#2ecc71' }, grid: { drawOnChartArea: false },
+              title: { display: true, text: t('chart_stock'), color: '#2ecc71' } },
+      },
+    },
+  });
+}
+
+async function run() {
+  const codes = $('#codes').value.split(',').map(s => s.trim()).filter(Boolean);
+  const minYear = parseInt($('#minYear').value, 10);
+  if (!codes.length) { $('#status').textContent = t('qc_status_no_codes'); return; }
+
+  const btn = $('#run'); btn.disabled = true;
+  $('#status').textContent = t('qc_status_running', codes.length, minYear);
+  $('#results').innerHTML = '';
+
+  const runTests = $('#runTests').checked;
+  try {
+    const r = await fetch('/quiet-change/multi-year', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ codes, min_year: minYear, run_tests: runTests }),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    lastQuietData = data;
+    lastQuietAt = new Date();
+    renderQuietResults(data);
+    refreshFetchedLines();
+  } catch (e) {
+    $('#status').textContent = t('qc_status_error', e.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+$('#run').addEventListener('click', run);
+
+
+// ============================================================
+// Similar Company tab
+// ============================================================
+function relTier(score) {
+  return score >= 70 ? 'hi' : score >= 40 ? 'md' : 'lo';
+}
+// Render a small SVG sparkline for one matched anchor's "what came next"
+// trajectory (indexed to phase-end = 100). Pure inline SVG — no Chart.js
+// canvas-id juggling. Kept compact so multiple cards fit comfortably in
+// the rationale column.
+function phaseTrajSparkline(traj, w, h) {
+  if (!traj || traj.length < 2) return '';
+  const pad = 6;
+  const yVals = traj.map(p => p.revenue_indexed);
+  const yMin = Math.min(100, ...yVals);
+  const yMax = Math.max(100, ...yVals);
+  const yRange = (yMax - yMin) || 1;
+  const xStep = (w - 2 * pad) / Math.max(1, traj.length - 1);
+  const pts = traj.map((p, i) => {
+    const x = pad + i * xStep;
+    const y = h - pad - ((p.revenue_indexed - yMin) / yRange) * (h - 2 * pad);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  // Baseline at indexed=100 so the eye sees "what changed from phase end."
+  const yBase = h - pad - ((100 - yMin) / yRange) * (h - 2 * pad);
+  const dots = traj.map((p, i) => {
+    const x = pad + i * xStep;
+    const y = h - pad - ((p.revenue_indexed - yMin) / yRange) * (h - 2 * pad);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.2" fill="#c8b3e0"/>`;
+  }).join('');
+  return `<svg class="phase-traj-svg" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+    <line x1="${pad}" y1="${yBase.toFixed(1)}" x2="${w - pad}" y2="${yBase.toFixed(1)}"
+          stroke="#5a5a6a" stroke-width="1" stroke-dasharray="3,2"/>
+    <polyline points="${pts.join(' ')}" fill="none" stroke="#c8b3e0" stroke-width="1.6"/>
+    ${dots}
+  </svg>`;
+}
+
+// Render the Phase-match panel for ONE candidate row. Returns empty string
+// when phase_matching is null OR trajectory_similarity is non-null (the
+// phase-match panel is a fallback, not a parallel signal).
+function renderPhaseMatchPanel(r) {
+  if (r.trajectory_similarity != null) return '';
+  const pm = r.phase_matching;
+  if (!pm) return '';
+  const matches = pm.matched_anchors || [];
+  if (!matches.length) {
+    return `<div class="phase-match-panel">
+      <div class="phase-header">
+        <span class="phase-label">${t('sc_phase_label')}</span>
+      </div>
+      <p class="phase-disclaimer">${t('sc_phase_disclaimer')}</p>
+      <p style="color:var(--muted);font-size:12px;">${t('sc_phase_no_anchors')}</p>
+    </div>`;
+  }
+  const conf = pm.confidence ?? 0;
+  const cap = pm.confidence_cap ?? 40;
+  const breakdown = pm.confidence_breakdown || {};
+  const bandHtml = pm.prediction
+    ? `<div class="phase-prediction-band">${t('sc_phase_prediction_band',
+        pm.prediction.n_anchors_used,
+        (pm.prediction.p25_3y_cagr * 100).toFixed(1) + '%',
+        (pm.prediction.median_3y_cagr * 100).toFixed(1) + '%',
+        (pm.prediction.p75_3y_cagr * 100).toFixed(1) + '%')}</div>`
+    : '';
+  const cards = matches.map(m => {
+    const traj = m.subsequent_revenue_trajectory || [];
+    const cagrPct = m.subsequent_3y_cagr != null
+      ? (m.subsequent_3y_cagr * 100).toFixed(1) + '%'
+      : '—';
+    const narr = pick(m, 'narrative') || '';
+    return `<div class="phase-anchor-card">
+      <div class="pa-head">
+        <div>
+          <span class="pa-name">${m.code} ${m.name}</span>
+          <span class="pa-window">${t('sc_phase_window', m.matched_phase_window.start_fy, m.matched_phase_window.end_fy)}</span>
+        </div>
+        <span class="pa-cagr">${t('sc_phase_subseq_cagr', cagrPct)}</span>
+      </div>
+      ${phaseTrajSparkline(traj, 260, 60)}
+      ${narr ? `<div class="pa-narr">${narr}</div>` : ''}
+    </div>`;
+  }).join('');
+  const tip = t('sc_phase_confidence_tip', breakdown).replace(/"/g, '&quot;');
+  return `<div class="phase-match-panel">
+    <div class="phase-header">
+      <span class="phase-label">${t('sc_phase_label')}</span>
+      <span class="phase-confidence-pill" title="${tip}">${t('sc_phase_confidence', conf, cap)}</span>
+    </div>
+    <p class="phase-disclaimer">${t('sc_phase_disclaimer')}</p>
+    ${bandHtml}
+    ${cards}
+  </div>`;
+}
+
+function relPill(score) {
+  return `<span class="rel-pill rel-${relTier(score)}">${score}/100</span>`;
+}
+function sizePill(score) {
+  // Neutral palette intentionally — size-similarity is a secondary signal and
+  // should not visually compete with the primary relatedness pill.
+  if (score == null) return '';
+  return `<span class="size-pill" title="${t('sc_size_tooltip').replace(/"/g,'&quot;')}">${score}/100</span>`;
+}
+function trajPill(score) {
+  // Tertiary signal — same neutral palette as size, slightly different shape
+  // so the user sees it as "another companion metric" rather than a primary.
+  if (score == null) return '';
+  return `<span class="size-pill" title="${t('sc_trajectory_tooltip').replace(/"/g,'&quot;')}">${score}/100</span>`;
+}
+// Background colour for a heatmap cell — maps the same tier to a stronger fill.
+function relCellBg(score) {
+  const t = relTier(score);
+  if (t === 'hi') return `rgba(46,204,113,${0.25 + 0.55 * (score - 70) / 30})`;
+  if (t === 'md') return `rgba(241,196,15,${0.18 + 0.40 * (score - 40) / 30})`;
+  return `rgba(231,76,60,${0.18 + 0.30 * Math.max(0, score) / 40})`;
+}
+
+function chips(items) {
+  return (items || []).map(x => `<span class="feature-chip">${x}</span>`).join(' ') || '<span style="color:var(--muted)">—</span>';
+}
+
+const trSize = (s) => t('size_' + s) !== ('size_' + s) ? t('size_' + s) : (s || '').toUpperCase();
+
+// Score-tier legend rendered above the heatmap.
+function renderScoreLegend() {
+  return `<div class="score-legend">
+    <div class="item legend-hi"><span class="swatch"></span>${t('sc_score_legend_high')}</div>
+    <div class="item legend-md"><span class="swatch"></span>${t('sc_score_legend_mid')}</div>
+    <div class="item legend-lo"><span class="swatch"></span>${t('sc_score_legend_low')}</div>
+  </div>`;
+}
+
+// Global heatmap: rows = anchors, columns = full candidate universe.
+// Each cell shows the (anchor, candidate) relatedness, coloured by tier.
+// A blank cell means that pair was not scored (candidate was assigned to a
+// different anchor and we only score against the assigned anchor here).
+function renderHeatmap(data) {
+  const anchors = data.anchors || [];
+  const candidates = data.candidates || [];
+  if (!anchors.length || !candidates.length) return '';
+  // Build (anchor, candidate) → score map. The candidate's row carries
+  // its assigned anchor's relatedness; runner-up scores live in
+  // r.other_anchor_scores (we use those to populate the off-diagonal cells).
+  const scoreMap = {};
+  for (const aCode of Object.keys(data.rankings || {})) {
+    for (const r of data.rankings[aCode]) {
+      scoreMap[`${aCode}|${r.code}`] = r.relatedness;
+      for (const ru of (r.other_anchor_scores || [])) {
+        scoreMap[`${ru.anchor_code}|${r.code}`] = ru.relatedness;
+      }
+    }
+  }
+  const headCells = candidates.map(c =>
+    `<th title="${c.code} ${c.name}">${c.code}</th>`).join('');
+  const rows = anchors.map(a => {
+    const cells = candidates.map(c => {
+      const s = scoreMap[`${a.code}|${c.code}`];
+      if (s === undefined || s === null) {
+        return `<td class="cell empty">—</td>`;
+      }
+      return `<td class="cell" style="background:${relCellBg(s)}"
+                  title="${a.name} ↔ ${c.name}: ${s}/100">${s}</td>`;
+    }).join('');
+    return `<tr><td class="row-label">${a.code} ${a.name}</td>${cells}</tr>`;
+  }).join('');
+  return `<div class="heatmap-section">
+    <h3>${t('sc_heatmap_title')}</h3>
+    ${renderScoreLegend()}
+    <div class="heatmap-wrap">
+      <table class="heatmap">
+        <thead><tr><th class="row-label"></th>${headCells}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+// Per-anchor horizontal bar chart comparing latest revenues (anchor + each
+// candidate). Log scale because revenues span 4-5 orders of magnitude in the
+// IT pool (¥1B → ¥10T). Anchor's bar gets the accent color so the reader can
+// instantly see which candidates are in the same weight class.
+function drawRevenueCompareChart(canvasId, anchor, ranking) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  const rows = [
+    { label: `${anchor.name} (${LANG === 'ja' ? 'アンカー' : 'anchor'})`,
+      value: anchor.latest_revenue / 1e9, isAnchor: true },
+    ...[...ranking]
+      .sort((a, b) => b.latest_revenue - a.latest_revenue)
+      .map(r => ({ label: r.name, value: r.latest_revenue / 1e9, isAnchor: false })),
+  ];
+  const labels = rows.map(r => r.label);
+  const values = rows.map(r => r.value);
+  const colors = rows.map(r => r.isAnchor
+    ? 'rgba(99,102,241,.75)'   // accent (indigo) for the anchor
+    : 'rgba(148,163,184,.50)'); // neutral grey for candidates
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }] },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (item) =>
+          `¥${item.parsed.x >= 1000 ? (item.parsed.x/1000).toFixed(2) + 'T' : item.parsed.x.toFixed(1) + 'B'}` } },
+      },
+      scales: {
+        x: { type: 'logarithmic', min: 1,
+             title: { display: true, text: t('sc_revenue_axis_label'), color: '#8a93a3', font: { size: 10 } },
+             ticks: { color: '#8a93a3',
+                      callback: (v) => v >= 1000 ? (v/1000) + 'T' : v + 'B' },
+             grid: { color: '#2a2f3a' } },
+        y: { ticks: { color: '#e6e8eb', font: { size: 11 } }, grid: { display: false } },
+      },
+    },
+  });
+}
+
+// Per-anchor multi-line revenue trajectory chart (Chart.js). Anchor + top-N
+// candidates by relatedness, one line each, fiscal-year X.
+//
+// IMPORTANT: each company's series is NORMALIZED — rebased to 100 at its
+// earliest available year in the window. The chart's purpose is shape
+// comparison (who grew, who declined, who held flat), and shapes are only
+// readable when all series share a common starting point. Raw revenues
+// would put NTT at ¥13T and small-caps at ¥3B — 4 orders of magnitude apart
+// — and you'd see the GAP, not the SHAPE. The latest-revenue snapshot bar
+// chart (rendered above this one) covers absolute-magnitude comparison.
+//
+// Cap at 6 lines (anchor + 5 candidates) to keep the chart readable;
+// candidates picked by highest relatedness so the lines that matter most stay.
+function drawTrajectoryChart(canvasId, anchor, ranking) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  const top = [...ranking]
+    .sort((a, b) => b.relatedness - a.relatedness)
+    .slice(0, 5);
+  const series = [{ name: anchor.name, hist: anchor.revenue_history || [], isAnchor: true },
+                  ...top.map(r => ({ name: r.name, hist: r.revenue_history || [], isAnchor: false }))];
+  // Build the union of fiscal years across all series so x-axis lines up.
+  const allYears = new Set();
+  series.forEach(s => s.hist.forEach(p => allYears.add(p.fiscal_year)));
+  const yearLabels = [...allYears].sort();
+
+  // Distinct neutral-bright palette for non-anchor lines so 5 candidates stay
+  // distinguishable without becoming visually noisy.
+  const palette = ['#94a3b8', '#fbbf24', '#34d399', '#f472b6', '#60a5fa'];
+  const datasets = series.map((s, i) => {
+    const byYear = Object.fromEntries(s.hist.map(p => [p.fiscal_year, p.revenue]));
+    // Find this series' earliest year (within the window) and rebase to 100.
+    // Each company anchors to its own first year so relative growth is
+    // readable independent of absolute scale.
+    const firstYear = yearLabels.find(y => byYear[y] != null);
+    const base = firstYear != null ? byYear[firstYear] : null;
+    const indexed = yearLabels.map(y => {
+      const v = byYear[y];
+      return (v != null && base) ? (v / base) * 100 : null;
+    });
+    return {
+      label: s.name,
+      data: indexed,
+      borderColor: s.isAnchor ? '#a5b4fc' : palette[(i - 1) % palette.length],
+      backgroundColor: s.isAnchor ? 'rgba(165,180,252,.12)' : 'transparent',
+      borderWidth: s.isAnchor ? 2.5 : 1.6,
+      pointRadius: 3, pointHoverRadius: 5,
+      tension: 0.15,
+      // spanGaps: false — do NOT interpolate through missing years. A company
+      // with only FY2024+FY2025 on disk should visibly show as a 1-segment
+      // line, not a fake continuous trajectory back to 2020. Honest gaps make
+      // the data-coverage problem obvious instead of hiding it.
+      spanGaps: false,
+    };
+  });
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: yearLabels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#cbd5e1', font: { size: 10 }, boxWidth: 12 } },
+        tooltip: { callbacks: { label: (item) =>
+          `${item.dataset.label}: ${item.parsed.y.toFixed(1)} (vs 100 baseline)` } },
+      },
+      scales: {
+        x: { title: { display: true, text: t('sc_trajectory_axis_x'), color: '#8a93a3', font: { size: 10 } },
+             ticks: { color: '#8a93a3' }, grid: { color: '#2a2f3a' } },
+        y: { title: { display: true, text: t('sc_trajectory_axis_y'), color: '#8a93a3', font: { size: 10 } },
+             ticks: { color: '#8a93a3' }, grid: { color: '#2a2f3a' } },
+      },
+    },
+  });
+}
+
+// Per-anchor horizontal bar chart of candidate relatedness (Chart.js).
+function drawAnchorBarChart(canvasId, ranking) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  const sorted = [...ranking].sort((a, b) => b.relatedness - a.relatedness);
+  const labels = sorted.map(r => r.name);
+  const values = sorted.map(r => r.relatedness);
+  const colors = sorted.map(r => {
+    const tier = relTier(r.relatedness);
+    return tier === 'hi' ? 'rgba(46,204,113,.65)'
+         : tier === 'md' ? 'rgba(241,196,15,.65)'
+         : 'rgba(231,76,60,.55)';
+  });
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: t('sc_th_relatedness'), data: values,
+                   backgroundColor: colors, borderWidth: 0 }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        label: (item) => `${item.parsed.x}/100`,
+      }}},
+      scales: {
+        x: { min: 0, max: 100, ticks: { color: '#8a93a3', stepSize: 20 },
+             grid: { color: '#2a2f3a' } },
+        y: { ticks: { color: '#e6e8eb' }, grid: { display: false } },
+      },
+    },
+  });
+}
+
+function renderAnchor(anchor, ranking, idx, anchorTests) {
+  const chartId = `sim-chart-${idx}`;
+  // Per-candidate row with Simple/Advanced toggle on the rationale column,
+  // and a hedged future-stock-co-movement note rendered just below.
+  const rows = ranking.map(r => {
+    const noExpl = `<i style="color:var(--muted)">—</i>`;
+    const simple   = pick(r, 'rationale_simple') || noExpl;
+    const advanced = pick(r, 'rationale_advanced') || pick(r, 'rationale') || noExpl;
+    const future   = pick(r, 'future_stock_note');
+    const futureBlock = future
+      ? `<div class="future-note">
+           <span class="label">${t('sc_future_stock_label')}</span>${future}
+         </div>`
+      : '';
+    const filingTip = r.latest_period_end ? t('sc_filing_tip', r.latest_period_end, r.latest_filing_date || '') : '';
+    return `<tr>
+      <td>${r.code}</td>
+      <td>${r.name}<span class="size-tag">${trSize(r.size_label)}</span>${r.latest_period_end ? `<div style="color:var(--muted);font-size:11px;margin-top:2px" title="${filingTip}">${t('sc_filing_label')}: ${r.latest_period_end}${r.latest_filing_date ? ` · ${r.latest_filing_date}` : ''}</div>` : ''}</td>
+      <td class="num">${fmt(r.latest_revenue)}</td>
+      <td class="num">
+        <div class="scores-cell">
+          <div class="row">${relPill(r.relatedness)}<span class="size-pill-label" title="${t('sc_tooltip_relatedness')}">${t('sc_th_relatedness')}</span></div>
+          ${r.size_similarity != null ? `<div class="row">${sizePill(r.size_similarity)}<span class="size-pill-label">${t('sc_size_label')}</span></div>` : ''}
+          ${r.trajectory_similarity != null
+              ? `<div class="row">${trajPill(r.trajectory_similarity)}<span class="size-pill-label">${t('sc_trajectory_label')}</span></div>`
+              : `<div class="row" title="${t('sc_trajectory_unavailable').replace(/"/g,'&quot;')}"><span class="size-pill" style="opacity:.45">—</span><span class="size-pill-label">${t('sc_trajectory_label')}</span></div>`}
+          ${r.combined_score != null ? `<div class="row detailed-only" title="${t('sc_combined_tooltip').replace(/"/g,'&quot;')}"><span class="combined-pill">${r.combined_score}/100</span><span class="size-pill-label">${t('sc_combined_label')}</span></div>` : ''}
+        </div>
+      </td>
+      <td>${chips(pick(r, 'shared_features'))}</td>
+      <td style="color:var(--text);font-size:13px">
+        <div class="explain-block">
+          <div class="level-toggle inline-level-toggle" role="group" aria-label="Explanation level">
+            <button type="button" class="active" data-level="simple">${t('sc_simple')}</button>
+            <button type="button" data-level="advanced">${t('sc_advanced')}</button>
+          </div>
+          <span class="lvl-simple"   style="display:inline">${simple}</span>
+          <span class="lvl-advanced" style="display:none">${advanced}</span>
+        </div>
+        ${futureBlock}
+        ${renderPhaseMatchPanel(r)}
+      </td>
+    </tr>`;
+  }).join('');
+
+  const f = anchor.features || {};
+  const fLine = (key) => pick(f, key);
+  const featLines = [
+    fLine('business_model') && `<b>${t('sc_feat_model')}:</b> ${fLine('business_model')}`,
+    fLine('customer_type')  && `<b>${t('sc_feat_customers')}:</b> ${fLine('customer_type')}`,
+    fLine('monetization')   && `<b>${t('sc_feat_monetization')}:</b> ${fLine('monetization')}`,
+    fLine('tech_stack')     && `<b>${t('sc_feat_tech')}:</b> ${fLine('tech_stack')}`,
+    fLine('geography')      && `<b>${t('sc_feat_geo')}:</b> ${fLine('geography')}`,
+  ].filter(Boolean).join(' &middot; ');
+
+  // Bar chart height scales with candidate count (24px per row + padding).
+  const chartH = Math.max(120, 30 + ranking.length * 26);
+
+  return `
+    <div class="company" id="sim-${idx}">
+      <div class="toggle" onclick="document.getElementById('sim-${idx}').classList.toggle('open')">
+        <div class="left">
+          <h2>${anchor.name}</h2>
+          <span class="code">${anchor.code} &middot; ${t('sc_card_summary', anchor.latest_revenue, ranking.length)}${anchor.latest_period_end ? ` &middot; <span title="${t('sc_filing_tip', anchor.latest_period_end, anchor.latest_filing_date || '')}">${t('sc_filing_label')}: ${anchor.latest_period_end}${anchor.latest_filing_date ? ` (${anchor.latest_filing_date})` : ''}</span>` : ''}</span>
+        </div>
+        <span class="chev">▶</span>
+      </div>
+      <div class="body anchor-body" data-anchor-idx="${idx}">
+        <p style="font-size:13px;color:var(--muted);margin:10px 0 4px">${featLines}</p>
+        <p style="font-size:13px;margin:4px 0 14px">${chips(pick(f, 'unique_features'))}</p>
+
+        ${!ranking.length ? `<div class="help-banner" style="margin:8px 0 12px">${t('sc_empty_anchor_hint')}</div>` : ''}
+        ${ranking.length && ranking[0].relatedness < 50 ? `<div class="help-banner" style="margin:8px 0 12px">${t('sc_distinct_anchor_hint')}</div>` : ''}
+
+        ${ranking.length ? `<div class="detail-toggle">
+          <button type="button" class="detail-toggle-btn" title="${t('sc_detail_toggle_tip')}">${t('sc_detail_toggle')}</button>
+        </div>` : ''}
+
+        ${ranking.length ? `<div class="detailed-only revenue-compare-wrap">
+          <div class="chart-title">${t('sc_revenue_chart_title')}</div>
+          <div style="height:${Math.max(140, 30 + (ranking.length + 1) * 26)}px"><canvas id="rev-chart-${idx}"></canvas></div>
+          <div class="legend-note">${t('sc_revenue_chart_note')}</div>
+        </div>` : ''}
+
+        ${ranking.length ? `<div class="detailed-only revenue-compare-wrap">
+          <div class="chart-title">${t('sc_trajectory_chart_title')}</div>
+          <div style="height:300px"><canvas id="traj-chart-${idx}"></canvas></div>
+          <div class="legend-note">${t('sc_trajectory_chart_note')}</div>
+        </div>` : ''}
+
+        ${ranking.length ? `<div class="anchor-bar-wrap">
+          <div class="chart-title">${t('sc_chart_title_per_anchor')}</div>
+          <div style="height:${chartH}px"><canvas id="${chartId}"></canvas></div>
+        </div>` : ''}
+
+        <table>
+          <thead><tr>
+            <th>${t('sc_th_code')}</th>
+            <th title="${t('sc_tooltip_candidate')}">${t('sc_th_candidate')}</th>
+            <th>${t('sc_th_revenue')}</th>
+            <th title="${t('sc_tooltip_relatedness')}">${t('sc_th_scores')}</th>
+            <th>${t('sc_th_shared')}</th>
+            <th>${t('sc_th_rationale')}</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        ${anchorTests ? renderTestResultsPanel(anchorTests, t('sc_anchor_tests_panel_title')) : ''}
+      </div>
+    </div>`;
+}
+
+function renderSimilarResults(data) {
+  if (data.error) {
+    $('#simStatus').textContent = t('sc_status_error', data.error);
+    $('#simResults').innerHTML = '';
+    return;
+  }
+  $('#simStatus').textContent = t('sc_status_done',
+    data.universe_count, data.anchors.length, data.candidates.length);
+  // Help banner + (optional) run-integrity test panel + heatmap + per-anchor cards.
+  const heatmap = renderHeatmap(data);
+  const runTestsPanel = data.test_results
+    ? renderTestResultsPanel(data.test_results, t('sc_run_tests_panel_title'))
+    : '';
+  // Pass the per-anchor test results into renderAnchor so it can render the
+  // anchor-level quality panel inside each card.
+  const anchorTests = data.anchor_test_results || {};
+  const cards = data.anchors.map((a, i) =>
+    renderAnchor(a, data.rankings[a.code] || [], i, anchorTests[a.code])
+  ).join('');
+  $('#simResults').innerHTML = `
+    <div class="help-banner">${t('sc_help_banner')}</div>
+    ${runTestsPanel}
+    ${heatmap}
+    ${cards}
+  `;
+  // Open the first card and instantiate its bar chart; other charts render
+  // when their cards open. Quick-and-correct: instantiate all on first paint.
+  const first = document.querySelector('#tab-similar .company');
+  if (first) first.classList.add('open');
+  data.anchors.forEach((a, i) => {
+    const ranking = data.rankings[a.code] || [];
+    if (ranking.length) drawAnchorBarChart(`sim-chart-${i}`, ranking);
+  });
+
+  // Wire the per-anchor "Detailed view" toggles. Revenue-comparison chart is
+  // lazily rendered the first time the toggle is turned on (Chart.js cannot
+  // draw on a display:none canvas — must defer until the wrapper is visible).
+  const drawnRevenueCharts = new Set();
+  document.querySelectorAll('#tab-similar .detail-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = btn.closest('.anchor-body');
+      if (!body) return;
+      const idx = parseInt(body.getAttribute('data-anchor-idx'), 10);
+      const isOn = body.classList.toggle('detailed-on');
+      btn.classList.toggle('on', isOn);
+      if (isOn && !drawnRevenueCharts.has(idx)) {
+        const a = data.anchors[idx];
+        const ranking = data.rankings[a.code] || [];
+        if (ranking.length) {
+          drawRevenueCompareChart(`rev-chart-${idx}`, a, ranking);
+          drawTrajectoryChart(`traj-chart-${idx}`, a, ranking);
+          drawnRevenueCharts.add(idx);
+        }
+      }
+    });
+  });
+}
+
+async function runSimilar() {
+  const sector_code = $('#simSector').value || '5250';
+  const n_anchors = parseInt($('#simAnchors').value, 10);
+  const min_year = parseInt($('#simMinYear').value, 10);
+  const run_tests = $('#simRunTests').checked;
+  const btn = $('#simRun'); btn.disabled = true;
+  $('#simStatus').textContent = t('sc_status_running', n_anchors, min_year);
+  $('#simResults').innerHTML = '';
+
+  try {
+    const r = await fetch('/similar-company', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ n_anchors, min_year, run_tests, sector_code }),
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    lastSimilarData = data;
+    lastSimilarAt = new Date();
+    renderSimilarResults(data);
+    refreshFetchedLines();
+  } catch (e) {
+    $('#simStatus').textContent = t('sc_status_error', e.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+$('#simRun').addEventListener('click', runSimilar);
+
+// Populate per-sector counts in the dropdown so the user can see at a glance
+// which sectors have ingested data and which are empty. Sub-second backend
+// scan (no XBRL parsing) — refires when min_year changes since counts are
+// min_year-dependent.
+async function refreshSectorCounts() {
+  const select = $('#simSector');
+  if (!select) return;
+  const minYear = parseInt($('#simMinYear').value, 10) || 2020;
+  try {
+    const r = await fetch(`/sector-counts?min_year=${minYear}`);
+    if (!r.ok) return;
+    const data = await r.json();
+    const counts = data.counts || {};
+    for (const opt of select.options) {
+      // Strip any prior "(N companies)" suffix before re-appending.
+      opt.textContent = opt.textContent.replace(/\s*[·•]\s*\(\d+(?:\s*\w+)?\)\s*$/, '').trim();
+      const n = counts[opt.value] ?? 0;
+      const suffix = n === 0
+        ? ` · (${LANG === 'ja' ? '0社 — 未取得' : '0 — not ingested'})`
+        : ` · (${n}${LANG === 'ja' ? '社' : ''})`;
+      opt.textContent = opt.textContent + suffix;
+      opt.style.color = n === 0 ? '#666' : '';
+      opt.style.fontStyle = n === 0 ? 'italic' : '';
+    }
+  } catch (e) {
+    // Non-fatal — dropdown still works without counts.
+    console.warn('sector-counts fetch failed:', e);
+  }
+}
+
+// Fire on page load and whenever the user changes the from-FY input (counts
+// depend on min_year — pre-2020 IPOs would shift sector populations).
+refreshSectorCounts();
+$('#simMinYear').addEventListener('change', refreshSectorCounts);
+
+// ============================================================
+// language toggle wiring + initial paint
+// ============================================================
+document.getElementById('lang-en').addEventListener('click', () => setLang('en'));
+document.getElementById('lang-ja').addEventListener('click', () => setLang('ja'));
+// Per-pair Segment breakdown toggle (event delegation on document).
+document.addEventListener('click', (e) => {
+  const segBtn = e.target.closest('.segment-toggle');
+  if (segBtn) {
+    e.preventDefault();
+    const section = segBtn.closest('.segment-section');
+    if (section) section.classList.toggle('open');
+    return;
+  }
+});
+
+// Per-pair Simple/Advanced toggle (event delegation on document).
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.inline-level-toggle button');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const block = btn.closest('.explain-block');
+  if (!block) { console.warn('explain-block not found for toggle click'); return; }
+  const wantSimple = btn.dataset.level === 'simple';
+  // Update active state on both buttons in this group only.
+  block.querySelectorAll('.inline-level-toggle button').forEach(b => {
+    const active = b.dataset.level === btn.dataset.level;
+    b.classList.toggle('active', active);
+    b.classList.toggle('adv', active && !wantSimple);
+  });
+  // Show / hide the matching span within THIS pair's explain-block only.
+  const sEl = block.querySelector('.lvl-simple');
+  const aEl = block.querySelector('.lvl-advanced');
+  if (sEl) sEl.style.display = wantSimple ? 'inline' : 'none';
+  if (aEl) aEl.style.display = wantSimple ? 'none' : 'inline';
+  console.log(`[explain-toggle] ${wantSimple ? 'simple' : 'advanced'} shown`,
+              { simpleVisible: !!sEl && sEl.style.display !== 'none',
+                advancedVisible: !!aEl && aEl.style.display !== 'none' });
+});
+
+applyI18n();
+</script>
+</body>
+</html>

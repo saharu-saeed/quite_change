@@ -1,0 +1,258 @@
+{
+  "cases": [
+    {
+      "case_id": "6758_FY24_FY25",
+      "code": "6758",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-25",
+        "curr_filing_date": "2025-06-20",
+        "prev_revenue": 11260037000000,
+        "curr_revenue": 12034917000000,
+        "revenue_delta_pct_approx": 6.882,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": 5.073,
+        "stock_direction": "positive",
+        "anchor_date": "2025-06-20",
+        "end_date": "2025-06-27",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "9983_FY24_FY25",
+      "code": "9983",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-11-29",
+        "curr_filing_date": "2025-11-28",
+        "prev_revenue": 3103836000000,
+        "curr_revenue": 3400539000000,
+        "revenue_delta_pct_approx": 9.559,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": -0.7,
+        "stock_direction": "negative",
+        "anchor_date": "2025-11-28",
+        "end_date": "2025-12-05",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "9432_FY24_FY25",
+      "code": "9432",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-21",
+        "curr_filing_date": "2025-06-20",
+        "prev_revenue": 13374569000000,
+        "curr_revenue": 13704727000000,
+        "revenue_delta_pct_approx": 2.469,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": -0.854,
+        "stock_direction": "negative",
+        "anchor_date": "2025-06-20",
+        "end_date": "2025-06-27",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "9984_FY24_FY25",
+      "code": "9984",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-21",
+        "curr_filing_date": "2025-06-26",
+        "prev_revenue": 6756500000000,
+        "curr_revenue": 7243752000000,
+        "revenue_delta_pct_approx": 7.212,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": 8.342,
+        "stock_direction": "positive",
+        "anchor_date": "2025-06-26",
+        "end_date": "2025-07-03",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "8001_FY24_FY25",
+      "code": "8001",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-21",
+        "curr_filing_date": "2025-06-18",
+        "prev_revenue": 14029910000000,
+        "curr_revenue": 14724234000000,
+        "revenue_delta_pct_approx": 4.949,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": -3.871,
+        "stock_direction": "negative",
+        "anchor_date": "2025-06-18",
+        "end_date": "2025-06-25",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "7201_FY24_FY25",
+      "code": "7201",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-28",
+        "curr_filing_date": "2025-06-23",
+        "prev_revenue": 46937372000000,
+        "curr_revenue": 51170783000000,
+        "revenue_delta_pct_approx": 9.019,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": 1.419,
+        "stock_direction": "positive",
+        "anchor_date": "2025-06-23",
+        "end_date": "2025-06-30",
+        "expected_top_segments_by_size": [
+          "ReportableSegmentsMember",
+          "AutomobileReportableSegmentMember",
+          "SalesFinancingReportableSegmentMember"
+        ],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "7733_FY24_FY25",
+      "code": "7733",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-20",
+        "curr_filing_date": "2025-06-19",
+        "prev_revenue": 936210000000,
+        "curr_revenue": 997332000000,
+        "revenue_delta_pct_approx": 6.529,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": -11.743,
+        "stock_direction": "negative",
+        "anchor_date": "2025-06-19",
+        "end_date": "2025-06-26",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "9201_FY24_FY25",
+      "code": "9201",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-06-19",
+        "curr_filing_date": "2025-06-23",
+        "prev_revenue": 1651890000000,
+        "curr_revenue": 1844095000000,
+        "revenue_delta_pct_approx": 11.635,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": 5.866,
+        "stock_direction": "positive",
+        "anchor_date": "2025-06-23",
+        "end_date": "2025-06-30",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "8233_FY24_FY25",
+      "code": "8233",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-05-23",
+        "curr_filing_date": "2025-05-22",
+        "prev_revenue": 385830000000,
+        "curr_revenue": 412769000000,
+        "revenue_delta_pct_approx": 6.982,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": 0.043,
+        "stock_direction": "positive",
+        "anchor_date": "2025-05-22",
+        "end_date": "2025-05-29",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    },
+    {
+      "case_id": "6920_FY24_FY25",
+      "code": "6920",
+      "min_year": 2024,
+      "expected": {
+        "prev_fiscal_year": 2024,
+        "curr_fiscal_year": 2025,
+        "prev_filing_date": "2024-09-27",
+        "curr_filing_date": "2025-09-25",
+        "prev_revenue": 213506000000,
+        "curr_revenue": 251477000000,
+        "revenue_delta_pct_approx": 17.785,
+        "profit_status": "profit",
+        "stock_5d_return_pct_approx": -5.434,
+        "stock_direction": "negative",
+        "anchor_date": "2025-09-25",
+        "end_date": "2025-10-02",
+        "expected_top_segments_by_size": [],
+        "ground_truth_source": "AGENT-BOOTSTRAPPED — verify each value manually against the actual EDINET filing (有報) and Yahoo Finance / Kabutan before relying on this as a regression baseline."
+      },
+      "tolerance": {
+        "revenue_pct": 1.0,
+        "stock_pct": 0.5
+      }
+    }
+  ]
+}

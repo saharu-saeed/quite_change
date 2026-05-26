@@ -1,0 +1,87 @@
+{
+  "9432": {
+    "pair_curr_filing_date": "2024-06-21",
+    "prev_filing_date": "2023-06-23",
+    "explanation_advanced_en": "NTT Group's consolidated revenue rose +1.81% year-on-year to ¥13.37 trillion, driven primarily by the Global Solutions Business (+6.74%, ¥4,091.7B → ¥4,367.4B) and, to a lesser extent, the Integrated ICT Business (+1.34%, ¥6,059.0B → ¥6,140.0B) and Regional Communications Business (+0.18%, ¥3,177.6B → ¥3,183.2B), while the Others/Real Estate/Energy & Others segment was a meaningful drag, declining -9.63% (¥1,807.0B → ¥1,632.9B). The Global Solutions Business — the single largest revenue mover — was driven by three explicitly named factors: (1) capturing digital-transformation demand both domestically and overseas within the NTT Data Group, (2) foreign-exchange tailwinds boosting overseas revenue, and (3) expansion-driven increases in personnel costs (人件費) reflecting business growth; the narrative also notes that the Others segment's decline was attributable to lower electricity sales revenue in the energy business, consistent with the segment's -9.63% drop. The narrative references a non-headline acquisition context in the form of NTT Ltd. Group's first-half results being included in the prior-year overseas operating margin calculation (2022年度はNTT Ltd.グループの上期実績を含む), which affects the comparability of the overseas operating margin metric (8.6% vs. 7.3%) rather than segment revenue directly; no explicit 買収/売却 transaction for the current fiscal year is named in the excerpt. On the profitability side, EBITDA grew +3.9% to ¥3.4181 trillion (¥34,181 billion), and operating profit rose +5.1% to ¥1.9229 trillion, both outpacing revenue growth, suggesting operating leverage that the market may have found encouraging. The stock's +3.27% post-filing move likely reflects investor recognition of the combination of accelerating Global Solutions revenue growth (aided by FX and digital demand), EBITDA trajectory toward the ¥4 trillion medium-term target, and improving overseas operating margin (+1.3 percentage points to 8.6%), which appear consistent with confidence in the 'New Value Creation & Sustainability 2027 powered by IOWN' strategy; however, this inference is based solely on the annual securities report and cannot be confirmed without analyst consensus data, post-filing market context, or the separate 決算短信/earnings briefing.",
+    "explanation_advanced_ja": "NTTグループの連結営業収益は前期比+1.81%増の13兆3,746億円（約13.37兆円）となり、主にグローバル・ソリューション事業セグメント（+6.74%、4,091.7B→4,367.4B JPY）が最大の増収寄与となった一方、総合ICT事業（+1.34%）・地域通信事業（+0.18%）も小幅増収に貢献したが、その他（不動産・エネルギー等）セグメントは-9.63%（1,807.0B→1,632.9B JPY）と大幅に減収し、全体の押し下げ要因となった。最大の増収セグメントであるグローバル・ソリューション事業の増収要因として、有価証券報告書は①国内外でのデジタル化需要の取り込み、②為替影響による海外収益の押し上げ、③事業拡大に伴う人件費増加を伴う業容拡大という三つの要因を明示しており、これらが複合的に寄与している。その他セグメントの減収はエネルギー事業における電気料収入の減少が主因とされており、収益連動費用の減少も経費削減に寄与した。なお、前年度の海外営業利益率の算定にはNTT Ltd.グループの上期実績が含まれており（2022年度）、当期との比較可能性に留意が必要であるが、当期の有価証券報告書抜粋において当連結会計年度中の具体的な買収・売却取引は明示されていない。EBITDAは前期比+3.9%増の3兆4,181億円、営業利益は前期比+5.1%増の1兆9,229億円と、いずれも増収率を上回る増益を達成しており、営業レバレッジの改善が確認できる。株価の+3.27%上昇は、グローバル・ソリューション事業の加速的な増収（為替・デジタル需要の複合効果）、EBITDAの中期目標（2027年度4兆円）への順調な進捗、および海外営業利益率の+1.3ポイント改善（8.6%）が「New Value Creation & Sustainability 2027 powered by IOWN」戦略への信頼感を高めたことを反映している可能性があるが、この推論は有価証券報告書のみに基づくものであり、アナリスト・コンセンサスや開示後の市場環境、別途公表の決算短信・決算説明会の内容を踏まえたものではないため、具体的な要因を確定することはできない。",
+    "narrative_coverage_warnings": [
+      {
+        "rule": "mixed_drivers_despite",
+        "message": "narrative contains 〜ものの/despite clause but explanation does not preserve the mixed-driver framing"
+      }
+    ],
+    "trigger_results": {
+      "explicit_offset": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": false
+      },
+      "mixed_drivers_despite": {
+        "trigger_in_source": true,
+        "trigger_match": "ものの、",
+        "output_mention": false
+      },
+      "acquisition_driver": {
+        "trigger_in_source": true,
+        "trigger_match": "買収",
+        "output_mention": true
+      },
+      "divestiture_driver": {
+        "trigger_in_source": true,
+        "trigger_match": "売却",
+        "output_mention": true
+      },
+      "volume_decline": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": false
+      },
+      "no_expectations_invented": {
+        "trigger_in_source": false,
+        "output_mention": false,
+        "invented": false
+      }
+    },
+    "qt_full_len": 16637
+  },
+  "9983": {
+    "pair_curr_filing_date": "2025-11-28",
+    "prev_filing_date": "2024-11-29",
+    "explanation_advanced_en": "```json\n{\n  \"explanation_en\": \"Fast Retailing reported consolidated revenue of ¥3,400.5 billion (¥3.40 trillion) for the current fiscal year, up 9.56% year-on-year from ¥3,103.8 billion (¥3.10 trillion), marking a fourth consecutive record high. The largest contributor was UNIQLO International, which grew 11.59% to ¥1,910.3 billion, driven by multiple distinct factors the narrative explicitly identifies: (1) strong new-store openings in North America (+24.5% revenue) and Europe (+33.6% revenue) where new stores performed exceptionally well and created a virtuous cycle of brand awareness boosting e-commerce sales; (2) solid growth in Korea and Southeast Asia/India/Australia (+14.6% revenue) on the back of weather-responsive merchandising and strong core-product sales; (3) partially offset by a decline in Greater China (−4.0% revenue, −12.5% operating profit) due to weakened consumer sentiment in mainland China and Hong Kong; and (4) resilience in the U.S. despite emerging tariff headwinds in Q4, where price adjustments, improved markdown rates, and tighter cost control absorbed the incremental tariff costs. UNIQLO Japan also contributed meaningfully, rising 10.07% to ¥1,026.1 billion — crossing the ¥1 trillion threshold for the first time — on strong same-store sales (+8.1%), weather-aligned inventory strategy, and trend-reflective core products, with the SG&A ratio improving 1.2 percentage points. GU grew a modest 3.62% to ¥330.7 billion but saw a significant profit decline due to insufficient trend-driven hit products, stockouts of fast-selling items, higher personnel costs from wage increases, and costs associated with U.S. store openings; Global Brands was the sole revenue decliner at −5.25% to ¥131.5 billion, with Theory suffering from weak flagship-product sales and China consumer weakness, and Comptoir des Cotonniers recording impairment and restructuring charges of ¥3.9 billion (though its operating loss narrowed). No M&A, acquisition, divestiture, or business transfer events (買収・取得・譲渡・売却・事業譲渡) were identified in the narrative. The stock's −0.70% reaction over the five trading days following the filing likely reflects investor concern about the deterioration in Greater China (a historically high-margin region), the sharp profit decline at GU despite modest revenue growth, the emerging U.S. tariff risk flagged for UNIQLO International, and the continued operating loss at Global Brands — all of which may have tempered enthusiasm for an otherwise strong headline result; this inference is based solely on the annual securities report and cannot be confirmed without analyst consensus data, post-filing market context, or the separate 決算短信 and earnings briefing.\",\n  \"explanation_ja\": \"ファーストリテイリングの当連結会計年度の売上収益は３兆4,005億円（前期比9.56％増、前期３兆1,038億円）となり、４期連続で過去最高業績を達成した。最大の増収寄与セグメントである海外ユニクロ事業（売上収益１兆9,102億円、同11.59％増）については、ナラティブが複数の要因を明示しており、(1)北米（同24.5％増）・欧州（同33.6％増）での新規出店の大成功と、店舗がメディアとなりEコマース販売が拡大する好循環、(2)韓国・東南アジア・インド・豪州地区（同14.6％増）における気温対応の商売とコア商品の好調、(3)グレーターチャイナ（同4.0％減収・事業利益12.5％減）における中国大陸・香港の消費意欲低下による減収減益が一部相殺要因となったこと、(4)米国では第４四半期に追加関税の影響が出始めたものの、価格見直し・値引率改善・経費コントロール強化によりコスト増を吸収し大幅増収増益を維持したこと、の４点が挙げられる。国内ユニクロ事業も売上収益１兆260億円（同10.07％増）と初の１兆円突破を達成し、既存店売上高8.1％増・気温連動の在庫戦略・コア商品へのトレンド反映・販管費比率1.2ポイント改善が寄与した。ジーユー事業は売上収益3,307億円（同3.62％増）と増収ながら、マストレンドのヒット商品不足・欠品・賃上げに伴う人件費増・米国出店費用増により事業利益は大幅減益となり、グローバルブランド事業は唯一の減収セグメント（同5.25％減、1,315億円）で、セオリーの主力商品苦戦・中国消費低迷に加え、コントワー・デ・コトニエで39億円の減損・構造改革費用を計上した（ただし事業利益の赤字は半減）。なお、ナラティブ中に買収・取得・完全子会社化・譲渡・売却・事業譲渡に該当する記載は確認されなかった。開示後５営業日の株価が0.70％下落したことは、グレーターチャイナの収益悪化（歴史的に高利益率の地域）、ジーユーの増収にもかかわらず大幅減益、海外",
+    "explanation_advanced_ja": "",
+    "narrative_coverage_warnings": [],
+    "trigger_results": {
+      "explicit_offset": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": true
+      },
+      "mixed_drivers_despite": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": true
+      },
+      "acquisition_driver": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": true
+      },
+      "divestiture_driver": {
+        "trigger_in_source": true,
+        "trigger_match": "売却",
+        "output_mention": true
+      },
+      "volume_decline": {
+        "trigger_in_source": false,
+        "trigger_match": null,
+        "output_mention": true
+      },
+      "no_expectations_invented": {
+        "trigger_in_source": false,
+        "output_mention": false,
+        "invented": false
+      }
+    },
+    "qt_full_len": 8843
+  }
+}

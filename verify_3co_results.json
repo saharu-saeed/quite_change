@@ -1,0 +1,37 @@
+{
+  "9432": {
+    "warnings": [
+      {
+        "rule": "divestiture_driver",
+        "message": "narrative names a 譲渡/売却/divestiture driver but explanation does not mention it"
+      }
+    ],
+    "en": "NTT Group's consolidated revenue rose +2.47% to ¥13,704.7 billion (≈¥13.70 trillion), driven primarily by the Global Solutions Business (+6.21%, ¥4,638.7 billion) and Others/Real Estate/Energy (+5.73%, ¥1,726.5 billion), while the Integrated ICT Business grew modestly (+1.19%, ¥6,213.1 billion); notably, the Regional Communications Business declined -2.23% to ¥3,112.3 billion, so growth was not broad-based. For the largest absolute mover, Global Solutions, the narrative explicitly cites three distinct drivers: (1) capturing digital-transformation demand both domestically and overseas, (2) fore",
+    "ja": "NTTグループの連結営業収益は前期比+2.47%増の13兆7,047億円となり、グローバル・ソリューション事業（+6.21%、4兆6,387億円）とその他（不動産・エネルギー等）（+5.73%、1兆7,265億円）が主な牽引役となった一方、地域通信事業セグメントは-2.23%の3兆1,123億円と減収となっており、成長は全セグメント共通ではなかった。最大の増収寄与セグメントであるグローバル・ソリューション事業については、有価証券報告書が明示する増収要因として、①国内外でのデジタル化需要の取り込み、②為替影響による増加、③事業拡大に伴う人件費増加という複数のドライバーが挙げられており、デジタル化需要と為替追い風による増収は、人件費上昇というコスト圧力にもかかわらず実現したものである。また、報告書末尾では株式会社インターネットイニシアティブに関連する取引（買収関連）への言及があり、非経常的なM&A事象として投資家の注目を要する。営業利益は前期比-14.2%減の1兆6,496億円、EBITDAは-5.2%減の3兆2,393億円（中期目標4兆円に対し大幅未達）、海外営業利益率は1.2ポイント低下の7.5%（2025年度目標10%に未達）、既存分野ROICは2.4ポイント低下の5.6%（目標9%に未達）と、中期財務目標の3指標すべてが目標から乖離した。株価の-0.85%という下落は、営業利益",
+    "ja_nonempty": true,
+    "ja_has_japanese": true,
+    "en_starts_clean": true,
+    "curr_year": 2025,
+    "prev_year": 2024
+  },
+  "7201": {
+    "warnings": [],
+    "en": "Consolidated revenue (pure operating sales, per the regulator-required 5-year history disclosure) declined modestly to ¥12,633.2 billion from ¥12,685.7 billion (-0.41%), masking a sharp deterioration in profitability: operating profit fell 87.7% to ¥69.8 billion, and the company recorded a net loss attributable to parent shareholders of ¥670.9 billion, a ¥1,097.5 billion swing versus the prior year, driven by a ¥623.8 billion extraordinary loss that worsened by ¥520.9 billion year-on-year. The Automobile segment — the dominant revenue contributor — declined 1.25% to ¥11,437.9 billion, reflecti",
+    "ja": "連結売上高（有価証券報告書の経営指標等の推移に基づく純営業売上）は前連結会計年度の12兆6,857億円から12兆6,332億円へと0.41%の微減にとどまったものの、収益性は大幅に悪化し、営業利益は87.7%減の698億円、親会社株主に帰属する当期純損失は6,709億円（前年比1兆975億円の悪化）となり、前年比5,209億円悪化した6,238億円の特別損失が主因となった。最大セグメントである自動車事業の売上高は1.25%減の11兆4,379億円となり、グローバル小売台数が2.8%減の334万6,248台（アジア・中国が12.8%減、日本が4.8%減と特に落ち込み）、総生産台数も7.6%減の240万8,579台に低下したことが重石となった一方で、北米小売台数は3.3%増の130万3,236台と増加しており、販売台数減少という逆風にもかかわらず北米が一定の下支えとなった。販売金融セグメントは8.39%増の1兆1,954億円と成長し、自動車セグメントの減収を一部相殺した。本報告書には2つの売上高が開示されており、経営指標等の推移（5年間サマリー）に基づく純営業売上の12兆6,332億円（タグ：NetSalesSummaryOfBusinessResults）と、異なる範囲・定義による7兆2,391億円（タグ：SalesFinanceReceivableCA）が存在するが、当社がIR資料",
+    "ja_nonempty": true,
+    "ja_has_japanese": true,
+    "en_starts_clean": true,
+    "curr_year": 2025,
+    "prev_year": 2024
+  },
+  "4755": {
+    "warnings": [],
+    "en": "```json\n{\n  \"explanation_en\": \"Consolidated revenue was flat year-on-year at ¥2,496.6 billion (≈ ¥2.50 trillion) on a reported basis, though the narrative discloses that on a Non-GAAP basis revenue grew +9.5% to ¥2,496.6 billion versus the prior-year Non-GAAP base of ¥2,279.2 billion, with the headline growth driven primarily by the FinTech segment (¥975.9 billion, flat in the segment table's scope) and Internet Services (¥1,369.7 billion, flat in the segment table's scope), while the Mobile segment (¥482.8 billion) expanded contract lines past 10 million in December 2025 and continued to narr",
+    "ja": "",
+    "ja_nonempty": false,
+    "ja_has_japanese": false,
+    "en_starts_clean": true,
+    "curr_year": 2025,
+    "prev_year": 2025
+  }
+}

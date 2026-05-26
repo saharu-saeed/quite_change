@@ -1,0 +1,32 @@
+{
+  "_comment": "Fund profile for liquidity + mandate compliance checks. Edit these to match the desk's actual constraints. Anything left as null is treated as 'no constraint on this dimension'.",
+
+  "aum_jpy": 10000000000,
+  "_aum_jpy_note": "Total fund size in yen. Placeholder ¥10B; edit to match real AUM.",
+
+  "max_position_pct": 5.0,
+  "_max_position_pct_note": "Max position size as % of AUM. 5% of ¥10B = ¥500M target position.",
+
+  "target_position_jpy": null,
+  "_target_position_jpy_note": "If set, overrides aum_jpy * max_position_pct. Use when target sizing is not %-of-AUM.",
+
+  "max_pct_of_daily_volume": 25.0,
+  "_max_pct_of_daily_volume_note": "Max share of average daily traded yen volume the desk is willing to take. Standard rule of thumb: 20-25%.",
+
+  "max_days_to_build": 10,
+  "_max_days_to_build_note": "Trading days to fully build the target position. Liquidity FAIL if days_to_build > this.",
+
+  "max_days_to_exit": 10,
+  "_max_days_to_exit_note": "Trading days to fully exit. Symmetric with build by default.",
+
+  "sector_exclusions": [],
+  "_sector_exclusions_note": "List of sector_33_name values the mandate excludes (e.g. ['銀行業', '保険業']).",
+
+  "mcap_floor_jpy": null,
+  "_mcap_floor_jpy_note": "Min market cap in yen. null = no floor. Set e.g. 30000000000 for ¥30B floor.",
+
+  "scale_categories_allowed": null,
+  "_scale_categories_allowed_note": "List of TOPIX scale_category values allowed (e.g. ['TOPIX Small 1', 'TOPIX Small 2', 'TOPIX Mid400']). null = no restriction.",
+
+  "esg_exclusions": []
+}

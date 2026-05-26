@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quiet Change AI — Filter Signal Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --panel: #151a23;
+    --panel-2: #1c2230;
+    --border: #2a3142;
+    --text: #e8ecf3;
+    --muted: #8b94a8;
+    --accent: #5b9dff;
+    --green: #10b981;
+    --green-bg: #064e3b;
+    --red: #ef4444;
+    --red-bg: #7f1d1d;
+    --amber: #f59e0b;
+    --amber-bg: #78350f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 30px 24px 60px; }
+
+  /* Header */
+  .header { margin-bottom: 32px; }
+  .header h1 {
+    font-size: 30px; margin: 0 0 4px; font-weight: 700;
+    background: linear-gradient(90deg, #5b9dff 0%, #a78bfa 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle { color: var(--muted); font-size: 14px; }
+  .header .lang-switch {
+    float: right; display: flex; gap: 4px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 4px; margin-top: 4px;
+  }
+  .header .lang-switch button {
+    background: transparent; border: none; color: var(--muted);
+    padding: 6px 12px; border-radius: 5px; cursor: pointer;
+    font-size: 13px; font-weight: 600;
+  }
+  .header .lang-switch button.active {
+    background: var(--accent); color: white;
+  }
+
+  /* Search panel */
+  .search-panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin-bottom: 24px;
+  }
+  .search-row { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+  .search-row .field { flex: 1; min-width: 180px; }
+  .search-row .field label {
+    display: block; font-size: 12px; color: var(--muted);
+    margin-bottom: 6px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .search-row input {
+    width: 100%; padding: 12px 14px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 15px;
+    font-family: ui-monospace, "SF Mono", monospace;
+  }
+  .search-row input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  .search-row button {
+    padding: 12px 28px; background: var(--accent); color: white;
+    border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .search-row button:hover { background: #4080e0; }
+  .search-row button:disabled { background: #3a4252; cursor: not-allowed; opacity: 0.6; }
+  .ticker-suggestions {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .ticker-suggestions span { color: var(--muted); font-size: 12px; }
+  .ticker-suggestions a {
+    color: var(--accent); font-size: 12px; cursor: pointer;
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(91, 157, 255, 0.1);
+    text-decoration: none;
+    font-family: ui-monospace, monospace;
+  }
+  .ticker-suggestions a:hover { background: rgba(91, 157, 255, 0.2); }
+
+  /* Status */
+  .status {
+    text-align: center; padding: 40px 20px;
+    color: var(--muted); font-size: 14px;
+  }
+  .status .spinner {
+    display: inline-block; width: 20px; height: 20px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+    margin-right: 10px; vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error {
+    background: var(--red-bg); color: #fecaca;
+    border: 1px solid var(--red); border-radius: 8px;
+    padding: 14px 18px; margin: 16px 0; font-size: 14px;
+  }
+
+  /* Hero verdict */
+  .hero {
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; margin-bottom: 20px;
+    position: relative; overflow: hidden;
+  }
+  .hero.growth_likely { border-left: 6px solid var(--green); }
+  .hero.growth_unlikely { border-left: 6px solid var(--red); }
+  .hero.uncertain { border-left: 6px solid var(--amber); }
+  .hero .company-line {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .hero .company-line h2 { margin: 0; font-size: 28px; font-weight: 700; }
+  .hero .ticker {
+    color: var(--muted); font-family: ui-monospace, monospace;
+    font-size: 15px; padding: 4px 10px;
+    background: var(--bg); border-radius: 6px;
+  }
+  .verdict-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 28px; font-weight: 700;
+    padding: 14px 24px; border-radius: 12px; margin: 12px 0;
+  }
+  .verdict-badge.growth_likely { background: var(--green-bg); color: #6ee7b7; }
+  .verdict-badge.growth_unlikely { background: var(--red-bg); color: #fca5a5; }
+  .verdict-badge.uncertain { background: var(--amber-bg); color: #fcd34d; }
+  .verdict-badge .icon { font-size: 32px; }
+  .verdict-line {
+    font-size: 15px; color: var(--muted);
+    margin-top: 8px;
+  }
+  .verdict-line strong { color: var(--text); }
+  .filter-recommendation {
+    margin-top: 18px; padding: 14px 18px;
+    background: var(--bg); border-radius: 10px;
+    font-size: 14px;
+  }
+  .filter-recommendation .label {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .filter-recommendation .action { color: var(--text); font-size: 16px; font-weight: 600; }
+
+  /* Reasoning panel */
+  .reasoning {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin-bottom: 20px;
+  }
+  .reasoning h3 {
+    margin: 0 0 16px; font-size: 14px; font-weight: 600;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .reasoning-pair {
+    padding: 14px 16px; margin-bottom: 10px;
+    background: var(--bg); border-radius: 8px;
+    border-left: 3px solid var(--border);
+  }
+  .reasoning-pair.growth_likely { border-left-color: var(--green); }
+  .reasoning-pair.growth_unlikely { border-left-color: var(--red); }
+  .reasoning-pair.uncertain { border-left-color: var(--amber); }
+  .reasoning-pair .pair-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px; font-size: 13px;
+  }
+  .reasoning-pair .pair-period { color: var(--muted); font-family: ui-monospace, monospace; }
+  .reasoning-pair .pair-judgment {
+    font-weight: 600; font-size: 12px; padding: 2px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .reasoning-pair .pair-judgment.growth_likely { background: var(--green-bg); color: #6ee7b7; }
+  .reasoning-pair .pair-judgment.growth_unlikely { background: var(--red-bg); color: #fca5a5; }
+  .reasoning-pair .pair-judgment.uncertain { background: var(--amber-bg); color: #fcd34d; }
+  .reasoning-pair .pair-reason { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .aggregation-note {
+    margin-top: 16px; padding: 12px 16px;
+    background: rgba(91, 157, 255, 0.08);
+    border: 1px solid rgba(91, 157, 255, 0.2);
+    border-radius: 8px; font-size: 13px; color: #93c5fd;
+  }
+  /* Per-pair actual outcome badge */
+  .pair-actual {
+    margin-top: 8px; padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.03); border-radius: 6px;
+    font-size: 12px; display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pair-actual .actual-label {
+    color: var(--muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.4px; font-size: 10px;
+  }
+  .pair-actual .actual-data { color: var(--text); font-variant-numeric: tabular-nums; }
+  .verdict-chip {
+    font-weight: 700; padding: 3px 10px; border-radius: 5px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    margin-left: auto;
+  }
+  .verdict-chip.hit { background: var(--green-bg); color: #6ee7b7; }
+  .verdict-chip.miss { background: var(--red-bg); color: #fca5a5; }
+  .verdict-chip.abstain { background: var(--amber-bg); color: #fcd34d; }
+  .verdict-chip.pending { background: rgba(91, 157, 255, 0.15); color: #93c5fd; }
+  /* Senior's 4-quadrant 売上/株価 classification chip */
+  .quadrant-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; padding: 3px 10px;
+    border-radius: 5px; letter-spacing: 0.4px;
+    font-family: ui-monospace, "SF Mono", monospace;
+    margin-right: 6px;
+  }
+  .quadrant-chip.rs { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+  .quadrant-chip.rn { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .quadrant-chip.ns { background: rgba(91, 157, 255, 0.15); color: #93c5fd; border: 1px solid rgba(91, 157, 255, 0.3); }
+  .quadrant-chip.nn { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+  .quadrant-chip.na { background: rgba(139, 148, 168, 0.15); color: var(--muted); border: 1px solid var(--border); }
+  .quadrant-chip .label-tag {
+    font-size: 9px; opacity: 0.85; font-weight: 600;
+    margin-left: 4px; letter-spacing: 0.5px;
+  }
+  /* Multi-ticker summary stripe */
+  .summary-stripe {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px; margin-bottom: 20px;
+  }
+  .summary-tile {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px;
+  }
+  .summary-tile .label {
+    font-size: 11px; color: var(--muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .summary-tile .count { font-size: 30px; font-weight: 700; margin-top: 4px; line-height: 1; }
+  .summary-tile.keep .count { color: #6ee7b7; }
+  .summary-tile.drop .count { color: #fca5a5; }
+  .summary-tile.review .count { color: #fcd34d; }
+  .summary-tile.total .count { color: var(--accent); }
+  .ticker-section {
+    margin-bottom: 28px; padding-bottom: 28px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .ticker-section:last-child { border-bottom: none; }
+  .progress {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px;
+  }
+  .progress .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+  }
+
+  /* Charts row */
+  .charts-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 800px) { .charts-row { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px;
+  }
+  .chart-card h3 {
+    margin: 0 0 12px; font-size: 13px; font-weight: 600;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .chart-wrap { position: relative; height: 240px; }
+
+  /* Data panels (collapsible) */
+  .data-section {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; margin-bottom: 14px;
+  }
+  .data-section summary {
+    cursor: pointer; font-size: 14px; font-weight: 600;
+    color: var(--text); padding: 4px 0; user-select: none;
+    list-style: none; display: flex; align-items: center; gap: 8px;
+  }
+  .data-section summary::before {
+    content: '▶'; font-size: 10px; color: var(--muted); transition: transform 0.15s;
+  }
+  .data-section[open] summary::before { transform: rotate(90deg); }
+  .data-section .body { padding-top: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+  th { text-align: left; padding: 8px 10px; color: var(--muted); font-size: 11px;
+       font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+       border-bottom: 1px solid var(--border); }
+  th.num, td.num { text-align: right; }
+  td { padding: 8px 10px; border-bottom: 1px solid rgba(42, 49, 66, 0.5); }
+  tr:last-child td { border-bottom: none; }
+  .mover { font-weight: 600; }
+  .pos { color: #6ee7b7; }
+  .neg { color: #fca5a5; }
+  .year-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; margin-top: 10px;
+  }
+  .year-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+  }
+  .year-card .year-label {
+    font-size: 11px; color: var(--muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .year-card .year-value {
+    font-size: 22px; font-weight: 700; margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .year-card .year-delta { font-size: 13px; margin-top: 2px; }
+  .footer-note {
+    margin-top: 30px; font-size: 12px; color: var(--muted);
+    text-align: center; padding: 16px;
+  }
+  .meta-row {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin-top: 8px; font-size: 13px; color: var(--muted);
+  }
+  .meta-row span strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="lang-switch">
+      <button id="lang-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="lang-ja" onclick="setLang('ja')">JA / 日本語</button>
+    </div>
+    <h1 id="title">Quiet Change AI — Filter Signal Demo</h1>
+    <div class="subtitle" id="subtitle">
+      Reads annual reports + 5-day stock reaction → decides whether to keep or filter out each company.
+    </div>
+  </div>
+
+  <div class="search-panel">
+    <div class="search-row">
+      <div class="field">
+        <label id="lbl-ticker">Tickers (4-digit JP codes, comma-separated for multiple)</label>
+        <input id="ticker" type="text" placeholder="9433, 9432, 6758" value="9433">
+      </div>
+      <div class="field" style="max-width: 140px;">
+        <label id="lbl-fromyear">From FY</label>
+        <input id="from-year" type="number" value="2020" min="2018" max="2025">
+      </div>
+      <button id="run-btn" onclick="runAnalysis()">▶ <span id="lbl-run">Analyse</span></button>
+    </div>
+    <div class="ticker-suggestions">
+      <span id="lbl-try">Quick try:</span>
+      <a onclick="quickTry('9433')">9433 KDDI</a>
+      <a onclick="quickTry('9432')">9432 NTT</a>
+      <a onclick="quickTry('4502')">4502 Takeda</a>
+      <a onclick="quickTry('7267')">7267 Honda</a>
+      <a onclick="quickTry('6857')">6857 Advantest</a>
+      <a onclick="quickTry('9984')">9984 SoftBank Group</a>
+      <a onclick="quickTry('6758')">6758 Sony</a>
+      <a onclick="quickTry('9983')">9983 Fast Retailing</a>
+    </div>
+  </div>
+
+  <div id="status-area"></div>
+  <div id="results"></div>
+
+  <div class="footer-note">
+    Backtested hit rate: 73.3% on a 24-company sample · Voting strategy: trend_aware ·
+    Stock reaction window: 5 trading days post-filing
+  </div>
+</div>
+
+<script>
+// ---------- bilingual labels ----------
+let LANG = 'en';
+const I18N = {
+  en: {
+    title: 'Quiet Change AI — Filter Signal Demo',
+    subtitle: 'Reads annual reports + 5-day stock reaction → decides whether to keep or filter out each company.',
+    lbl_ticker: 'Ticker (4-digit JP code)',
+    lbl_fromyear: 'From FY',
+    lbl_run: 'Analyse',
+    lbl_try: 'Quick try:',
+    running: 'Running the agent on',
+    please_wait: 'this calls Claude on Bedrock per year-pair — takes 30-90 seconds.',
+    verdict_growth_likely: 'KEEP — Likely to keep growing',
+    verdict_growth_unlikely: 'FILTER OUT — Unlikely to keep growing',
+    verdict_uncertain: 'UNCERTAIN — Signals are mixed',
+    filter_label: 'Filter recommendation',
+    filter_keep: 'Keep on the watch list. Backward-looking signals support continued growth.',
+    filter_drop: 'Remove from the watch list. Past-data signals suggest growth has peaked / quality is deteriorating.',
+    filter_review: 'Manual review needed. The agent could not commit either way — read the per-year reasoning below to decide.',
+    based_on: 'Based on',
+    year_pairs: 'year-pair judgments aggregated with the trend_aware voting rule',
+    reasoning_h: 'How the agent decided',
+    pair_header: 'fiscal-year transition',
+    aggregation_note: '↑ The final verdict above is the trend_aware aggregate: if the latest pair is uncertain after a prior positive year, treat as deteriorating; otherwise the latest non-uncertain judgment wins.',
+    chart_revenue_h: 'Revenue trajectory',
+    chart_stock_h: 'Post-filing 5-day stock reaction',
+    chart_revenue_label: 'Revenue (¥B)',
+    chart_stock_label: 'Stock return (%)',
+    table_revenue_h: 'Year-by-year revenue snapshot',
+    table_pl_h: 'Profit & loss (per year-pair)',
+    table_bs_h: 'Balance sheet movers (per year-pair)',
+    table_segments_h: 'Segment breakdown (per year-pair)',
+    th_year: 'FY',
+    th_filing: 'Filing date',
+    th_revenue: 'Revenue',
+    th_delta: 'Δ YoY',
+    th_stock: 'Stock 5d',
+    th_judgment: 'Outlook',
+    err_invalid_ticker: 'Please enter a 4-digit ticker code.',
+    err_no_data: 'No annual report data available for this ticker. Try one of the quick-try buttons.',
+    err_network: 'Could not reach the API. Make sure the FastAPI server is running.',
+    actual_label: 'What actually happened',
+    actual_growth: 'company grew',
+    actual_no_growth: 'company did not grow',
+    actual_pending: 'pending — no data yet',
+    verdict_hit: 'HIT',
+    verdict_miss: 'MISS',
+    verdict_abstain: 'ABSTAIN',
+    verdict_pending: 'PENDING',
+    summary_total: 'Companies analysed',
+    summary_keep: 'Keep on watch list',
+    summary_drop: 'Filter out',
+    summary_review: 'Manual review',
+    progress: 'Running',
+    of: 'of',
+    quadrant_rs: 'Rev✓ Stock✓',
+    quadrant_rn: 'Rev✓ Stock✗',
+    quadrant_ns: 'Rev✗ Stock✓',
+    quadrant_nn: 'Rev✗ Stock✗',
+    quadrant_na: 'Rev? Stock?',
+    quadrant_tag_rs: 'HEALTHY',
+    quadrant_tag_rn: 'NOISE',
+    quadrant_tag_ns: 'ANOMALY',
+    quadrant_tag_nn: 'DECLINE',
+    quadrant_tag_na: 'N/A',
+  },
+  ja: {
+    title: '静かな変化 AI — フィルターシグナル デモ',
+    subtitle: '有価証券報告書 + 提出後5日株価リターンを読み取り、銘柄を保持するかフィルターアウトするか判定します。',
+    lbl_ticker: '銘柄コード(4桁)',
+    lbl_fromyear: '対象開始年度',
+    lbl_run: '分析実行',
+    lbl_try: 'クイック試行:',
+    running: 'エージェント実行中:',
+    please_wait: '年度ペアごとに Bedrock 上の Claude を呼び出すため、30〜90秒かかります。',
+    verdict_growth_likely: '保持 — 成長継続の可能性',
+    verdict_growth_unlikely: 'フィルターアウト — 成長失速の可能性',
+    verdict_uncertain: '判定保留 — シグナルが混在',
+    filter_label: 'フィルター推奨',
+    filter_keep: 'ウォッチリストに保持。過去データのシグナルが継続成長を支持しています。',
+    filter_drop: 'ウォッチリストから除外。過去データから、成長がピークアウト/質が劣化している可能性。',
+    filter_review: '手動レビューが必要です。エージェントはどちらにも踏み込めませんでした — 下記の年度別根拠を読んで判断してください。',
+    based_on: '集計対象:',
+    year_pairs: '件の年度ペア判定を trend_aware 投票ルールで集計',
+    reasoning_h: 'エージェントの判断過程',
+    pair_header: '年度遷移',
+    aggregation_note: '↑ 上記の最終判定は trend_aware の集計結果です: 直近ペアが「判定保留」かつ過年度がポジティブの場合は劣化中とみなし、それ以外は直近の「非保留」判定が採用されます。',
+    chart_revenue_h: '売上推移',
+    chart_stock_h: '提出後5日 株価リターン',
+    chart_revenue_label: '売上 (¥B)',
+    chart_stock_label: '株価リターン (%)',
+    table_revenue_h: '年度別 売上スナップショット',
+    table_pl_h: '損益計算書 (年度ペア別)',
+    table_bs_h: '貸借対照表の主要変動 (年度ペア別)',
+    table_segments_h: 'セグメント別売上 (年度ペア別)',
+    th_year: '年度',
+    th_filing: '提出日',
+    th_revenue: '売上',
+    th_delta: 'Δ 前年比',
+    th_stock: '株価5日',
+    th_judgment: '判定',
+    err_invalid_ticker: '4桁の銘柄コードを入力してください。',
+    err_no_data: 'この銘柄の有価証券報告書データが見つかりません。クイック試行ボタンをお試しください。',
+    err_network: 'API に接続できません。FastAPI サーバーが起動していることを確認してください。',
+    actual_label: '実際の結果',
+    actual_growth: '実際に成長',
+    actual_no_growth: '成長せず',
+    actual_pending: '今後判明',
+    verdict_hit: '的中',
+    verdict_miss: '外れ',
+    verdict_abstain: '判定保留',
+    verdict_pending: '判定待ち',
+    summary_total: '分析企業数',
+    summary_keep: '保持',
+    summary_drop: '除外',
+    summary_review: '要レビュー',
+    progress: '実行中',
+    of: '/',
+    quadrant_rs: '売上○ 株価○',
+    quadrant_rn: '売上○ 株価×',
+    quadrant_ns: '売上× 株価○',
+    quadrant_nn: '売上× 株価×',
+    quadrant_na: '売上? 株価?',
+    quadrant_tag_rs: '健全',
+    quadrant_tag_rn: 'ノイズ',
+    quadrant_tag_ns: '異常',
+    quadrant_tag_nn: '衰退',
+    quadrant_tag_na: '不明',
+  },
+};
+function t(key) { return I18N[LANG][key] || I18N.en[key] || key; }
+
+function setLang(lang) {
+  LANG = lang;
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-ja').classList.toggle('active', lang === 'ja');
+  document.getElementById('title').textContent = t('title');
+  document.getElementById('subtitle').textContent = t('subtitle');
+  document.getElementById('lbl-ticker').textContent = t('lbl_ticker');
+  document.getElementById('lbl-fromyear').textContent = t('lbl_fromyear');
+  document.getElementById('lbl-run').textContent = t('lbl_run');
+  document.getElementById('lbl-try').textContent = t('lbl_try');
+  // If results exist, re-render all of them in the new language
+  if (lastResults.length > 0) reRenderAll();
+}
+
+// ---------- formatting helpers ----------
+function fmtJPY(v) {
+  if (v == null) return '—';
+  const b = v / 1e9;
+  if (Math.abs(b) >= 1000) return (b / 1000).toFixed(2) + 'T';
+  return b.toFixed(1) + 'B';
+}
+function fmtPct(v, digits) {
+  if (v == null || isNaN(v)) return '—';
+  const d = digits == null ? 2 : digits;
+  const s = v >= 0 ? '+' : '';
+  return s + v.toFixed(d) + '%';
+}
+function pctClass(v) { return v == null ? '' : (v > 0 ? 'pos' : (v < 0 ? 'neg' : '')); }
+function pick(obj, key) {
+  if (!obj) return '';
+  const candidates = LANG === 'ja' ? [key + '_ja', key, key + '_en'] : [key, key + '_en', key + '_ja'];
+  for (const k of candidates) {
+    const v = obj[k];
+    if (v && String(v).trim()) return v;
+  }
+  return '';
+}
+
+// ---------- trend_aware voting (client-side mirror of the production strategy) ----------
+function aggregateTrendAware(pairs) {
+  const judgments = pairs.filter(p => !p.history_only).map(p => p.outlook_judgment || 'uncertain');
+  if (!judgments.length) return 'uncertain';
+  const latest = judgments[judgments.length - 1];
+  if (latest === 'growth_likely' || latest === 'growth_unlikely') return latest;
+  // latest is uncertain — check trend of priors
+  const priors = judgments.slice(0, -1);
+  if (priors.some(j => j === 'growth_likely')) return 'growth_unlikely'; // deteriorating
+  if (priors.some(j => j === 'growth_unlikely')) return 'growth_unlikely'; // still soft
+  return 'uncertain';
+}
+
+// ---------- per-pair actual outcome scoring ----------
+// For each pair, the "actual outcome" is computed from the SUBSEQUENT pairs'
+// revenue + stock data: "growth" iff majority of later pairs show
+// (revenue_delta > 0 AND stock_5d > 0). Returns null if no later pairs exist
+// (the latest pair = future, not yet observable).
+function actualOutcomeForPair(pair, allPairs) {
+  const later = allPairs.filter(p =>
+    !p.history_only && (p.curr_fiscal_year || 0) > (pair.curr_fiscal_year || 0)
+  );
+  if (later.length === 0) return null; // pending (latest pair)
+  let growthVotes = 0, scored = 0;
+  for (const p of later) {
+    const r = p.revenue_delta_pct, s = p.stock_5d_return_pct;
+    if (r == null || s == null) continue;
+    scored++;
+    if (r > 0 && s > 0) growthVotes++;
+  }
+  if (scored === 0) return null;
+  return growthVotes * 2 > scored ? 'growth' : 'no_growth';
+}
+function verdictForPair(prediction, actual) {
+  if (actual == null) return 'pending';
+  if (prediction === 'uncertain') return 'abstain';
+  if (prediction === 'growth_likely' && actual === 'growth') return 'hit';
+  if (prediction === 'growth_unlikely' && actual === 'no_growth') return 'hit';
+  return 'miss';
+}
+
+// Senior's 4-quadrant classification based on revenue + stock direction at
+// the pair itself. Returns one of:
+//   "rs" — revenue UP, stock UP        (healthy)
+//   "rn" — revenue UP, stock DOWN/flat (NOISE — senior's main filter target)
+//   "ns" — revenue DOWN/flat, stock UP (anomaly)
+//   "nn" — revenue DOWN/flat, stock DOWN/flat (decline)
+//   "na" — either signal missing
+function quadrantForPair(pair) {
+  const r = pair.revenue_delta_pct;
+  const s = pair.stock_5d_return_pct;
+  if (r == null || s == null) return 'na';
+  const rUp = r > 0;
+  const sUp = s > 0;
+  if (rUp && sUp)   return 'rs';
+  if (rUp && !sUp)  return 'rn';
+  if (!rUp && sUp)  return 'ns';
+  return 'nn';
+}
+
+// ---------- main API call (multi-ticker, sequential with progress) ----------
+let lastResults = [];   // all rendered results, for re-render on lang switch
+let charts = [];        // hold Chart.js instances for cleanup
+
+function parseTickers(raw) {
+  return (raw || '').split(/[,\s]+/).map(s => s.trim()).filter(s => s.length > 0);
+}
+
+async function runAnalysis() {
+  const rawInput = document.getElementById('ticker').value || '';
+  const fromYear = parseInt(document.getElementById('from-year').value, 10) || 2020;
+  const tickers = parseTickers(rawInput);
+  const invalid = tickers.find(t => !/^\d{4}$/.test(t));
+  if (tickers.length === 0 || invalid) {
+    showError(t('err_invalid_ticker'));
+    return;
+  }
+
+  const runBtn = document.getElementById('run-btn');
+  runBtn.disabled = true;
+  document.getElementById('results').innerHTML = '';
+  lastResults = [];
+  charts.forEach(c => { try { c.destroy(); } catch (_) {} });
+  charts = [];
+
+  for (let i = 0; i < tickers.length; i++) {
+    const code = tickers[i];
+    document.getElementById('status-area').innerHTML =
+      '<div class="progress"><div class="spinner"></div>' +
+      '<span>' + t('progress') + ' <b>' + code + '</b> (' +
+      (i + 1) + ' ' + t('of') + ' ' + tickers.length + ')… ' + t('please_wait') + '</span></div>';
+
+    try {
+      const r = await fetch('/quiet-change/multi-year', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codes: [code], min_year: fromYear, run_tests: false }),
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.json();
+      const result = (data.results || [])[0];
+      if (!result || result.error) {
+        appendError(code, (result && result.error) || t('err_no_data'));
+        continue;
+      }
+      lastResults.push(result);
+      appendResultSection(result);
+    } catch (e) {
+      appendError(code, t('err_network') + ' (' + e.message + ')');
+    }
+  }
+
+  document.getElementById('status-area').innerHTML = '';
+  if (lastResults.length > 1) renderSummaryStripe();
+  runBtn.disabled = false;
+}
+
+function quickTry(code) {
+  document.getElementById('ticker').value = code;
+  runAnalysis();
+}
+
+function appendError(code, msg) {
+  const errEl = document.createElement('div');
+  errEl.className = 'error';
+  errEl.innerHTML = '⚠ <b>' + escapeHtml(code) + '</b>: ' + escapeHtml(msg);
+  document.getElementById('results').appendChild(errEl);
+}
+
+function renderSummaryStripe() {
+  // Add a 4-tile summary at the very top: total / keep / drop / review counts
+  const counts = { keep: 0, drop: 0, review: 0 };
+  for (const r of lastResults) {
+    const v = aggregateTrendAware(r.pairs || []);
+    if (v === 'growth_likely') counts.keep++;
+    else if (v === 'growth_unlikely') counts.drop++;
+    else counts.review++;
+  }
+  const stripe = document.createElement('div');
+  stripe.className = 'summary-stripe';
+  stripe.innerHTML = `
+    <div class="summary-tile total"><div class="label">${t('summary_total')}</div><div class="count">${lastResults.length}</div></div>
+    <div class="summary-tile keep"><div class="label">${t('summary_keep')}</div><div class="count">${counts.keep}</div></div>
+    <div class="summary-tile drop"><div class="label">${t('summary_drop')}</div><div class="count">${counts.drop}</div></div>
+    <div class="summary-tile review"><div class="label">${t('summary_review')}</div><div class="count">${counts.review}</div></div>
+  `;
+  const results = document.getElementById('results');
+  results.insertBefore(stripe, results.firstChild);
+}
+
+function reRenderAll() {
+  // Used by setLang() to redraw all results in the new language
+  document.getElementById('results').innerHTML = '';
+  charts.forEach(c => { try { c.destroy(); } catch (_) {} });
+  charts = [];
+  for (const r of lastResults) appendResultSection(r);
+  if (lastResults.length > 1) renderSummaryStripe();
+}
+
+function showError(msg) {
+  document.getElementById('status-area').innerHTML =
+    '<div class="error">⚠ ' + msg + '</div>';
+}
+
+// ---------- append a result section to the page ----------
+// Used both for the initial render (sequential append as each API call returns)
+// and the re-render path when the user switches language.
+function appendResultSection(result) {
+  const realPairs = (result.pairs || []).filter(p => !p.history_only);
+  const verdict = aggregateTrendAware(result.pairs || []);
+
+  const verdictTextMap = {
+    growth_likely:   t('verdict_growth_likely'),
+    growth_unlikely: t('verdict_growth_unlikely'),
+    uncertain:       t('verdict_uncertain'),
+  };
+  const filterMsgMap = {
+    growth_likely:   t('filter_keep'),
+    growth_unlikely: t('filter_drop'),
+    uncertain:       t('filter_review'),
+  };
+  const iconMap = { growth_likely: '✓', growth_unlikely: '✗', uncertain: '?' };
+
+  // Unique chart canvas IDs per ticker so multi-ticker renders don't collide
+  const safeCode = String(result.code).replace(/[^a-zA-Z0-9]/g, '');
+  const revCanvasId = `chart-revenue-${safeCode}`;
+  const stkCanvasId = `chart-stock-${safeCode}`;
+
+  // Per-pair actual + verdict (computed client-side from API data)
+  const pairBlocks = realPairs.map(p => {
+    const judgment = p.outlook_judgment || 'uncertain';
+    const actual = actualOutcomeForPair(p, result.pairs || []);
+    const verdictKey = verdictForPair(judgment, actual);
+    const quadKey = quadrantForPair(p);
+    const actualText = actual === 'growth' ? t('actual_growth')
+                     : actual === 'no_growth' ? t('actual_no_growth')
+                     : t('actual_pending');
+    const verdictText = t('verdict_' + verdictKey);
+    return `
+      <div class="reasoning-pair ${judgment}">
+        <div class="pair-header" style="gap:8px;">
+          <span class="pair-period">FY${p.prev_fiscal_year} → FY${p.curr_fiscal_year}</span>
+          <span class="quadrant-chip ${quadKey}">
+            ${t('quadrant_' + quadKey)}
+            <span class="label-tag">${t('quadrant_tag_' + quadKey)}</span>
+          </span>
+          <span class="pair-judgment ${judgment}" style="margin-left:auto;">${judgment.replace('_', ' ')}</span>
+        </div>
+        <div class="pair-reason">${escapeHtml(pick(p, 'outlook_reason'))}</div>
+        <div class="pair-actual">
+          <span class="actual-label">${t('actual_label')}:</span>
+          <span class="actual-data">${actualText}</span>
+          <span class="verdict-chip ${verdictKey}">${verdictText}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const sectionHtml = `
+    <div class="ticker-section">
+      <div class="hero ${verdict}">
+        <div class="company-line">
+          <h2>${escapeHtml(result.name || result.code)}</h2>
+          <span class="ticker">${escapeHtml(result.code)}</span>
+        </div>
+        <div class="verdict-badge ${verdict}">
+          <span class="icon">${iconMap[verdict]}</span>
+          <span>${verdictTextMap[verdict]}</span>
+        </div>
+        <div class="verdict-line">
+          ${t('based_on')} <strong>${realPairs.length}</strong> ${t('year_pairs')}.
+        </div>
+        <div class="filter-recommendation">
+          <div class="label">${t('filter_label')}</div>
+          <div class="action">${filterMsgMap[verdict]}</div>
+        </div>
+      </div>
+
+      <div class="reasoning">
+        <h3>${t('reasoning_h')}</h3>
+        ${pairBlocks}
+        ${realPairs.length > 1 ? `<div class="aggregation-note">${t('aggregation_note')}</div>` : ''}
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3>${t('chart_revenue_h')}</h3>
+          <div class="chart-wrap"><canvas id="${revCanvasId}"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>${t('chart_stock_h')}</h3>
+          <div class="chart-wrap"><canvas id="${stkCanvasId}"></canvas></div>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <details>
+          <summary>📊 ${t('table_revenue_h')}</summary>
+          <div class="body">${renderYearTable(result)}</div>
+        </details>
+      </div>
+
+      ${realPairs.some(p => p.pl_yoy) ? `
+        <div class="data-section">
+          <details>
+            <summary>💰 ${t('table_pl_h')}</summary>
+            <div class="body">${renderPLPanels(realPairs)}</div>
+          </details>
+        </div>` : ''}
+
+      ${realPairs.some(p => p.bs_yoy) ? `
+        <div class="data-section">
+          <details>
+            <summary>📋 ${t('table_bs_h')}</summary>
+            <div class="body">${renderBSPanels(realPairs)}</div>
+          </details>
+        </div>` : ''}
+
+      ${realPairs.some(p => p.segments && p.segments.length) ? `
+        <div class="data-section">
+          <details>
+            <summary>📈 ${t('table_segments_h')}</summary>
+            <div class="body">${renderSegmentPanels(realPairs)}</div>
+          </details>
+        </div>` : ''}
+    </div>
+  `;
+
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = sectionHtml;
+  document.getElementById('results').appendChild(wrapper.firstElementChild);
+
+  // Build the per-ticker charts after DOM insertion
+  buildRevenueChart(result, revCanvasId);
+  buildStockChart(realPairs, stkCanvasId);
+}
+
+function renderYearTable(result) {
+  const years = (result.years || []).slice().sort((a, b) => a.fiscal_year - b.fiscal_year);
+  const pairs = result.pairs || [];
+  const pairByCurr = {};
+  pairs.forEach(p => { pairByCurr[p.curr_fiscal_year] = p; });
+  return `
+    <table>
+      <thead><tr>
+        <th>${t('th_year')}</th>
+        <th>${t('th_filing')}</th>
+        <th class="num">${t('th_revenue')}</th>
+        <th class="num">${t('th_delta')}</th>
+        <th class="num">${t('th_stock')}</th>
+        <th>${t('th_judgment')}</th>
+      </tr></thead>
+      <tbody>
+        ${years.map(y => {
+          const p = pairByCurr[y.fiscal_year];
+          const delta = p ? p.revenue_delta_pct : null;
+          const stock = p ? p.stock_5d_return_pct : null;
+          const judgment = p ? p.outlook_judgment : null;
+          return `<tr>
+            <td>FY${y.fiscal_year}</td>
+            <td>${y.filing_date || '—'}</td>
+            <td class="num">${fmtJPY(y.revenue)}</td>
+            <td class="num ${pctClass(delta)}">${fmtPct(delta)}</td>
+            <td class="num ${pctClass(stock)}">${fmtPct(stock)}</td>
+            <td>${judgment ? `<span class="pair-judgment ${judgment}" style="font-size:10px;padding:2px 6px;border-radius:3px;">${judgment.replace('_',' ')}</span>` : '—'}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+function renderPLPanels(pairs) {
+  const PL_KEYS = ['revenue', 'gross_profit', 'operating_income', 'ordinary_income',
+                   'net_income', 'sga_expenses', 'rd_expense'];
+  const PL_LABELS = LANG === 'ja' ? {
+    revenue: '売上高', gross_profit: '売上総利益', operating_income: '営業利益',
+    ordinary_income: '経常利益', net_income: '当期純利益',
+    sga_expenses: '販管費', rd_expense: '研究開発費',
+  } : {
+    revenue: 'Revenue', gross_profit: 'Gross profit', operating_income: 'Operating income',
+    ordinary_income: 'Ordinary income', net_income: 'Net income',
+    sga_expenses: 'SG&A', rd_expense: 'R&D',
+  };
+  return pairs.filter(p => p.pl_yoy && p.pl_yoy.items).map(p => {
+    const items = p.pl_yoy.items;
+    const margins = p.pl_yoy.margins || {};
+    return `<div style="margin-bottom:18px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;">
+        FY${p.prev_fiscal_year} → FY${p.curr_fiscal_year}
+      </div>
+      <table>
+        <thead><tr>
+          <th>Item</th><th class="num">Prev</th><th class="num">Curr</th><th class="num">Δ %</th>
+        </tr></thead>
+        <tbody>
+          ${PL_KEYS.filter(k => items[k]).map(k => {
+            const it = items[k];
+            return `<tr class="${it.is_mover ? 'mover' : ''}">
+              <td>${PL_LABELS[k]}${it.is_mover ? ' ★' : ''}</td>
+              <td class="num">${fmtJPY(it.prev)}</td>
+              <td class="num">${fmtJPY(it.curr)}</td>
+              <td class="num ${pctClass(it.delta_pct)}">${fmtPct(it.delta_pct, 1)}</td>
+            </tr>`;
+          }).join('')}
+          ${Object.keys(margins).map(k => {
+            const m = margins[k];
+            const name = k.replace('_pct', '').replace('_', ' ');
+            return `<tr class="${m.is_mover ? 'mover' : ''}">
+              <td>${name} margin${m.is_mover ? ' ★' : ''}</td>
+              <td class="num">${m.prev == null ? '—' : m.prev.toFixed(2) + '%'}</td>
+              <td class="num">${m.curr == null ? '—' : m.curr.toFixed(2) + '%'}</td>
+              <td class="num ${pctClass(m.pp_delta)}">${m.pp_delta == null ? '—' : (m.pp_delta >= 0 ? '+' : '') + m.pp_delta.toFixed(2) + 'pp'}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function renderBSPanels(pairs) {
+  const BS_LABELS = LANG === 'ja' ? {
+    total_assets: '総資産', tangible_fixed_assets: '有形固定資産',
+    intangible_assets: '無形固定資産', goodwill: 'のれん',
+    inventory: '棚卸資産', trade_receivables: '売上債権',
+    cash_and_equivalents: '現金及び預金', interest_bearing_debt: '有利子負債',
+    equity: '純資産', impairment_loss: '減損損失', extraordinary_loss_total: '特別損失',
+  } : {
+    total_assets: 'Total assets', tangible_fixed_assets: 'PP&E',
+    intangible_assets: 'Intangibles', goodwill: 'Goodwill',
+    inventory: 'Inventory', trade_receivables: 'Trade receivables',
+    cash_and_equivalents: 'Cash', interest_bearing_debt: 'Debt',
+    equity: 'Equity', impairment_loss: 'Impairment', extraordinary_loss_total: 'Extraord. loss',
+  };
+  return pairs.filter(p => p.bs_yoy && p.bs_yoy.items).map(p => {
+    const items = p.bs_yoy.items;
+    const movers = Object.keys(items).filter(k => items[k].is_mover);
+    if (movers.length === 0) return `<div style="margin-bottom:12px;color:var(--muted);font-size:13px;">
+      FY${p.prev_fiscal_year} → FY${p.curr_fiscal_year}: no material BS movers
+    </div>`;
+    return `<div style="margin-bottom:18px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;">
+        FY${p.prev_fiscal_year} → FY${p.curr_fiscal_year}
+      </div>
+      <table>
+        <thead><tr>
+          <th>Item</th><th class="num">Prev</th><th class="num">Curr</th><th class="num">Δ %</th>
+        </tr></thead>
+        <tbody>
+          ${movers.map(k => {
+            const it = items[k];
+            return `<tr class="mover">
+              <td>${BS_LABELS[k] || k} ★</td>
+              <td class="num">${fmtJPY(it.prev)}</td>
+              <td class="num">${fmtJPY(it.curr)}</td>
+              <td class="num ${pctClass(it.delta_pct)}">${fmtPct(it.delta_pct, 1)}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function renderSegmentPanels(pairs) {
+  return pairs.filter(p => p.segments && p.segments.length).map(p => {
+    const total_curr = p.segments.reduce((s, x) => s + (x.curr || 0), 0);
+    return `<div style="margin-bottom:18px;">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;">
+        FY${p.prev_fiscal_year} → FY${p.curr_fiscal_year}
+      </div>
+      <table>
+        <thead><tr>
+          <th>Segment</th>
+          <th class="num">Prev</th>
+          <th class="num">Curr</th>
+          <th class="num">Δ %</th>
+          <th class="num">% of total</th>
+        </tr></thead>
+        <tbody>
+          ${p.segments.map(s => `<tr>
+            <td>${escapeHtml(LANG === 'ja' && s.name_ja ? s.name_ja : s.name)}</td>
+            <td class="num">${fmtJPY(s.prev)}</td>
+            <td class="num">${fmtJPY(s.curr)}</td>
+            <td class="num ${pctClass(s.delta_pct)}">${fmtPct(s.delta_pct, 1)}</td>
+            <td class="num">${total_curr > 0 ? (s.curr / total_curr * 100).toFixed(1) + '%' : '—'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function buildRevenueChart(result, canvasId) {
+  const years = (result.years || []).slice().sort((a, b) => a.fiscal_year - b.fiscal_year);
+  if (!years.length) return;
+  const ctx = document.getElementById(canvasId || 'chart-revenue');
+  if (!ctx) return;
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years.map(y => 'FY' + y.fiscal_year),
+      datasets: [{
+        label: t('chart_revenue_label'),
+        data: years.map(y => y.revenue / 1e9),
+        borderColor: '#5b9dff',
+        backgroundColor: 'rgba(91, 157, 255, 0.15)',
+        fill: true, tension: 0.3,
+        pointRadius: 5, pointBackgroundColor: '#5b9dff',
+      }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#e8ecf3', font: { size: 11 } } } },
+      scales: {
+        x: { ticks: { color: '#8b94a8' }, grid: { color: '#2a3142' } },
+        y: { ticks: { color: '#8b94a8', callback: v => v.toLocaleString() + 'B' }, grid: { color: '#2a3142' } },
+      },
+    },
+  });
+  charts.push(chart);
+}
+
+function buildStockChart(pairs, canvasId) {
+  if (!pairs.length) return;
+  const ctx = document.getElementById(canvasId || 'chart-stock');
+  if (!ctx) return;
+  const labels = pairs.map(p => 'FY' + p.curr_fiscal_year);
+  const data = pairs.map(p => p.stock_5d_return_pct);
+  const colors = data.map(v => v == null ? '#8b94a8' : (v >= 0 ? '#10b981' : '#ef4444'));
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: t('chart_stock_label'),
+        data: data,
+        backgroundColor: colors,
+        borderRadius: 6,
+      }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#e8ecf3', font: { size: 11 } } } },
+      scales: {
+        x: { ticks: { color: '#8b94a8' }, grid: { color: '#2a3142' } },
+        y: {
+          ticks: { color: '#8b94a8', callback: v => v.toFixed(0) + '%' },
+          grid: { color: '#2a3142' },
+        },
+      },
+    },
+  });
+  charts.push(chart);
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Allow Enter key to submit
+document.getElementById('ticker').addEventListener('keypress', e => {
+  if (e.key === 'Enter') runAnalysis();
+});
+</script>
+</body>
+</html>
