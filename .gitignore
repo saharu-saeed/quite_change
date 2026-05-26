@@ -33,8 +33,7 @@ data/
 # Agent outputs, reports, backtest artifacts (~58MB). Regenerated per run.
 outputs/*
 # ...but keep the two reference docs the README links to.
-!outputs/AGENT_REPORT.md
-!outputs/CLIENT_DEMO.md
+
 
 # --- Logs and one-off artifacts ---
 *.log
