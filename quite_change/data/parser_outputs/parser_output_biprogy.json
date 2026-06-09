@@ -1,0 +1,356 @@
+{
+  "_meta": {
+    "schema_version": "v1",
+    "parser_version": "0.1",
+    "detected_fy_end": "FY3",
+    "years_found": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "note": "PARSER-GENERATED. Validate by diff against hand-derived records."
+  },
+  "records": [
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2021,
+      "fiscalPeriod": "FY3/2021 + early FY3/2022",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "stable",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:underpriced_grinder",
+          "reason_label": "underpriced grinder",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_PERSISTENT_VALUE"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_PERSISTENT_VALUE"
+      ],
+      "why_expensive": null,
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2021 (cheap, ignored grinder — pre-rename):* as Nihon Unisys, a stodgy IT-services / SI house — steady mid-single-digit revenue growth, stable ~14% EBITDA margins, dependable dividend. Solid results but a low multiple; the market ignored it. 業績 ◎ / 株価 ✕ → Q2, the classic under-priced grinder. Business reads as the existing menu: sustained growth.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 5,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 3,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2022,
+      "fiscalPeriod": "FY3/2022 + early FY3/2023",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "stable",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:underpriced_grinder",
+          "reason_label": "underpriced grinder",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_PERSISTENT_VALUE"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_PERSISTENT_VALUE"
+      ],
+      "why_expensive": null,
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2022 (rename, still cheap):* renamed BIPROGY in April 2022; business kept compounding steadily, payout stable. The rebrand was cosmetic — no fundamental catalyst — and the stock stayed modest. 業績 ◎ / 株価 ✕ → Q2, same under-priced phase. Still U22-type sustained growth; the rename is not itself a reason.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 3,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 2,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      },
+      "profit_quality_carried": true
+    },
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2023,
+      "fiscalPeriod": "FY3/2023 + early FY3/2024",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:governance_capital_efficiency_rerating",
+          "reason_label": "governance capital efficiency rerating",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": [
+        "STOCK_RERATING_UP"
+      ],
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2023 (governance re-rating begins):* the TSE's capital-efficiency / \"P/B above 1\" reform push lifted the whole cohort of cheap, cash-rich Japanese names, and BIPROGY leaned in with higher payout and capital-return focus. The business kept growing mid-single-digits — roughly unchanged trajectory — but the MULTIPLE re-rated upward on the governance story. 業績 ◎ / 株価 ◎ → Q1. Stock catalyst is NOT in the alpha-menu: a governance/capital-efficiency re-rating, largely decoupled from fundamentals.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 4,
+        "biz_down": 0,
+        "stock_up": 7,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2024,
+      "fiscalPeriod": "FY3/2024 + early FY3/2025",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "stable",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "U67",
+          "reason_label": "Matched catalyst keywords: \\bdividend\\s+(?:hike|increase|raised)\\b",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": null,
+          "parent": null
+        },
+        {
+          "pattern_code": "NEW:governance_capital_efficiency_rerating",
+          "reason_label": "governance capital efficiency rerating",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": [
+        "STOCK_RERATING_UP"
+      ],
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2024 (re-rating continues):* dividend raised, ROE and shareholder-return narrative front and centre; stock climbing toward record territory while the business stayed on its steady path. 業績 ◎ / 株価 ◎ → Q1, same re-rating driver.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 3,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      },
+      "profit_quality_carried": true
+    },
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2025,
+      "fiscalPeriod": "FY3/2025 + early FY3/2026",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:catalyst_unmatched",
+          "reason_label": "catalyst unmatched",
+          "reason_source": "prompt",
+          "confidence": "low",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "UNCLASSIFIED"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": null,
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2025 (peak — price ahead of fundamentals):* the stock hit an all-time high of ¥6,594 on Aug 13 2025, with the business still growing only ~7%. The fundamentals were fine but the re-rating had outrun them — a ◎◎ where price is arguably ahead of the business. 業績 ◎ / 株価 ◎ → Q1, medium confidence (valuation stretched; this is the \"watch for the flip\" case, not a clean buy).",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 1,
+        "biz_down": 0,
+        "stock_up": 4,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      },
+      "profit_quality_carried": true
+    },
+    {
+      "ticker": "8056",
+      "name": "BIPROGY",
+      "year": 2026,
+      "fiscalPeriod": "FY3/2026",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "medium",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:governance_capital_efficiency_rerating",
+          "reason_label": "governance capital efficiency rerating",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        },
+        {
+          "pattern_code": "NEW:valuation_normalization_pullback",
+          "reason_label": "valuation normalization pullback",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_NORMALIZATION"
+        },
+        {
+          "pattern_code": "NEW:underpriced_grinder",
+          "reason_label": "underpriced grinder",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_PERSISTENT_VALUE"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_NORMALIZATION",
+        "STOCK_PERSISTENT_VALUE"
+      ],
+      "why_expensive": null,
+      "profit_quality": "solid",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2026 (pullback off the high):* FY3/2026 revenue ¥433.69bn, up 7.35% from ¥404.01bn — the grinder kept grinding — with the dividend around ¥120–130 (yield ~2.6–2.8%, payout ~40%). But the stock pulled back ~30% off the August peak to roughly ¥4,600 (May 2026). 業績 ◎ / 株価 ✕ → Q2. CRITICAL: this Q2 is NOT the 2021 Q2. Same quadrant (◎✕), opposite meaning — 2021 was \"cheap and ignored\" (a real opportunity); 2026 is \"re-rated to a record, then pulled back, still well above its historical multiple\" (a richer name giving some back, not obviously cheap). The quadrant is identical; only the reason tells you which is the opportunity. Business catalyst still U22/U66; stock catalyst is the normalisation of the governance re-rating, not a fundamental problem.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 1,
+        "biz_down": 0,
+        "stock_up": 2,
+        "stock_down": 4,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    }
+  ]
+}

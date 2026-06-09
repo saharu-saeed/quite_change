@@ -1,0 +1,185 @@
+{
+  "_meta": {
+    "description": "Per-sector filter configuration. Each sector declares which R+ filter modes are available, the default mode, and a plain-language explanation of WHY that filter is appropriate for that sector. The front-end build script reads this to render the filter dropdown and the 'Why this filter?' panel.",
+    "schema_version": "1.0",
+    "created": "2026-06-04"
+  },
+
+  "IT": {
+    "sector_code": "IT",
+    "sector_name_en": "IT / Information Services",
+    "sector_name_jp": "情報サービス・IT",
+    "default_filter": "売上○",
+    "available_filters": ["売上○"],
+    "filter_explanations": {
+      "売上○": {
+        "label_en": "Revenue ↑ (default)",
+        "label_jp": "売上○（デフォルト）",
+        "short_en": "Revenue growth = business growth for IT companies.",
+        "short_jp": "ITでは売上成長＝事業成長。",
+        "long_en": "In plain terms: For IT and SaaS companies, revenue is the cleanest signal of business growth. When an IT company's revenue grows, it almost always means more customers, larger contracts, or expanded usage of their software — all things that reflect genuine business strength. There are no big commodity prices or external cycles distorting the top line. So for the IT sector, 'revenue up (売上○)' captures what investors actually care about: is the business getting bigger? That's why this is the only filter offered here.",
+        "long_jp": "簡単に言うと:IT・SaaS企業にとって、売上は事業成長の最もクリーンなシグナルです。IT企業の売上が伸びるということは、ほぼ常に顧客数の増加、契約規模の拡大、またはソフトウェア利用量の拡大を意味します — すべて事業の真の強さを反映しています。トップラインを歪める大きな商品価格や外部サイクルはありません。だからIT セクターでは『売上○』が投資家が本当に気にする質問を捉えます:事業は大きくなっているか?だからこのセクターではこのフィルターのみを提供しています。"
+      }
+    }
+  },
+
+  "Mining": {
+    "sector_code": "Mining",
+    "sector_name_en": "Mining",
+    "sector_name_jp": "鉱業",
+    "topix33_official_name": "鉱業 (Mining)",
+    "default_filter": "営業利益○",
+    "available_filters": ["営業利益○", "売上○", "両方"],
+    "filter_explanations": {
+      "営業利益○": {
+        "label_en": "Operating profit ↑ (default for Mining)",
+        "label_jp": "営業利益○（鉱業セクターのデフォルト）",
+        "short_en": "Operating profit captures actual production business — revenue is distorted by crude oil / commodity prices.",
+        "short_jp": "営業利益が実際の生産事業を捉える — 売上は原油・商品価格に歪められる。",
+        "long_en": "In plain terms: Mining sector revenue moves with global oil/gas/commodity prices — NOT with how well the business is being run. When crude prices fall, every mining company's revenue drops, even if they're operating their oil fields efficiently. So we default to 営業利益○ (operating profit up) for the same reason as Petroleum.\n\nFor FY3/2026, oil/gas prices fell sharply, so both major Japanese mining companies (INPEX, JAPEX) saw revenue AND operating profit decline. **0 companies qualify under this filter this year.** The transparency block above the cards shows which companies were considered and why each was excluded.",
+        "long_jp": "簡単に言うと:鉱業セクターの売上は世界の原油・ガス・商品価格と連動して動きます — 企業の運営力とは関係なく動きます。原油価格が下がれば、どの鉱業会社も売上が落ちます。油田を効率よく運営していてもです。だから石油・石炭製品セクターと同じ理由で『営業利益○』をデフォルトにしています。\n\n2026年3月期は原油・ガス価格が大幅下落したため、日本の主要鉱業企業(INPEX、JAPEX)は両社とも売上も営業利益も減少。**このフィルターでは今年は0社が該当します**。上の透明性ブロックに、検討した企業と除外理由が表示されています。"
+      },
+      "売上○": {
+        "label_en": "Revenue ↑ (strict)",
+        "label_jp": "売上○（厳格）",
+        "short_en": "Strict revenue filter — same as Petroleum, mostly excludes the universe this year.",
+        "short_jp": "厳格な売上フィルター — 石油・石炭製品セクターと同様、今年はほぼ全社除外。",
+        "long_en": "In plain terms: Same as Petroleum — strict revenue-up filter usually excludes most of the universe in commodity sectors when prices fall. For FY3/2026, no Mining companies qualify under this strict filter (both INPEX and JAPEX had revenue down).",
+        "long_jp": "簡単に言うと:石油・石炭製品セクターと同様 — 商品価格が下落する局面では、厳格な売上フィルターはユニバースのほとんどを除外します。2026年3月期は鉱業セクターで該当0社(INPEX・JAPEX両社が売上減)。"
+      },
+      "両方": {
+        "label_en": "Either ↑ (revenue OR operating profit up)",
+        "label_jp": "両方（売上または営業利益のいずれかが上昇）",
+        "short_en": "Union of the two — for Mining this year, still 0 companies.",
+        "short_jp": "2つのフィルターの合計 — 今年の鉱業ではいずれも0社。",
+        "long_en": "In plain terms: Union of the two filters above. Mining sector FY3/2026 has 0 companies qualifying under either revenue-up or operating-profit-up — both INPEX and JAPEX had both metrics down.",
+        "long_jp": "簡単に言うと:上の2つのフィルターの合計。2026年3月期の鉱業セクターは、売上・営業利益のいずれかが上昇という条件でも0社 — INPEXもJAPEXも両指標とも下落。"
+      }
+    }
+  },
+
+  "Petroleum": {
+    "sector_code": "Petroleum",
+    "sector_name_en": "Oil & Coal Products",
+    "sector_name_jp": "石油・石炭製品",
+    "topix33_official_name": "石油・石炭製品 (Oil & Coal Products)",
+    "default_filter": "営業利益○",
+    "available_filters": ["営業利益○", "売上○", "両方"],
+    "filter_explanations": {
+      "営業利益○": {
+        "label_en": "Operating profit ↑ (default for Oil)",
+        "label_jp": "営業利益○（石油セクターのデフォルト）",
+        "short_en": "Operating profit captures actual refining business performance — revenue is distorted by crude oil prices.",
+        "short_jp": "営業利益が実際の精製事業のパフォーマンスを捉える — 売上は原油価格に歪められる。",
+        "long_en": "In plain terms: Oil sector revenue moves with global crude oil prices — NOT with how well the business is being run. When oil prices fall, every refiner's revenue drops, even if they're running their refineries efficiently and earning healthy refining margins. So 'revenue up (売上○)' is a misleading quality signal for oil companies — it mostly tells you about OPEC decisions and global demand, not about the company itself.\n\nOperating profit (営業利益) captures the actual business performance: refining margins, inventory management, cost discipline, downstream demand strength. When operating profit grows, the business is genuinely doing better, regardless of whether crude prices were a tailwind or a headwind.\n\nThat's why for the oil sector, this view defaults to 営業利益○ (operating profit up). For FY3/2026, crude oil prices fell sharply, so almost every Japanese refiner saw revenue decline (-4% to -12%). But operating profit grew strongly at the top players (Idemitsu +31%, ENEOS +340%, Cosmo +13%) because refining margins were favorable. The strict 売上○ filter would exclude all of these stories — which is why the profit-based filter shows the real picture.\n\nYou can switch to 売上○ if you want only revenue-growth companies (this year that's just Fuji Kosan, thanks to diversification into environmental energy and recycling). Or 両方 (both) to see all companies tagged under either filter.",
+        "long_jp": "簡単に言うと:石油セクターの売上は、世界の原油価格と連動して動きます — 企業の事業がどれだけうまく運営されているかとは関係なく動きます。原油価格が下がれば、どの精製会社も売上が落ちます。製油所を効率よく運営して健全な精製マージンを稼いでいてもです。だから『売上○』は石油会社の品質シグナルとして誤解を招きます — OPECの決定と世界需要のことしか教えてくれません。\n\n営業利益は実際の事業パフォーマンスを捉えます:精製マージン、在庫管理、コスト規律、川下需要の強さ。営業利益が伸びるなら、その事業は本当に良くなっています — 原油価格が追い風だったか逆風だったかとは関係ありません。\n\nだから石油セクターでは、デフォルト表示は『営業利益○』にしています。2026年3月期は原油価格が大幅に下落したため、ほぼすべての日本の精製会社で売上が減少(-4〜-12%)しました。しかし大手の営業利益は強く伸びました(出光興産+31%、ENEOS +340%、コスモ+13%)。精製マージンが良好だったためです。厳格な『売上○』フィルタではこれらすべての物語が除外されてしまいます — だからこそ利益ベースのフィルタが本当の姿を見せます。\n\n『売上○』に切り替えれば、売上成長企業のみが表示されます(今年は富士興産のみ、環境エネルギー・リサイクルへの多角化のおかげです)。『両方』に切り替えれば、いずれかのフィルターでタグ付けされたすべての企業が表示されます。"
+      },
+      "売上○": {
+        "label_en": "Revenue ↑ (strict)",
+        "label_jp": "売上○（厳格）",
+        "short_en": "Strict revenue-up filter — for oil this is almost always too narrow.",
+        "short_jp": "厳格な売上○フィルター — 石油では狭すぎる場合がほとんど。",
+        "long_en": "In plain terms: This is the strict 'revenue up' filter — same as the IT sector default. For oil companies, this filter usually excludes most of the universe because crude oil price declines drag down revenue across the sector even when business is performing well. Use this if your senior or framework specifically requires a revenue-based filter; otherwise the 営業利益○ default is more informative for the sector.",
+        "long_jp": "簡単に言うと:これは厳格な『売上○』フィルター — IT セクターのデフォルトと同じです。石油会社の場合、このフィルターは原油価格の下落がセクター全体の売上を引き下げるため、事業がうまく運営されていてもユニバースのほとんどを除外することが多いです。シニアまたはフレームワークが特に売上ベースのフィルターを要求する場合に使用してください。それ以外の場合は、セクターには『営業利益○』のデフォルトの方が有益です。"
+      },
+      "両方": {
+        "label_en": "Either ↑ (revenue OR operating profit up)",
+        "label_jp": "両方（売上または営業利益のいずれかが上昇）",
+        "short_en": "Shows companies where either revenue OR operating profit is up.",
+        "short_jp": "売上または営業利益のいずれかが上昇している企業を表示。",
+        "long_en": "In plain terms: This is the union of the two filters above. Companies that have EITHER revenue up OR operating profit up appear. Use this when you want the broadest view of the sector and don't want to be restricted to one signal. For oil this typically shows the same set as 営業利益○ since the revenue-up subset is a small intersection of the OP-up set.",
+        "long_jp": "簡単に言うと:これは上の2つのフィルターの合計です。売上が上昇しているまたは営業利益が上昇している企業のいずれかが表示されます。セクターの最も広い見方を求めて、1つのシグナルに制限されたくない場合に使用します。石油の場合、売上上昇のサブセットがOP上昇セットの小さな交点であるため、これは通常『営業利益○』と同じセットを表示します。"
+      }
+    }
+  },
+
+  "LandTransport": {
+    "sector_code": "LandTransport",
+    "sector_name_en": "Land Transportation (Railways + Trucking + Parcel)",
+    "sector_name_jp": "陸運業（鉄道＋運送＋宅配）",
+    "default_filter": "売上○",
+    "available_filters": ["売上○"],
+    "filter_explanations": {
+      "売上○": {
+        "label_en": "Revenue ↑ (default)",
+        "label_jp": "売上○（デフォルト）",
+        "short_en": "Revenue captures real business quality — fare and parcel-volume growth, not commodity-distorted.",
+        "short_jp": "売上が事業の質を捉える — 運賃や宅配個数の成長、商品価格の影響なし。",
+        "long_en": "In plain terms: For Land Transportation (railways, trucking, parcel delivery), revenue is a clean signal of business quality. Railway revenue moves with passenger volume (fares × passengers); parcel revenue moves with parcel volume × ARPU; logistics revenue moves with cargo volume × pricing. None of these are distorted by commodity prices (unlike oil or marine shipping). So when revenue grows, the business is genuinely doing more business — more passengers, more parcels, more cargo.\n\nFor FY3/2026 specifically, Land Transportation was a STRONG year:\n• JR Big 3 (East/West/Central) all set records — Osaka Expo + inbound recovery drove passenger volumes\n• Major private railways (Hankyu-Hanshin, Nankai, Keihan, Nishitetsu, Kintetsu) all up — inbound + redevelopment + dividend hikes\n• Trucking / logistics (NIKKON +74% stock 1-yr, NX, Senko, Sakai) growing on rate hikes + e-commerce\n• Only a few names are R+×S-: Tokyu (Shibuya redevelopment delayed 7 years to 2034), Keisei (NP -31% on special losses), Yamato (NP -64% + later downward revision)\n\nThat's why the only filter offered for Land Transportation is 売上○ — it's the natural and sufficient quality signal for this revenue-driven sector.",
+        "long_jp": "簡単に言うと:陸運業(鉄道・運送・宅配)では、売上が事業の質をクリーンに表します。鉄道売上は旅客数(運賃×旅客)で動き、宅配売上は宅配個数×ARPUで動き、物流売上は貨物量×単価で動きます。いずれも(石油や海運と違って)商品価格の影響を受けません。だから売上が伸びれば、事業は本当に多くの事業を行っている — 旅客増、宅配個数増、貨物増 — ということです。\n\n2026年3月期は陸運業にとって特に強い年でした:\n・JR Big 3(東日本/西日本/東海)は全社過去最高益 — 大阪万博+インバウンド回復が旅客数を押し上げた\n・大手私鉄(阪急阪神、南海、京阪、西鉄、近鉄)全社増益 — インバウンド+再開発+増配\n・運送・物流(ニッコン株価+74%/年、NX、センコー、サカイ)はレート引き上げ+EC需要で成長\n・R+×S-に分類されるのはごく一部:東急(渋谷再開発が2034年へ7年遅延)、京成(純利益-31%、特別損失)、ヤマト(純利益-64%+後の下方修正)\n\nだから陸運業セクターのフィルターは『売上○』のみ — 売上ベースの事業が中心のこのセクターには、これが自然で十分な品質シグナルです。"
+      }
+    }
+  },
+
+  "Marine": {
+    "sector_code": "Marine",
+    "sector_name_en": "Marine Transportation / Shipping",
+    "sector_name_jp": "海運業",
+    "default_filter": "売上○",
+    "available_filters": ["売上○", "営業利益○", "両方"],
+    "filter_explanations": {
+      "売上○": {
+        "label_en": "Revenue ↑ (default for Marine this year)",
+        "label_jp": "売上○（今年の海運セクターのデフォルト）",
+        "short_en": "Revenue-up is the active filter because operating-profit-up shows 0 companies this year — all marine majors had profit declines.",
+        "short_jp": "営業利益○フィルターでは今年は0社になるため、売上○がアクティブなデフォルト — 海運大手は全社が利益減益。",
+        "long_en": "In plain terms: For commodity-cycle sectors we normally default to 営業利益○ (the oil sector approach) — but for marine FY3/2026 EVERY major company had operating profit decline because container shipping rates fell sharply from 2024 peaks. Under 営業利益○ filter, the marine sector would show 0 companies — not useful.\n\nSo for marine this year, 売上○ is the active default. Only MOL (商船三井) qualifies — revenue +2.0% (Q3 YTD) thanks to LNG/chemical tanker stability, but operating profit -57.1% due to ONE container-shipping affiliate's profit collapse. This is the classic 'revenue up, profit compressed' pattern.\n\nThe other 3 majors are excluded: NYK Line (revenue -6.4%, OP -34.3%) — R-. K-Line (revenue -2.8%, OP -18.2%) — R-. Iino Kaiun (revenue -10.3%, OP -21.4%) — R- (despite stock being up on Hormuz reopening hopes — 売上×株価○ pattern).\n\nNext year, when container rates eventually recover and operating profit comes back, 営業利益○ default would likely return for marine. The filter framework reads each year's data and adapts.",
+        "long_jp": "簡単に言うと:コモディティ・サイクル型セクターでは通常『営業利益○』をデフォルトにします(石油セクターと同じ考え方)。しかし2026年3月期の海運セクターでは大手全社が営業利益減益でした — コンテナ運賃が2024年のピークから急落したためです。『営業利益○』フィルターでは0社表示になり、有用ではありません。\n\nそのため今年の海運セクターでは『売上○』がアクティブなデフォルトです。該当するのは商船三井(MOL)のみ — LNG/ケミカルタンカーの安定収益で売上+2.0%(Q3累計)、しかしONE(コンテナ船持分法適用会社)の利益急減で営業利益-57.1%。 典型的な『売上↑利益圧縮』パターンです。\n\n他の3大手は除外:日本郵船(売上-6.4%、営業-34.3%) — R-。 川崎汽船(売上-2.8%、営業-18.2%) — R-。 飯野海運(売上-10.3%、営業-21.4%) — R-(ホルムズ再開期待で株価は上昇しているものの、業績は下落 — 売上×株価○パターン)。\n\n来年、コンテナ運賃が回復し営業利益が戻れば、海運セクターも『営業利益○』デフォルトに戻る可能性が高い。フィルター・フレームワークは毎年のデータを読んで適応します。"
+      },
+      "営業利益○": {
+        "label_en": "Operating profit ↑ (would normally be default — but shows 0 this year)",
+        "label_jp": "営業利益○（通常はデフォルト — しかし今年は0社）",
+        "short_en": "Shows 0 companies — all marine majors had operating profit decline in FY3/2026.",
+        "short_jp": "0社表示 — 海運大手は2026年3月期全社が営業利益減益。",
+        "long_en": "In plain terms: For commodity-cycle sectors this is normally the right default (see the oil sector explanation). For marine FY3/2026, however, every major company saw operating profit decline because container shipping rates collapsed. So this filter shows 0 companies this year. Switch back to 売上○ to see the only qualifying name (MOL).\n\nKeep this filter option available — when container rates recover in future years, this will likely become the active default for marine again, matching the oil sector pattern.",
+        "long_jp": "簡単に言うと:コモディティ・サイクル型セクターでは通常これが正しいデフォルトです(石油セクターの説明を参照)。しかし2026年3月期の海運セクターでは大手全社の営業利益が下落したため、このフィルターは今年は0社しか表示しません。『売上○』に切り替えると唯一の該当銘柄(MOL)が表示されます。\n\nこのフィルターオプションは残しておきます — 将来年度でコンテナ運賃が回復すれば、海運セクターでもこれがアクティブなデフォルトに戻る可能性が高いです(石油セクターと同じパターン)。"
+      },
+      "両方": {
+        "label_en": "Either ↑ (same as 売上○ for marine this year)",
+        "label_jp": "両方（今年の海運セクターでは売上○と同じ）",
+        "short_en": "Union of the two filters — for marine this year, equals 売上○ since 営業利益○ shows 0.",
+        "short_jp": "2つのフィルターの合計 — 今年の海運では営業利益○が0社のため、売上○と同じ結果。",
+        "long_en": "In plain terms: This is the union of revenue-up and operating-profit-up filters. For marine this year, since 営業利益○ shows 0 companies, this filter shows the same set as 売上○ (just MOL).",
+        "long_jp": "簡単に言うと:売上○と営業利益○のフィルターの合計です。今年の海運セクターでは営業利益○が0社のため、このフィルターは『売上○』と同じセット(MOLのみ)を表示します。"
+      }
+    }
+  },
+
+  "AgriFishery": {
+    "sector_code": "AgriFishery",
+    "sector_name_en": "Fishery, Agriculture & Forestry",
+    "sector_name_jp": "水産・農林業",
+    "topix33_official_name": "水産・農林業 (Fishery, Agriculture & Forestry)",
+    "default_filter": "売上○",
+    "available_filters": ["売上○"],
+    "filter_explanations": {
+      "売上○": {
+        "label_en": "Revenue ↑ (default)",
+        "label_jp": "売上○（デフォルト）",
+        "short_en": "Revenue captures real business growth for seafood, seed, and food-producer companies — volume × price.",
+        "short_jp": "売上が水産・種苗・食品生産企業の事業成長を捉える — 量×価格。",
+        "long_en": "In plain terms: For Fishery, Agriculture & Forestry, revenue is a clean signal of business growth. Seafood revenue moves with volume × price; seed revenue moves with units sold × ARPU; food-producer revenue moves with output × per-product price. None of these are distorted by raw commodity prices the way oil revenue is. So when revenue grows, the business is genuinely doing more — more seafood sold, more seeds shipped, more chicken processed.\n\nFor FY-latest, all 8 covered companies are R+: Nissui (+5.1%), Maruha Nichiro (+4.7%), Kyokuyo (+10.5%), Sakata Seed (+4.8%), Kaneko Seeds (+3.1% guidance), Hokuto (+1.9%), Akikawa Bokuen (+4.1%), Axyz (+2.3%). Stock performance varies sharply — Nissui +55%, Axyz +57%, Maruha Nichiro +22%; Kyokuyo -21%, Hokuto -2%, others ~flat — which is exactly why the bucket categorization matters: each cluster has its own underlying story.",
+        "long_jp": "簡単に言うと：水産・農林業セクターでは、売上は事業成長のクリーンなシグナルです。水産売上は量×価格、種苗売上は販売単位×ARPU、食品生産売上は産出量×単価で動きます。原油のように原料商品価格で売上が歪むことはありません。\n\n直近の本決算では、対象8社すべてがR+：ニッスイ（+5.1%）、マルハニチロ（+4.7%）、極洋（+10.5%）、サカタのタネ（+4.8%）、カネコ種苗（+3.1%予想）、ホクト（+1.9%）、秋川牧園（+4.1%）、アクシーズ（+2.3%）。株価パフォーマンスは大きく分かれており、ニッスイ+55%、アクシーズ+57%、マルハニチロ+22%が好調な一方、極洋-21%、ホクト-2%、他は横ばい。バケット分類が物語を区別する所以です。"
+      }
+    }
+  },
+
+  "AirTransport": {
+    "sector_code": "AirTransport",
+    "sector_name_en": "Air Transportation",
+    "sector_name_jp": "空運業",
+    "topix33_official_name": "空運業 (Air Transportation)",
+    "default_filter": "売上○",
+    "available_filters": ["売上○"],
+    "filter_explanations": {
+      "売上○": {
+        "label_en": "Revenue ↑ (default)",
+        "label_jp": "売上○（デフォルト）",
+        "short_en": "Revenue captures real business quality for airlines — passenger volume × fare, not commodity-distorted.",
+        "short_jp": "売上が航空会社の事業の質を捉える — 旅客数×運賃で、商品価格の影響なし。",
+        "long_en": "In plain terms: For air transportation, revenue is a clean signal of business quality. Airline revenue moves with passenger volume × average fare (plus cargo). When revenue grows, the business is genuinely doing more — more seats sold, higher fares, or more cargo carried. Fuel cost (which can squeeze profit) is a cost-side issue, not a revenue-side one.\n\nFor FY3/2026 specifically, every Japanese listed airline grew revenue — the sector was uniformly R+. JAL +9.1%, ANA +12.3%, Skymark +1.4%, Star Flyer +4.4%. All four benefited from inbound tourism (weak yen), US business travel surge (Trump tariffs), and air cargo strength. However, forward FY3/2027 profit guidance is universally weak across the sector because Middle East tensions (Iran-related) are pushing jet fuel costs sharply higher — fuel is ~25% of an airline's cost base, so when oil prices rise, profits get squeezed even if revenue keeps growing.\n\nThat's why this sector defaults to 売上○ — revenue is the truer signal of business health than profit, which is being distorted by the fuel-cost shock right now.",
+        "long_jp": "簡単に言うと：航空業界において、売上は事業の質をクリーンに表すシグナルです。航空会社の売上は旅客数×平均運賃（＋貨物）で動きます。売上が伸びれば、事業は本当に多くを行っている — 座席が多く売れた、運賃が上がった、または貨物が増えた、ということです。燃料費（利益を圧迫する要因）はコスト側の問題で、売上側の問題ではありません。\n\n2026年3月期は、日本の上場航空会社全社が増収となりました — セクター全体がR+。JAL +9.1%、ANA +12.3%、スカイマーク +1.4%、スターフライヤー +4.4%。全4社がインバウンド需要（円安）、米国向けビジネス需要急増（トランプ関税）、航空貨物の好調の追い風を受けました。一方で2027年3月期の利益予想はセクター全体で弱い見通し — 中東情勢（イラン関連）でジェット燃料費が急騰しているためです。燃料費は航空会社のコストの約25％を占めるため、原油高は売上が伸び続けても利益を圧迫します。\n\nだからこのセクターは『売上○』をデフォルトにしています — 売上は、現在燃料費ショックで歪められている利益よりも、事業の健全性を示す真のシグナルです。"
+      }
+    }
+  }
+}

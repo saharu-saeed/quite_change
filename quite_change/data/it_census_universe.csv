@@ -1,0 +1,123 @@
+ticker,company_name,market_cap,size_band,sub_type,scale_category,market_code,source,is_reinclude_43list,is_judgment_add,manual_name_resolved
+9432,"NTT,Inc.",12581516246400.0,large,telecom,TOPIX Core30,プライム,Tempest+Phase1_TSE33,True,False,False
+9434,SoftBank Corp.,10505469805960.0,large,telecom,TOPIX Core30,プライム,Tempest+Phase1_TSE33,True,False,False
+9984,SoftBank Group Corp.,7797522493920.0,large,telecom,TOPIX Core30,プライム,Tempest,False,False,False
+6178,"Japan Post Holdings Co., Ltd.",5695420235776,large,other,L,,Phase1_TSE33,False,False,False
+9433,KDDI CORPORATION,5068552220368.0,large,telecom,TOPIX Core30,プライム,Tempest+Phase1_TSE33,True,False,False
+4689,LY Corporation,3002355699045.9,large,internet_platform,TOPIX Large70,プライム,Tempest,False,False,False
+4307,"Nomura Research Institute,Ltd.",2425635576213.0,large,SI_IT_services,TOPIX Large70,プライム,Tempest,False,False,False
+3659,"NEXON Co.,Ltd.",2059181483884.0,large,content_games,TOPIX Mid400,プライム,Tempest,False,False,False
+4684,"OBIC Co.,Ltd.",1807524035100.0,large,SI_IT_services,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+9719,SCSK Corporation,1775118535920.0,large,SI_IT_services,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+4755,"Rakuten Group,Inc.",1649174388000.0,large,internet_platform,TOPIX Mid400,プライム,Phase1_TSE33,False,False,False
+9697,"CAPCOM CO.,LTD.",1428269741046.0,large,content_games,TOPIX Mid400,プライム,Tempest,True,False,False
+4716,ORACLE CORPORATION JAPAN,1093806260946.0,large,SI_IT_services,TOPIX Mid400,スタンダード,Tempest,False,False,False
+4768,OTSUKA CORPORATION,1082240338960.0,large,SI_IT_services,TOPIX Mid400,プライム,Tempest,False,False,False
+9412,SKY Perfect JSAT Corporation,996004297960.0,mid,telecom,TOPIX Small 1,プライム,Tempest,False,False,False
+9401,"TBS HOLDINGS,INC.",911916863050.0,mid,broadcaster,TOPIX Mid400,プライム,Tempest,False,False,False
+4676,"FUJI MEDIA HOLDINGS,INC.",822770352000.0,mid,broadcaster,TOPIX Mid400,プライム,Tempest,False,False,False
+3626,TIS Inc.,795416002689.0,mid,SI_IT_services,TOPIX Mid400,プライム,Tempest,False,False,False
+9404,"Nippon Television Holdings,Inc.",749214811480.0,mid,broadcaster,TOPIX Mid400,プライム,Tempest,False,False,False
+4704,Trend Micro Incorporated,693128332416.0,mid,SaaS,TOPIX Mid400,プライム,Tempest,False,False,False
+2371,"Kakaku.com,Inc.",660773142528,mid,internet_platform,TOPIX Mid400,プライム,JudgmentAdd_Service,False,True,False
+4385,"Mercari,Inc.",634333789020.0,mid,internet_platform,TOPIX Mid400,プライム,Tempest,False,False,False
+4751,"CyberAgent,Inc.",630179064750.0,mid,internet_platform,TOPIX Mid400,プライム,Phase1_TSE33,False,False,False
+9468,KADOKAWA CORPORATION,534131837928.0,mid,content_games,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+3635,"KOEI TECMO HOLDINGS CO.,LTD.",479146458508.0,mid,content_games,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+4733,"OBIC BUSINESS CONSULTANTS CO.,LTD.",457219215600.0,mid,SI_IT_services,TOPIX Mid400,プライム,Tempest,False,False,False
+9605,"TOEI COMPANY,LTD.",371180995200.0,mid,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+9409,TV Asahi Holdings Corporation,345329908000.0,mid,broadcaster,TOPIX Small 1,プライム,Tempest,False,False,False
+4194,"Visional,Inc.",297881355900.0,mid,SaaS,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+9684,"SQUARE ENIX HOLDINGS CO.,LTD.",293765079416.0,mid,content_games,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+9418,"U-NEXT HOLDINGS Co.,Ltd.",274169898160.0,mid,broadcaster,TOPIX Small 1,プライム,Tempest,False,False,False
+3994,"Money Forward,Inc.",261171758159.0,mid,SaaS,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+9602,"TOHO CO.,LTD",243059720105.5,mid,content_games,TOPIX Mid400,プライム,Tempest,False,False,False
+4686,JUSTSYSTEMS CORPORATION,237628430000.0,mid,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+4483,JMDC Inc.,219653642880.0,mid,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+6055,"JAPAN MATERIAL Co., Ltd.",210995380224,mid,SI_IT_services,M,,Phase1_TSE33,False,False,False
+9759,"NSD CO.,LTD.",205650734850.0,mid,SI_IT_services,TOPIX Mid400,プライム,Tempest,False,False,False
+9746,TKC Corporation,184061255950.0,mid,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+2121,"MIXI,Inc.",175845633750.0,mid,internet_platform,TOPIX Small 1,プライム,Tempest,False,False,False
+3697,SHIFT Inc.,173119435298.0,mid,SaaS,TOPIX Mid400,プライム,Tempest,False,False,False
+5032,ANYCOLOR Inc.,170622648086.0,mid,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+2317,Systena Corporation,163383612000.0,mid,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+4443,"Sansan,Inc.",157967440000.0,mid,SaaS,TOPIX Small 1,プライム,Tempest+Phase1_TSE33,False,False,False
+3923,"RAKUS Co.,Ltd.",156099346080.0,mid,SaaS,TOPIX Mid400,プライム,Tempest+Phase1_TSE33,False,False,False
+9601,"Shochiku Co.,Ltd.",144693902790.0,mid,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+4812,DENTSU SOKEN INC.,141210994760.0,mid,internet_platform,TOPIX Small 1,プライム,Tempest,False,False,False
+4722,Future Corporation,136827068000.0,mid,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+3765,"GungHo Online Entertainment,Inc.",132923017136.0,mid,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+3778,SAKURA internet Inc.,123435212500.0,mid,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+4478,freee K.K.,122162823168,mid,SaaS,M,,Phase1_TSE33,False,False,False
+4384,RAKSUL INC.,109376512800.0,mid,internet_platform,TOPIX Small 1,プライム,Tempest+Phase1_TSE33,False,False,False
+9413,TV TOKYO Holdings Corporation,106881865000.0,mid,broadcaster,TOPIX Small 1,プライム,Tempest,False,False,False
+4776,"Cybozu,Inc.",96280216200.0,small,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+4071,"Plus Alpha Consulting Co.,LTD.",92282731200.0,small,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+2326,Digital Arts Inc.,76039652000.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+3762,TechMatrix Corporation,73096781824,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+3636,"Mitsubishi Research Institute,Inc.",70912270000.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+4480,"MEDLEY,INC.",69864221700.0,small,SaaS,TOPIX Small 1,プライム,Tempest+Phase1_TSE33,False,False,False
+9692,COMPUTER ENGINEERING & CONSULTING LTD.,60205054500.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+4481,"Base Co., Ltd.",56229642240,small,other,S,,Phase1_TSE33,False,False,False
+3668,"COLOPL,Inc.",55362755539.0,small,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+9416,VISION INC.,55351483500.0,small,telecom,TOPIX Small 1,プライム,Tempest+Phase1_TSE33,False,False,False
+7860,Avex Inc.,49968260100.0,small,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+4051,"GMO Financial Gate, Inc.",48714375168,small,internet_platform,S,,Phase1_TSE33,False,False,False
+4849,en Inc.,47083593728,small,internet_platform,S,,JudgmentAdd_Service,False,True,False
+4825,WEATHERNEWS INC.,45314950500.0,small,SaaS,TOPIX Small 1,プライム,Tempest,False,False,False
+4431,"Smaregi, Inc.",44666073088,small,SaaS,S,,Phase1_TSE33,False,False,False
+3844,COMTURE CORPORATION,43241348400.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+3741,"SEPTENI HOLDINGS CO.,LTD.",41655218176,small,internet_platform,S,,Phase1_TSE33,False,False,True
+3660,istyle Inc.,41502415282.0,small,internet_platform,TOPIX Small 1,プライム,Tempest,False,False,False
+9682,DTS CORPORATION,40860176448.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+3853,Asteria Corporation,40834207744,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+5243,note inc.,39987589120,small,internet_platform,S,,Phase1_TSE33,False,False,False
+7383,"Net Protections Holdings, Inc.",35813158912,small,SaaS,S,,JudgmentAdd_Service,False,True,False
+4477,"BASE,Inc.",33940125216.0,small,SaaS,-,グロース,Tempest+Phase1_TSE33,False,False,False
+3983,"oRo Co., Ltd.",31632599040,small,SaaS,S,,Phase1_TSE33,False,False,False
+4475,HENNGE K.K.,30416845500.0,small,SaaS,-,グロース,Tempest+Phase1_TSE33,False,False,False
+7595,ARGO GRAPHICS Inc.,29108056200.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+3791,"IG Port, Inc.",27824678912,small,content_games,S,,Phase1_TSE33,False,False,False
+3825,"Remixpoint, Inc.",27122810880,small,other,S,,Phase1_TSE33,False,False,False
+3915,(name missing — Phase 2 acquisition loop will resolve),26631012352,small,other,S,,Phase1_TSE33,False,False,False
+3661,"m-up holdings,Inc.",26069863528.0,small,content_games,TOPIX Small 1,プライム,Tempest,False,False,False
+3989,"Sharingtechnology, Inc.",23620161536,small,internet_platform,S,,Phase1_TSE33,False,False,False
+4165,"PLAID,Inc.",23043508224,small,SaaS,S,,Phase1_TSE33,False,False,False
+4783,"NCD Co., Ltd.",19382640640,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+9889,JBCC Holdings Inc.,19361931600.0,small,SI_IT_services,TOPIX Small 1,プライム,Tempest,False,False,False
+4498,"Cybertrust Japan Co., Ltd.",18327236608,small,SaaS,S,,Phase1_TSE33,False,False,False
+4053,Sun* Inc.,17797363712,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+4493,"Cyber Security Cloud, Inc.",17516544000,small,SaaS,S,,Phase1_TSE33,False,False,False
+4344,Sourcenext Corporation,16736111616,small,SaaS,S,,Phase1_TSE33,False,False,False
+3914,(name missing — Phase 2 acquisition loop will resolve),16529164288,small,other,S,,Phase1_TSE33,False,False,False
+3656,KLab Inc.,15771454200.0,small,content_games,TOPIX Small 2,プライム,Tempest+Phase1_TSE33,False,False,False
+3776,"BroadBand Tower, Inc.",15733241856,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+4448,"kubell Co., Ltd.",11601717248,small,SaaS,S,,Phase1_TSE33,False,False,False
+4382,"HEROZ, Inc.",10919185408,small,SaaS,S,,Phase1_TSE33,False,False,False
+4264,"Secure, Inc.",10550764544,small,SaaS,S,,Phase1_TSE33,False,False,False
+4488,AI inside Inc.,9292048384,small,SaaS,S,,Phase1_TSE33,False,False,False
+4169,ENECHANGE Ltd.,9173583872,small,SaaS,S,,Phase1_TSE33,False,False,False
+3911,(name missing — Phase 2 acquisition loop will resolve),8026930176,small,other,S,,Phase1_TSE33,False,False,False
+5034,"unerry,Inc.",7677858816,small,SaaS,S,,Phase1_TSE33,False,False,False
+5244,"jig.jp Co., Ltd.",7417476096,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+4490,VisasQ Inc.,6123784704,small,internet_platform,S,,Phase1_TSE33,False,False,False
+4176,coconala Inc.,5756776960,small,internet_platform,S,,Phase1_TSE33,False,False,False
+3744,SIOS Corporation,4837336576,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+3858,Ubiquitous AI Corporation,3974375424,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+3935,"Edia Co., Ltd.",3762475264,small,content_games,S,,Phase1_TSE33,False,False,False
+3760,"CAVE Interactive CO.,LTD.",3615600000.0,small,content_games,-,スタンダード,Tempest,False,False,False
+3653,(name missing — Phase 2 acquisition loop will resolve),3474789888,small,other,S,,Phase1_TSE33,False,False,False
+4427,"EduLab, Inc.",2524331520,small,SaaS,S,,Phase1_TSE33,False,False,False
+3928,Mynet Inc.,2095328384,small,content_games,S,,Phase1_TSE33,False,False,False
+3803,Image Information Inc.,2066946432,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+3998,(name missing — Phase 2 acquisition loop will resolve),1974910464,small,other,S,,Phase1_TSE33,False,False,False
+3909,Showcase Inc.,1834557824,small,SaaS,S,,Phase1_TSE33,False,False,False
+9444,"Toshin Holdings Co.,Ltd",1480420608,small,other,S,,Phase1_TSE33,False,False,False
+3908,Collabos Corporation,1387102080,small,SI_IT_services,S,,Phase1_TSE33,False,False,False
+9241,"Future Link Network Co.,Ltd.",1091287296,small,internet_platform,S,,Phase1_TSE33,False,False,False
+3681,"V-cube, Inc.",724568000,small,SaaS,S,,Phase1_TSE33,False,False,False
+4173,WACUL Inc.,,unknown,SaaS,U,,Phase1_TSE33,False,False,True
+4435,"kaonavi, inc.",,unknown,SaaS,U,,Phase1_TSE33,False,False,True
+4485,JTOWER Inc.,,unknown,telecom,U,,Phase1_TSE33,False,False,True
+9613,NTT DATA GROUP CORPORATION,,unknown,SI_IT_services,U,,Phase1_TSE33,False,False,True
+9749,Fujisoft Incorporated,,unknown,SI_IT_services,U,,Phase1_TSE33,False,False,True

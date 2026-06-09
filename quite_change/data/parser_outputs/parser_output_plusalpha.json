@@ -1,0 +1,285 @@
+{
+  "_meta": {
+    "schema_version": "v1",
+    "parser_version": "0.1",
+    "detected_fy_end": "FY9",
+    "years_found": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "note": "PARSER-GENERATED. Validate by diff against hand-derived records."
+  },
+  "records": [
+    {
+      "ticker": "4071",
+      "name": "Plus Alpha",
+      "year": 2021,
+      "fiscalPeriod": "FY9/2021 + early FY9/2022",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:mania_pop",
+          "reason_label": "mania pop",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": [
+        "STOCK_RERATING_UP"
+      ],
+      "profit_quality": "not_assessed",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2021 (post-IPO SaaS-mania peak):* stock ¥2,050 (Aug 16) – ¥4,480 (Nov 22) per Nikkei 10-year history; Nov 22 2021 ¥4,480 was the all-time high in the 5-year window. PAC IPO'd in 2021 and rode the SaaS-mania wave. FY9/2021 actual financials not directly surfaced. Stock-move catalyst: 2021 SaaS-mania peak + post-IPO momentum for a fresh HR-SaaS name. Sign summary: shares rallied to all-time high ¥4,480 (Nov 22) on SaaS-mania-driven post-IPO momentum.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 5,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4071",
+      "name": "Plus Alpha",
+      "year": 2022,
+      "fiscalPeriod": "FY9/2022 + early FY9/2023",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "medium",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:post_ipo_unwind",
+          "reason_label": "post ipo unwind",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "needs_human",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2022 (post-mania derating begins):* stock ¥1,927 (Feb 24) – ¥3,280 (Jan 4); from Nov 2021 peak ¥4,480 to Feb 2022 trough ¥1,927 = approximately -57% in 3 months. FY9/2022 actuals not directly surfaced; multi-year trend implies revenue continued growing rapidly. Stock-move catalyst for the post-Nov-2021 collapse: 2022 SaaS-multiple compression / global growth-stock derating (same pattern as PLAID 2022, Rakus 2022, Money Forward 2022). Sign summary: revenue rose on continued strong growth; shares fell sharply to ¥1,927 multi-year low; stock depressed despite operational strength. 業績 ◎ (revenue, partial) / 株価 ✕✕ (post-IPO-mania derating).",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 1,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 9,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 1,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4071",
+      "name": "Plus Alpha",
+      "year": 2023,
+      "fiscalPeriod": "FY9/2023 + early FY9/2024",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": "◎",
+      "reasons": [
+        {
+          "pattern_code": "NEW:under_priced_de_rated_grower",
+          "reason_label": "under priced de rated grower",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_PERSISTENT_VALUE"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_PERSISTENT_VALUE"
+      ],
+      "why_expensive": null,
+      "profit_quality": "recovering",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2023 (revenue compounding while stock stays de-rated):* stock ¥2,262 (Oct 31) – ¥3,650 (Jun 19); modest recovery but stayed well off the 2021 peak. **FY9/2023 actual: revenue +41.2% YoY, operating profit +39.3% YoY** per logmi-finance — strong growth confirmed at hypergrowth scale. Sign summary: revenue rose +41.2% YoY; operating profit rose +39.3%; record growth in Talent Palette; shares range-bound (¥2,262 – ¥3,650); stock depressed despite hypergrowth. 業績 ◎◎ (hypergrowth) / 株価 ✕ (under-priced de-rated grower).",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 6,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 5,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 1,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4071",
+      "name": "Plus Alpha",
+      "year": 2024,
+      "fiscalPeriod": "FY9/2024 + early FY9/2025",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": "◎",
+      "reasons": [
+        {
+          "pattern_code": "NEW:growth_stock_derating_multi_year",
+          "reason_label": "growth stock derating multi year",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "recovering",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2024 (multi-year derating bottoms — fundamentals keep accelerating):* stock ¥1,463 (Aug 5) – ¥2,790 (Jan 11); Aug 2024 ¥1,463 was a new multi-year low — from the Nov 2021 peak ¥4,480, the trough = -67%. **FY9/2024 actual (announced Nov 8, 2024): revenue ¥9,341M (+14.2% YoY), operating profit ¥3,692M (+32.2% YoY)** per kabutan + 決算短信. Operating profit growth substantially outpaced revenue growth — margin expansion. Sign summary: revenue rose +14.2% YoY; operating profit rose +32.2%; operating margin expanding to record levels; shares fell to ¥1,463 multi-year low (Aug 5) despite the +32% OP growth; stock depressed. **The widening gap between accelerating profitability and depressed stock = classic under_priced_de_rated_grower at scale** (same shape as PLAID 2024, Rakus 2024, Money Forward 2024). 業績 ◎ (revenue + margin expansion) / 株価 ✕✕ (multi-year low).",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 5,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 1,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4071",
+      "name": "Plus Alpha",
+      "year": 2025,
+      "fiscalPeriod": "FY9/2025",
+      "size": "mid",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "medium",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": "◎",
+      "profit_direction": "◎",
+      "reasons": [
+        {
+          "pattern_code": "NEW:mania_pop",
+          "reason_label": "mania pop",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        },
+        {
+          "pattern_code": "NEW:post_ipo_unwind",
+          "reason_label": "post ipo unwind",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "recovering",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2025 (record results — derating finally arrests):* stock ¥1,163 (Apr 7) – ¥2,612 (Aug 14); Apr 2025 ¥1,163 was the absolute multi-year low (-74% from peak), then recovered to ¥2,612 by August (+125% off the spring low). **FY9/2025 actual (announced Nov 14, 2025): revenue ¥17,084M (+22.8% YoY organic / +83% reported including segment expansion), operating profit ¥6,378M (+40.8% YoY), operating margin 37.3%** (high for SaaS); enterprise customer ratio rising, ARPU rising, HR Solutions segment leading. Plan achievement: revenue 100.5%, OP 104.6% per IR. Sign summary: revenue rose +22.8% YoY organically; operating profit rose +40.8%; operating margin 37.3% record; shares rallied off ¥1,163 spring low to ¥2,612 high (Aug 14) — +125% intra-year. 業績 ◎◎ (record results + margin expansion) / 株価 ◎ (recovery from multi-year low).\n\nCautious side: stock still well below the Nov 2021 peak of ¥4,480 (Aug 2025 high ¥2,612 = -42% off ATH); the 2021 peak was hype-driven post-IPO mania at a level unjustified by fundamentals, so it may not be a meaningful target; revenue mix shift from SMB toward enterprise raises ARPU but lengthens sales cycle; competitive HR-SaaS pressure (Money Forward, freee, Visional all expanding).\n\nSources:\n- https://equity.jiji.com/storage/tdnet/140120241107515258.pdf (FY9/2024 通期決算短信, Nov 8, 2024)\n- https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20251114/20251113501423.pdf (FY9/2025 通期決算短信, Nov 14, 2025)\n- https://finance.logmi.jp/articles/378612 (FY23 +41.2% / +39.3% strong-growth context + mid-term plan revision)\n- https://finance.logmi.jp/articles/382931 (FY25 record + FY26 plan + enterprise-ratio rise)\n- https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20251114/20251113500859.pdf (FY9/2025 4Q 決算説明資料)\n- https://www.nikkei.com/nkd/company/history/yprice/?scode=4071 (Nikkei 10-year price history)",
+      "bearCase": "stock still well below the Nov 2021 peak of ¥4,480 (Aug 2025 high ¥2,612 = -42% off ATH); the 2021 peak was hype-driven post-IPO mania at a level unjustified by fundamentals, so it may not be a meaningful target; revenue mix shift from SMB toward enterprise raises ARPU but lengthens sales cycle; competitive HR-SaaS pressure (Money Forward, freee, Visional all expanding)",
+      "_signals": {
+        "biz_up": 4,
+        "biz_down": 0,
+        "stock_up": 1,
+        "stock_down": 2,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 1,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    }
+  ]
+}

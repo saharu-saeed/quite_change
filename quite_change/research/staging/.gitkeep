@@ -1,4 +1,2 @@
-# This directory holds test runs from research/serve.py (the interactive web UI).
-# Each successful research call writes {code}.json here.
-# These files are TEST RESULTS — they are NEVER auto-merged into ../data/.
-# Use research/promote_staging.py to manually merge specific entries after review.
+Placeholder so the staging/ directory survives in git.
+Contents (*.json) are gitignored — see quite_change/.gitignore.

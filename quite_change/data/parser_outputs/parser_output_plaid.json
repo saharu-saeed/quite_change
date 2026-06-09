@@ -1,0 +1,337 @@
+{
+  "_meta": {
+    "schema_version": "v1",
+    "parser_version": "0.1",
+    "detected_fy_end": "FY9",
+    "years_found": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "note": "PARSER-GENERATED. Validate by diff against hand-derived records."
+  },
+  "records": [
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2021,
+      "fiscalPeriod": "FY9/2021 + early FY9/2022",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:mania_pop",
+          "reason_label": "mania pop",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_RERATING_UP"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": [
+        "STOCK_RERATING_UP"
+      ],
+      "profit_quality": "not_assessed",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2021 (IPO mania peak):* fresh off its December 2020 IPO, KARTE rode the 2021 SaaS-hype wave; the stock rocketed to an all-time high of ¥5,080 on April 20, 2021, while revenue grew fast. 業績 ◎ / 株価 ◎ → Q1, but a frothy, hype-driven ◎ — the price was a SaaS-bubble premium, not earnings. Stock catalyst: post-IPO momentum / SaaS-mania re-rating (NEW, and fragile by nature).",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 5,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2022,
+      "fiscalPeriod": "FY9/2022 + early FY9/2023",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:post_ipo_unwind",
+          "reason_label": "post ipo unwind",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "thin",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2022 (the unwind):* the global growth-stock purge of 2022 hit unprofitable high-multiple SaaS hardest, and post-IPO lock-up expiries added selling pressure. The stock collapsed to an all-time low of ¥360 on August 10, 2022 — down roughly 93% from the 2021 peak. The business, though, kept growing ~20%. 業績 ◎ / 株価 ✕✕ → Q2, a severe de-rating. NEW: post_ipo_derating_unwind. CRITICAL caveat: the 業績 ◎ here is revenue-◎, not profit-◎ — margins are thin — so this is a bargain-or-falling-knife case, not a clean opportunity.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 1,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 3,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2023,
+      "fiscalPeriod": "FY9/2023 + early FY9/2024",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:under_priced_de_rated_grower",
+          "reason_label": "under priced de rated grower",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_PERSISTENT_VALUE"
+        },
+        {
+          "pattern_code": "NEW:growth_stock_derating_multi_year",
+          "reason_label": "growth stock derating multi year",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_PERSISTENT_VALUE",
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "thin",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2023 (bottoming):* revenue kept compounding (roughly ¥-equivalent of $56M → $65M), and the stock crawled along the lows off the ¥360 bottom. 業績 ◎ / 株価 ✕ → Q2, the persistent under-priced de-rated grower. Same de-rating phase, no recovery yet.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 3,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 2,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      },
+      "profit_quality_carried": true
+    },
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2024,
+      "fiscalPeriod": "FY9/2024 + early FY9/2025",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:catalyst_unmatched",
+          "reason_label": "catalyst unmatched",
+          "reason_source": "prompt",
+          "confidence": "low",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "UNCLASSIFIED"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": null,
+      "profit_quality": "thin",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2024 (grind + M&A):* revenue growth held around ~20%, and Plaid acquired Newt (Dec 2024) to extend the platform. The stock stayed depressed. 業績 ◎ / 株価 ✕ → Q2. The market still won't pay up.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 3,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      },
+      "profit_quality_carried": true
+    },
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2025,
+      "fiscalPeriod": "FY9/2025",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "low",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": true,
+      "review_flag": true,
+      "revenue_direction": "◎",
+      "profit_direction": "✕",
+      "reasons": [
+        {
+          "pattern_code": "NEW:catalyst_unmatched",
+          "reason_label": "catalyst unmatched",
+          "reason_source": "prompt",
+          "confidence": "low",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "UNCLASSIFIED"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": null,
+      "profit_quality": "thin",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2025 (FY9/2025 — growth holds, profit thin):* for the fiscal year ended September 30, 2025, revenue was ¥13.40bn, up 21.87% — strong top line. But profitability is thin and wobbling: net margin only ~7%, EBITDA margin ~3%, the most recent quarter's revenue (¥3.29bn) slightly missed the ¥3.35bn estimate, and quarterly net income fell ~32% sequentially. 業績 ◎ on revenue, but with a profit-quality caveat; 株価 ✕ (still weak) → Q2, medium confidence — watch the profit line, because the ◎ is being carried by revenue while earnings wobble.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 1,
+        "stock_up": 0,
+        "stock_down": 1,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 1,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "4165",
+      "name": "PLAID",
+      "year": 2026,
+      "fiscalPeriod": "FY9/2026",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "medium",
+      "thesis_durability": "fragile",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": null,
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:post_ipo_unwind",
+          "reason_label": "post ipo unwind",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "thin",
+      "change_evidence": "narrative_only",
+      "rawExplanation": "*2026 (still de-rated — bargain or trap?):* the stock sits around ¥591 (Apr 2026), 52-week range ¥495–1,309, still ~88% below the 2021 peak, while revenue keeps growing ~20%. The open analyst question is the whole point of Step 1: is the multiple compression finally overdone (a real under-priced grower) or is the thin, slipping profit telling you the business quality isn't there (a value trap)? 業績 ◎ (revenue) / 株価 ✕ → Q2 — and the REASON, not the quadrant, decides which kind of Q2 it is. Stock catalyst: persistent post-IPO de-rating; bears point to weak profitability and the slight revenue miss.",
+      "bearCase": "weak profitability and the slight revenue miss",
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 1,
+        "stock_up": 0,
+        "stock_down": 6,
+        "soft": 0,
+        "revenue_up": 0,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 1,
+        "business_decel": 0
+      }
+    }
+  ]
+}

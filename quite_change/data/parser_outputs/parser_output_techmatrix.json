@@ -1,0 +1,273 @@
+{
+  "_meta": {
+    "schema_version": "v1",
+    "parser_version": "0.1",
+    "detected_fy_end": "FY3",
+    "years_found": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "note": "PARSER-GENERATED. Validate by diff against hand-derived records."
+  },
+  "records": [
+    {
+      "ticker": "3762",
+      "name": "Techmatrix",
+      "year": 2021,
+      "fiscalPeriod": "FY3/2021 + early FY3/2022",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:post_ipo_unwind",
+          "reason_label": "post ipo unwind",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "needs_human",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2021 (post-IPO-mania derating begins — partial coverage):* stock ¥1,534 (Aug 2) – ¥2,226 (Apr 14) per Nikkei 10-year history; Apr peak → Aug trough ~-31%. FY3/2021 full-year financial numbers not surfaced via search snippets — partial. Multi-year framing from later coverage (\"11 consecutive years of record profit\") implies FY3/2021 was a record year too, business-side ◎ on streak-context — but numbers themselves partial. Stock-move catalyst for the Apr peak / Aug trough: not sourced — catalyst needs_human. 業績 (partial, streak-inferred) ◎ / 株価 ✕ by mid-year.\n\nSign summary: revenue rose on growth; revenue rose on 11-year record-profit streak (inferred); shares fell -31% off April peak; shares fell to ¥1,534 low (Aug 2); business strong, stock depressed.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 4,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 6,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "3762",
+      "name": "Techmatrix",
+      "year": 2022,
+      "fiscalPeriod": "FY3/2022 + early FY3/2023",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:growth_stock_derating_multi_year",
+          "reason_label": "growth stock derating multi year",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "needs_human",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2022 (range-bound derating — partial coverage):* stock ¥1,432 (Feb 1) – ¥2,208 (Apr 5) — chopped, ended weak. FY3/2022 full-year financial numbers not surfaced as exact figures in snippets; multi-year-trend context only. Stock-move catalyst: not sourced — catalyst needs_human. 業績 (partial, streak-inferred) ◎ / 株価 ✕.\n\nSign summary: revenue rose on growth; revenue rose per multi-year streak; shares depressed range-bound; shares fell to ¥1,432 low (Feb 1); business strong, stock depressed.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 6,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "3762",
+      "name": "Techmatrix",
+      "year": 2023,
+      "fiscalPeriod": "FY3/2023 + early FY3/2024",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "✕",
+      "quadrant": "Q2",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:growth_stock_derating_multi_year",
+          "reason_label": "growth stock derating multi year",
+          "reason_source": "prompt",
+          "confidence": "medium",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "STOCK_DERATING_DOWN"
+        }
+      ],
+      "why_cheap": [
+        "STOCK_DERATING_DOWN"
+      ],
+      "why_expensive": null,
+      "profit_quality": "needs_human",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2023 (multi-year derating bottoms — partial coverage):* stock ¥1,341 (Mar 16) – ¥1,905 (Jun 7) — the multi-year low. From Apr 2021 peak ¥2,226 to Mar 2023 trough ¥1,341 = -40% over ~2 years (less severe than Systena's -62% over the same window — TechMatrix held up better through the IT-services derating). FY3/2023 full-year numbers not surfaced. Stock-move catalyst for the Mar 2023 ¥1,341 trough: not sourced — catalyst needs_human (consistent with broader IT-services sector derating 2022–2023). 業績 (partial, streak-inferred) ◎ / 株価 ✕✕ (multi-year low).\n\nSign summary: revenue rose on growth; revenue rose per streak; shares collapsed to multi-year low; shares fell to ¥1,341 low (Mar 16); business strong, stock depressed.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 0,
+        "stock_down": 8,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "3762",
+      "name": "Techmatrix",
+      "year": 2024,
+      "fiscalPeriod": "FY3/2024 + early FY3/2025",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": "◎",
+      "quadrant": "Q1",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "high",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": false,
+      "revenue_direction": "◎",
+      "profit_direction": null,
+      "reasons": [
+        {
+          "pattern_code": "NEW:catalyst_unmatched",
+          "reason_label": "catalyst unmatched",
+          "reason_source": "prompt",
+          "confidence": "low",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "UNCLASSIFIED"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": null,
+      "profit_quality": "not_assessed",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2024 (big rally year — Firmus acquisition timing-correlated but NOT confirmed as catalyst):* FY3/2024 full-year revenue not directly recovered from snippets — partial (announced May 9 2024). Stock ¥1,555 (Jan 31) – ¥2,614 (Nov 12) per Nikkei — a +68% range high, biggest 5-year range. **Stock catalyst:** in November 2024 TechMatrix acquired Malaysian cybersecurity firm Firmus Sdn.Bhd. as a 100% subsidiary. **The ¥2,614 Nov 12 2024 peak is timing-correlated with this Nov 2024 acquisition announcement, but no source explicitly names the Firmus acquisition as THE rally driver — catalyst needs_human verification.** Reading the timing alone risks laundering correlation into a stated cause. 業績 (partial, streak-inferred) ◎ / 株価 ◎ (recovery + rally).\n\nSign summary: revenue rose on growth; revenue rose per streak; Firmus Sdn.Bhd. cybersecurity acquisition Nov 2024 timing-correlated with rally (catalyst needs human verification); shares rallied to ¥2,614 high (Nov 12); business strong, stock strong.",
+      "bearCase": null,
+      "_signals": {
+        "biz_up": 2,
+        "biz_down": 0,
+        "stock_up": 1,
+        "stock_down": 0,
+        "soft": 0,
+        "revenue_up": 2,
+        "revenue_down": 0,
+        "profit_up": 0,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    },
+    {
+      "ticker": "3762",
+      "name": "Techmatrix",
+      "year": 2025,
+      "fiscalPeriod": "FY3/2025 + early FY3/2026",
+      "size": "small",
+      "size_basis": "current_snapshot",
+      "業績": "◎",
+      "株価": null,
+      "quadrant": "unclassified",
+      "disposition": "candidate",
+      "signs_source": "prompt",
+      "signs_confidence": "low",
+      "thesis_durability": "not_assessed",
+      "decelerating": false,
+      "split_ambiguous": false,
+      "review_flag": true,
+      "revenue_direction": "◎",
+      "profit_direction": "◎",
+      "reasons": [
+        {
+          "pattern_code": "NEW:catalyst_unmatched",
+          "reason_label": "catalyst unmatched",
+          "reason_source": "prompt",
+          "confidence": "low",
+          "notes": "Convergence-test candidate — human review needed before consolidation.",
+          "parent": "UNCLASSIFIED"
+        }
+      ],
+      "why_cheap": null,
+      "why_expensive": null,
+      "profit_quality": "recovering",
+      "change_evidence": "concrete",
+      "rawExplanation": "*2025 (record-year confirmation — clean ◎):* FY3/2025 actual (announced May 9, 2025): revenue ¥64,882M (+21.7% YoY, +¥11,578M increase, **record high**), operating profit ¥6,668M (+14.0%, +¥818M), net profit ¥4,060M (+14.7%). **11 consecutive years of record profit** per management context. FY3/2026 guidance: revenue ¥73,000M (+12.5%), OP ¥7,600M (+13.9%), net ¥4,880M (+20.2%). Stock ¥1,720 (Apr 7) – ¥2,584 (Jan 31). Jan 2025 was actually the prior-year-end momentum continuation; through 2025 the stock declined from Jan high to Apr low, then recovered (per the Nikkei range data — high was Jan, low was Apr). Stock-move catalyst: FY3/2025 record results + 11-year streak + raised FY3/2026 guidance + Firmus acquisition contribution. 業績 ◎ on record results + acceleration / 株価 mixed (Jan peak followed by spring decline — profit-taking after the strong 2024 rally is plausible but no source names it).\n\nCautious side: import-reseller business model dependence on North American technology vendors (FX-sensitive, supplier-relationship risk); Firmus integration risk; concentration in network security as a single growth driver.\n\nSign summary: revenue rose +21.7% YoY; operating profit rose +14.0%; net profit rose +14.7%; record revenue, record operating profit, 11 consecutive years of record profit; FY3/2026 guidance raised; shares rallied to ¥2,584 high (Jan 31); business strong, stock strong.\n\n\nSources:\n- https://www.nikkei.com/nkd/disclosure/tdnr/20250509538002/ (FY3/2025 通期決算補足資料 May 9, 2025)\n- https://www.nikkei.com/nkd/disclosure/tdnr/20240131523284/ (FY3/2024 Q3 disclosure)\n- https://www.techmatrix.co.jp/ir/upload_file/m005-m005_02/3762_20250509537899_P01_.pdf (FY3/2025 決算短信)\n- https://kitaishihon.com/company/3762/business (company segments)\n- https://www.buffett-code.com/company/3762/ (company profile)\n- https://www.nikkei.com/nkd/company/history/yprice/?scode=3762 (Nikkei 10-year price history)",
+      "bearCase": "import-reseller business model dependence on North American technology vendors (FX-sensitive, supplier-relationship risk); Firmus integration risk; concentration in network security as a single growth driver",
+      "_signals": {
+        "biz_up": 12,
+        "biz_down": 0,
+        "stock_up": 1,
+        "stock_down": 1,
+        "soft": 0,
+        "revenue_up": 1,
+        "revenue_down": 0,
+        "profit_up": 2,
+        "profit_down": 0,
+        "inflated_headline": 0,
+        "decel_soft": 0,
+        "business_decel": 0
+      }
+    }
+  ]
+}
