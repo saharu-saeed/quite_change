@@ -1,0 +1,22 @@
+{
+  "code": "4767",
+  "name": "TOW Co., Ltd. (株式会社テー・オー・ダブリュー)",
+  "tab": "R+xS+",
+  "bucket": "sector_specific_tailwind",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "down",
+  "stock_yoy_estimate": "+11% YoY (¥305→¥351, 52w range ¥305–¥398)",
+  "biz_classification": "イベント・プロモーション制作 / Event & Experiential Promotion Agency",
+  "jp_summary": "**会社概要:** TOW（テー・オー・ダブリュー）は東京都港区に本社を置くイベント・プロモーション会社です。政府機関・企業向けの展示会や発表会、スポーツ・文化イベント、SNS連動型プロモーション、デジタルコンテンツ制作など、「体験型」のリアルイベントを企画から運営まで一貫して手がけます。主要顧客は博報堂・電通グループで、東証スタンダード市場上場（2025年時点で従業員約302名）。\n\n**業績の動き:** 2025年6月期（FY2025）の売上高は177億83百万円（前年比+1.6%）、営業利益は21億52百万円（同+7.3%）、親会社帰属純利益は11億32百万円（同−19.5%）、年間配当は15円（前期14円から増配）。売上・営利は緩やかに増加しているが、純利益は労働制度に関する是正措置対応で特別損失5億80百万円を一時計上したため大きく落ち込んだ。つまり「実力ベースの収益は改善しているが、一時費用で利益が凹んだ」状況で、特殊要因込みの数字。規模感としては、売上180億円・営利21億円は日本のニッチなイベント専業会社としては堅実な規模。\n\n**業績が動いた理由:** 売上・営業利益が伸びた主な理由は、コロナ禍からのリアルイベント需要の完全回復と、インバウンド観光客増加に伴うプロモーション案件拡大です。なぜなら、訪日外国人の急増が企業の対外PR・体験イベント投資を押し上げ、TOWの得意とする「街頭プロモーション・展示会・大型イベント」の需要が直接拡大したためです。一方、純利益の減少はあくまで一時的な労務コンプライアンス費用によるものであり、構造的な収益悪化ではありません。2026年6月期はFY2025の特殊損失剥落で純利益の急回復（予想+32.5%）が見込まれています。\n\n**株価が動いた理由:** 過去1年で株価は約+11%上昇し（¥305→¥351、52週高値¥398）。なぜなら、①リアルイベント市場の本格回復により売上・営業利益が着実に増加しており、成長の持続性が確認された、②FY2025の純利益減少が一時的な特別損失によるものと市場に理解され、過度な売りが入らなかった、③配当利回りが約5%と高く（年間15円→FY2026予想18.3円）、インカム狙いの買いが下値を支えた、の3点が複合的に作用したと考えられます。ただし株価は52週高値¥398から現在¥351と高値圏からは若干調整しており、地政学・景気不透明感が重しになっています。",
+  "sources": [
+    "https://irbank.net/E05100/results",
+    "https://irbank.net/E05100",
+    "https://tow.co.jp/ir/zaimu/",
+    "https://tow.co.jp/ir/library/earnings/",
+    "https://finance.yahoo.co.jp/quote/4767.T",
+    "https://stockanalysis.com/quote/tyo/4767/",
+    "https://kabuyoho.jp/report?bcode=4767"
+  ],
+  "notes": "FY2025 = fiscal year ending June 2025 (第49期). Revenue ¥17,782,855k (+1.6% YoY) — confirmed by irbank.net and tow.co.jp/ir/zaimu/. Operating profit ¥2,152,000k (+7.3% YoY) — confirmed by search result citing kabutan and irbank. Ordinary profit ¥2,194,218k (+6.6%) per tow.co.jp IR page. Net profit ¥1,132,201k (−19.5% YoY) — confirmed by both irbank and tow.co.jp; decline caused by ¥580M one-time special loss from labor compliance correction costs (労働制度運用是正措置), NOT structural deterioration. Dividend ¥15/share (FY2025 actual), ¥18.3/share forecast for FY2026 — per irbank and stockanalysis.com. Stock: current ¥351 (as of ~June 5-6, 2026), 52w range ¥305–¥398 per Yahoo Finance Japan and stockanalysis.com; 1Y change approx +11% per stockanalysis.com (cross-checked with investing.com citing +11–16% range depending on date). FY2026 forecast: revenue ¥18.8B (+5.7%), op profit ¥2.21B (+2.6%), net profit ¥1.5B (+32.5%) — sourced from irbank forecast table. Classification rationale: Revenue up (+1.6%), operating profit up (+7.3%), stock up (~+11% YoY) → R+xS+. Bucket = sector_specific_tailwind: growth is driven by inbound tourism surge and post-COVID return of live events, a macro/sector tailwind rather than company-specific restructuring or M&A. Net profit direction coded as 'down' per FY2025 actual (−19.5%), but this is flagged as one-time; FY2026 forecast shows sharp recovery."
+}

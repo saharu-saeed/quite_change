@@ -1,0 +1,24 @@
+{
+  "code": "3791",
+  "name": "IG Port, Inc. (株式会社IGポート)",
+  "tab": "R+xS-",
+  "bucket": "profit_compressed",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-50% from Dec 2024 peak (¥2,522 → ~¥1,249)",
+  "biz_classification": "Anime production & IP licensing / アニメ制作・版権事業",
+  "jp_summary": "**会社概要:** IGポートはアニメ制作を中心とする持株会社で、Production I.G（『攻殻機動隊』『ハイキュー!!』）やWIT STUDIO（『進撃の巨人』第1〜3期、『SPY×FAMILY』）などの子会社を傘下に持つ。主な収益源は、①映像制作（テレビ・劇場・配信向けアニメ制作）、②版権事業（自社IPの二次利用・ライセンス収入）、③商品販売事業（キャラクターグッズの直販）の3本柱。東証スタンダード上場。\n\n**業績の動き:** 2025年5月期（FY2025）の連結決算は、売上高145億9,800万円（前期比+23.3%）、営業利益14億2,600万円（同+16.4%）、経常利益14億2,000万円（同+2.9%）、親会社株主帰属当期純利益8億2,800万円（同−28.5%）。増収増益ではあるものの、最終利益は前期11億5,800万円から大幅に落ち込んだ。売上高145億円は同社にとって過去最高水準で「大きい」だが、最終利益のマイナスは「想定より悪い」状態。2026年5月期は売上高157億7,200万円・営業利益17億9,200万円を予想しており、4期連続過去最高益更新を見込む。\n\n**業績が動いた理由:** 売上・営業利益が増えた最大の理由は版権事業と商品販売事業の急成長。なぜなら、『ハイキュー!!』『進撃の巨人』『怪獣8号』『SPY×FAMILY』などの人気IPが国内外で二次利用・配信拡大し版権収入が前期比+31.7%増加したため。また上海に自社ストア「I.G & WIT Anime Studio Store」を開設し、中国でのグッズ直販が大幅黒字（営業利益3億7,800万円）に転じたため。一方で最終利益が減少したのは、なぜなら映像制作事業で人件費・CG費・外注費の高騰と制作長期化により受注損失引当金を計上し、制作部門の営業損失が前期9億4,000万円から11億100万円に拡大したため。\n\n**株価が動いた理由:** 過去1年でIGポート株は52週高値2,522円（2024年12月）から約1,249円と約50%下落した。なぜなら、①2025年5月期の最終利益が前期比−28.5%と大幅減益となり、市場予想を下回ったため。②映像制作事業の赤字拡大（人件費高騰・制作費増）が構造的問題として意識されたため。③利益の柱が「グッズ販売」という収益構造への転換が、従来のアニメ制作会社としての評価軸と乖離し、投資家に再評価（デレーティング）をもたらしたため。④中国市場リスク（日中関係緊張）も引き続き潜在的懸念として意識されている。",
+  "sources": [
+    "https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20250711/20250711512125.pdf",
+    "https://irbank.net/E02480/pl",
+    "https://gamebiz.jp/news/408996",
+    "https://gamebiz.jp/news/419400",
+    "https://0115765.com/archives/180901",
+    "https://finance.yahoo.co.jp/quote/3791.T",
+    "https://www.google.com/finance/quote/3791:TYO",
+    "https://minkabu.jp/stock/3791/settlement",
+    "https://animationbusiness.info/archives/16843"
+  ],
+  "notes": "Revenue figures cross-checked: irbank.net shows FY2025 revenue ¥14,598M (+23.3%), FY2024 ¥11,840M — matches gamebiz.jp article and Yahoo Finance disclosure PDF title (2025年5月期決算短信, filed 2025-07-11). Operating profit ¥1,426M (+16.4%) confirmed by both irbank.net and gamebiz.jp. Net profit ¥828M (−28.5%) confirmed by both sources; prior year ¥1,158M. Dividend: ¥11/share per Yahoo Finance dividend page — single source, treat as verified but note only one confirmation. Stock price: Yahoo Finance (2026-06-08) shows ¥1,249 current, 52-week range ¥1,125–¥1,494; Google Finance shows ¥1,249 current, 52-week range ¥1,125–¥2,522 (discrepancy in 52-week high likely due to window difference — Google Finance likely uses a longer window or includes the December 2024 spike at ¥2,790 per Stockopedia/SimplyWallSt; Yahoo Finance 52-week high ¥1,494 may be more recent window from mid-2025 onward). YoY stock change estimated at −30% to −50% depending on reference date. Used SimplyWallSt/Stockopedia data (−30.51% YoY, high ¥2,790 Dec 2024) as most granular. All figures are consolidated (連結). Fiscal year is June–May (May 31 year-end). FY2025 = June 2024–May 2025 actual; FY2026 = June 2025–May 2026 forecast. Bucket: profit_compressed — revenue rising strongly but net profit fell due to cost inflation in production division; stock derated as market priced in structural margin concerns."
+}

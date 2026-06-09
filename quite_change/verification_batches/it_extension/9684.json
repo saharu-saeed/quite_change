@@ -1,0 +1,24 @@
+{
+  "code": "9684",
+  "name": "Square Enix Holdings Co., Ltd. (スクウェア・エニックス・ホールディングス)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-35% from 52-week high (¥3,862→¥2,519)",
+  "biz_classification": "Game Software / Entertainment IP (ゲームソフト・エンタメIP)",
+  "jp_summary": "**会社概要:** スクウェア・エニックス・ホールディングスは、ファイナル・ファンタジー（FF）やドラゴンクエスト（DQ）などの世界的に有名なゲームIPを持つ日本最大級のゲームソフトメーカーです。家庭用ゲーム・PCゲームの開発・販売を中心に、スマートフォンゲームやアーケードゲーム、マンガ・アニメなどメディア事業も展開しています。東証プライム上場。\n\n**業績の動き:** 直近の完了済み会計年度（2026年3月期）では、売上高が約2,977億円（前年比-8.3%）と2期連続の減収でした。しかし、営業利益は約644億円（前年比+57.5%）と大幅増益、純利益も約296億円（前年比+21.3%）と増益が続いています。2025年3月期（その前の期）では、売上高3,245億円（-8.9%）・営業利益406億円（+24.6%）・純利益244億円（+63.7%）・配当129円（前期比約3倍）でした。売上規模としては「大手ゲーム会社」ではあるが、近年は規模縮小中。一方、利益は急改善しており「収益の質が上がっている」段階です。\n\n**業績が動いた理由:** 売上が減ったのは、タイトル本数を意図的に絞ったためです。なぜなら、2024年度に発表した中期経営計画「Square Enix Reboots and Awakens（再起動の3年間）」の柱が「量から質への転換」だからです。かつては多数のタイトルを乱発していたため不採算ゲームが続出し、大幅な評価損が発生していました。今期はその整理が進み、不採算タイトルへの追加費用が消え、ドラゴンクエストIII HD-2DリメイクなどヒットIPを丁寧に展開することで利益率が急改善しました。また、マルチプラットフォーム戦略（PlayStation・Xbox・Nintendo・PC全方位での展開）への転換が、1本あたりの収益最大化につながっています。\n\n**株価が動いた理由:** 株価は過去1年で52週高値3,862円から現在2,519円へ約35%下落しています。なぜなら、売上高が2期連続で減収という事実が投資家にとって「成長が止まった」と映りやすいからです。利益は改善しているものの、トップラインの縮小や競争激化（他社大型タイトルとの競合）、FF14のプレイヤー数減少など懸念材料が重なりました。アナリストの平均目標株価は約2,540〜2,560円と現在水準に近く、「ホールド」評価が多数派です。中期計画の達成（2027年3月期・営業利益率15%・ROE10%以上目標）が確認できるまでは株価の本格的な回復は難しいとみられています。",
+  "sources": [
+    "https://www.nikkei.com/article/DGXZQOUC149XE0U5A510C2000000/",
+    "https://stockanalysis.com/quote/tyo/9684/financials/",
+    "https://minkabu.jp/stock/9684/settlement",
+    "https://finance.yahoo.co.jp/quote/9684.T/performance",
+    "https://www.hd.square-enix.com/jpn/ir/library/financial.html",
+    "https://www.famitsu.com/article/202505/42103",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=9684",
+    "https://irbank.net/E04859/results",
+    "https://www.investing.com/equities/square-enix-holdings-co-ltd"
+  ],
+  "notes": "FY2025 (ended March 31, 2025) confirmed figures: Revenue ¥324.5B (-8.9% YoY) — source: Nikkei article + stockanalysis.com cross-check, match confirmed. Operating profit ¥40.6B (+24.6% YoY) — source: Nikkei + minkabu, match confirmed. Net profit ¥24.4B (+63.7% YoY) — source: stockanalysis.com + Nikkei, match confirmed. Dividend ¥129/share (approx. 3x prior year ¥38) — source: Nikkei article + minkabu dividend page, match confirmed. FY2026 (ended March 31, 2026) figures: Revenue ¥297.7B (-8.3% YoY), Operating profit ~¥64.4B (+57.5% YoY), Net profit ¥29.6B (+21.3% YoY) — source: stockanalysis.com + search result summary; these are the most recently completed fiscal year figures. All figures are consolidated (連結). Stock price as of June 7-8, 2026: ~¥2,519 (source: Investing.com / search result). 52-week high: ¥3,861.7 (source: search result). Year-over-year stock estimate computed from 52-week high to current, as exact June 2025 price not available in search results — labeled as 'from 52-week high' to be accurate. Revenue classification: 2 consecutive years of revenue decline → tab=R-, bucket left empty per spec. Op profit and net profit both trending up strongly."
+}

@@ -1,0 +1,23 @@
+{
+  "code": "9749",
+  "name": "Fuji Soft Incorporated (富士ソフト株式会社)",
+  "tab": "R+xS+",
+  "bucket": "activist_corporate_action",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "+60~80% YoY (2024年、TOB競争で急騰→上場廃止)",
+  "biz_classification": "ITサービス / システムインテグレーション (SIer)",
+  "jp_summary": "**会社概要:** 富士ソフトは神奈川県横浜市に本社を置く独立系のITサービス会社。官公庁・金融・製造・自動車メーカー向けに、ソフトウェア開発（受託SIer）、組み込みシステム開発、ITインフラ運用などを幅広く手がけている。「独立系」というのは特定の大手メーカー（富士通・NEC・日立など）に属さず、複数のメーカーと取引できる立場のこと。2025年5月に米投資ファンドKKRによる買収が完了し、上場廃止となった。\n\n**業績の動き:** 2024年12月期（通期連結）の売上高は約3,175億円で前年比＋6.2%。営業利益は約220億円で前年比＋6.5%。純利益は約211億円で前年比＋78.5%と大幅増。ただしこの純利益の大幅増は、TOB（公開買付け）プロセスに関連した資産売却益や保有株式の売却益によるもので、本業の利益成長ではなく一時的な押し上げ要因が大きい。売上・営業利益は堅実な一桁台成長で、「大きくもなく小さくもない、安定した成熟SIerらしい成長」といえる。\n\n**業績が動いた理由:** SI事業において自動車関連・製造業向けシステム開発が伸長したことが主因。なぜなら、国内製造業のデジタル化投資（EV開発支援、工場IoT、ERPなど）が継続していたため、富士ソフトへの受注が増加した。一方で純利益の大幅増はTOBプロセスに伴う保有不動産・株式の売却によるもので、営業外・特別利益として計上されたと推察される。\n\n**株価が動いた理由:** 2024年の株価は年初来で約60〜80%超上昇し（2023年末時点で5,000〜6,000円前後→最終TOB価格9,850円）、2025年5月に上場廃止。なぜなら、まず2023年にシンガポールのアクティビスト投資家・3Dインベストメント・パートナーズが株式を取得し、「低ROE・創業家支配の非効率な経営」を公然と批判して企業価値向上を要求した。これをきっかけに非公開化への期待が高まり、2024年8月にKKRが1株8,800円でTOBを発表。その後、米ベインキャピタルが対抗TOBとして9,450円を提示し、KKRとの競争入札となった。なぜなら、買収競争は株価をさらに押し上げ、最終的にKKRが9,850円まで価格を引き上げて2025年2月に買収を完了。株価はアクティビスト参入前の約2,560円から最終的に約3.8倍になった計算となる。",
+  "sources": [
+    "https://www.fsi.co.jp/ir/library/docs/result/2024_12_4Q_tanshin.pdf",
+    "https://catr.jp/tss/e4956/192682",
+    "https://moneyworld.jp/news/05_00164326_news",
+    "https://moneyworld.jp/news/05_00161925_news",
+    "https://www.nihon-ma.co.jp/news/20250515_9749-15/",
+    "https://media.finasee.jp/articles/-/18768",
+    "https://kabukiso.com/apply/tob/2024/fsi.html",
+    "https://www.bloomberg.com/jp/news/articles/2025-02-04/SR54WPDWX2PS00"
+  ],
+  "notes": "Revenue: ¥317,482M for FY2024 (ended Dec 2024, consolidated) — sourced from official tanshin PDF (fsi.co.jp) and cross-checked via catr.jp official disclosure database; both agree +6.2% YoY. Operating profit: ¥22,033M (+6.5% YoY) — both sources agree. Net profit: ¥21,147M (+78.5% YoY) — both sources agree; uplift attributed to asset disposals related to TOB process, not core operations. Stock YoY: precise daily data unavailable post-delisting, but pre-activist price ~¥2,560, TOB-era entry (early 2024) ~¥5,000-6,000, final TOB price ¥9,850 (Feb 2025); 1-year 2024 calendar gain estimated at +60-80% (unverified exact figure, labeled accordingly). Dividend: FY2024 dividend amount not found in web sources; company was in TOB process and likely suspended normal dividend guidance — labeled unverified. Delisting confirmed: May 16, 2025 (nihon-ma.co.jp source). KKR acquired 57.92% at ¥9,850/share. 3D Investment activist entry ~2022-2023 at ~¥2,560 confirmed by finasee.jp article (3.8x return to final TOB price). All figures are consolidated (連結). Fiscal year: FY2024 = January 2024 – December 2024."
+}

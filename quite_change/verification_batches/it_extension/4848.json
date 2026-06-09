@@ -1,0 +1,22 @@
+{
+  "code": "4848",
+  "name": "Fullcast Holdings Co., Ltd. (フルキャストホールディングス)",
+  "tab": "R+xS-",
+  "bucket": "all_up_stock_fell",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-12% YoY (¥1,757 Jun 2025 → ¥1,544 Jun 2026)",
+  "biz_classification": "人材派遣・短期業務支援 / Staffing & HR Services",
+  "jp_summary": "**会社概要:** フルキャストホールディングスは、主に短期・単発の人材派遣（アルバイト・パート）を手掛ける人材サービス会社。倉庫・物流、警備、イベント、営業支援など幅広い業種に人材を供給している。東証プライム上場で、グループ全体で人材紹介・派遣事業を展開。\n\n**業績の動き:** 2025年12月期（FY2025）の連結売上高は772億円（前期比+12.6%）、営業利益は79億円（同+10.9%）と、いずれも過去最高を更新した。一方、純利益は48億円（同▲12.9%）と減益だが、これは前期（FY2024）に子会社売却益（約13億円）という一時的な特別利益があったためで、実力ベースでは実質的に増益に近い。売上・営業利益は「大きい」水準——業界内では安定した成長を示しており、12%超の増収は同業比でも良好。\n\n**業績が動いた理由:** 売上が伸びた主因は短期業務支援セグメントの拡大と、警備セグメントの急成長。なぜなら、2025年はEXPO2025大阪・関西万博の開催により臨時の警備需要が急増し、警備事業売上高が前期比+53.7%と大幅増となったため。また、M&Aによる新規連結子会社の寄与（Entry Inc.の買収など）も売上拡大に貢献した。営業利益も増益となったのは、増収効果に加えて戦略投資コストを前期比で削減したためである。純利益の減益は前期の子会社売却特益（約13億円）という比較ベースの歪みによるものであり、実力値の悪化ではない。\n\n**株価が動いた理由:** 過去1年（2025年6月〜2026年6月）で株価は約12%下落（1,757円→1,544円）した。なぜなら、業績は堅調でも純利益ベースでは前期比減益に見えるため市場が慎重姿勢をとったこと、また2026年12月期の1Q（1〜3月期）経常利益が前年比▲10%と弱い滑り出しとなり、M&A費用や出店コストが重しになったためと見られる。万博という非継続的な需要ドライバーへの懸念も株価上昇を抑制した可能性がある。配当は63円（FY2025）→64円（FY2026予）と増配傾向で利回り約4%と高水準だが、成長期待の再評価には至っていない。",
+  "sources": [
+    "https://stockanalysis.com/quote/tyo/4848/financials/",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=4848",
+    "https://finance.yahoo.co.jp/quote/4848.T/financials",
+    "https://irbank.net/4848",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20250213572183/",
+    "https://www.nikkei.com/nkd/company/?scode=4848",
+    "https://minkabu.jp/stock/4848"
+  ],
+  "notes": "FY2025 = fiscal year ending Dec 31, 2025 (confirmed as most recent completed year). Revenue ¥77,227M — FY2025 actual, source: stockanalysis.com (cross-checked with search result summary citing 772.27億円 +12.6% from kabuyoho/Yahoo Finance — match). Operating profit ¥7,914M (+10.9%) — FY2025 actual, source: stockanalysis.com (cross-checked with search result citing 79.15億円 — match). Net profit ¥4,784M (▲12.9%) — FY2025, source: stockanalysis.com; decline is due to FY2024 one-off gain from subsidiary (BOD) share sale of ~¥1,295M — not an underlying deterioration. FY2024 net profit ¥5,493M for comparison. Dividend: ¥63/share FY2025, ¥64/share forecast FY2026 — source: kabuyoho/nikkei IR disclosure (match). Stock price: ¥1,544 as of Jun 5-6, 2026 (irbank.net); estimated 1-year prior (Jun 2025) ~¥1,757 per search snippet — implies ~-12% YoY. 52-week context: data points seen at ¥1,644 (Jul 2025), ¥1,796 (Sep 2025), ¥1,692 (Dec 2025). Net direction coded 'down' due to YoY decline, but notes that this is base-effect distortion. Tab R+xS- assigned because revenue and operating profit both rose while stock declined ~12% over 12 months. Bucket 'all_up_stock_fell': underlying business is growing (rev +12.6%, op profit +10.9%, record highs), yet stock derated, consistent with this bucket. Classification: FY2025 figures are consolidated basis."
+}

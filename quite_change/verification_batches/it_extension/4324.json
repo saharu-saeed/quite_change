@@ -1,0 +1,25 @@
+{
+  "code": "4324",
+  "name": "Dentsu Group Inc. (電通グループ株式会社)",
+  "tab": "R+xS-",
+  "bucket": "all_up_stock_fell",
+  "rev_dir": "up",
+  "op_dir": "down",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-14% from 52-week high; current ~¥3,071 vs 52-week high ¥3,554",
+  "biz_classification": "広告・メディア / Integrated Advertising & Media Group",
+  "jp_summary": "**会社概要:** 電通グループは日本最大、世界でも有数の総合広告会社グループです。テレビ・デジタル・屋外など様々なメディアを通じた広告制作・メディア購買から、PR、イベント、スポーツマーケティング、データ分析まで幅広いサービスを提供しています。日本国内のほか、買収を通じて米州・欧州・アジア太平洋に多くの海外子会社を抱えており、グローバルな広告グループとして運営しています。\n\n**業績の動き:** FY2025（2025年12月期）の連結売上総利益は1兆1,975億円（前期比＋0.3%増）と微増でした。調整後営業利益は1,725億円（同▲2.1%減）と小幅減少。ここまでは「ほぼ横ばい＝普通」の水準ですが、問題は特別損失です。海外買収にともなうのれんの減損損失を合計3,961億円（第1四半期860億円＋第4四半期3,101億円）計上したため、法定ベースの当期純損益は▲3,276億円という過去最大の赤字となりました。配当は中間・期末ともに無配（FY2026も無配予定）。これは「売上は増えているのに、過去の高値買収のツケで赤字」という状態で、業績の実力自体が悪化したわけではなく、過去の海外M&Aのコストが一気に表面化した形です。\n\n**業績が動いた理由:** 国内（日本）事業はオーガニック成長率＋6.2%と好調で過去最高益を更新しました。なぜなら、日本の広告市場が回復し、デジタル広告やスポーツ・エンターテインメント分野での需要が高まったからです。一方、海外（米州・EMEA・APAC）は米州▲2.9%・APAC▲8.7%と不振で、のれん減損3,961億円の原因となりました。なぜなら、2010年代に高値で買収した海外広告会社群が想定通りの収益を出せず、広告市場でのAI活用やデジタルシフトにより従来型エージェンシーの価値が下落しているからです。さらに、海外事業の売却交渉も不調に終わり、経営責任を取る形でCEOが交代（2026年3月に佐野卓志氏が就任）しました。\n\n**株価が動いた理由:** 株価は過去1年間で52週高値3,554円から現在3,071円程度まで下落しており、約▲14%の下落となっています。なぜなら、2025年8月に通期業績予想を黒字から赤字に下方修正し（中間配当も無配化）、株価が急落したからです。さらに2026年2月の決算発表で年間3,961億円ものれん減損と最終赤字3,276億円が確定し、期末配当も無配・FY2026も無配という発表が重なり、配当を期待していた投資家が売却しました。ただし日経新聞などでは「悪材料出尽くし」との見方も出始めており、2026年に入ってからは一定の下値支持が見られます。なぜなら、のれん残高が約3,201億円まで圧縮されたことで追加減損リスクが低下し、日本事業の好調が継続しているからです。",
+  "sources": [
+    "https://www.group.dentsu.com/en/news/release/pdf-cms/2026004-0213en.pdf",
+    "https://www.group.dentsu.com/en/news/release/pdf-cms/2026010-0213en.pdf",
+    "https://finance.biggo.com/news/7DtGWJwBq7sy_YQMMkNd",
+    "https://www.nikkei.com/article/DGXZQOUB130V90T10C26A2000000/",
+    "https://www.nikkei.com/article/DGXZQOFL1612Q0W6A210C2000000/",
+    "https://www.investing.com/news/company-news/dentsu-fy2025-slides-japan-growth-offset-by-international-struggles-and-goodwill-impairment-93CH-4504923",
+    "https://www.campaignasia.com/article/dentsu-swings-to-record-fy25-loss-after-international-impairment-blitz/44nc70aak2djy67kqkzzhkq84v",
+    "https://stockanalysis.com/quote/tyo/4324/",
+    "https://irbank.net/4324/pl",
+    "https://finance.yahoo.com/news/assessing-dentsu-group-valuation-leadership-131046074.html"
+  ],
+  "notes": "Revenue verification: 売上総利益¥1,197.5B (FY2025 actual, consolidated IFRS) — confirmed by Dentsu IR PDF (2026004-0213en.pdf) AND BigGo Finance news summary. Adjusted operating profit ¥172.5B (-2.1% YoY) — confirmed by Dentsu IR and Investing.com article. Statutory operating loss ¥289.2B — IR PDF confirmed. Net loss ¥327.6B — confirmed by Campaign Asia, BigGo Finance, Simply Wall St, MarketScreener (all independent). Goodwill impairment ¥396.1B total (¥86.0B in Q1 + ¥310.1B in Q4) — confirmed by Nikkei article (DGXZQOUB130V90T10C26A2000000) AND Reuters/Yahoo Finance Japan. No dividend FY2025 and FY2026 — confirmed by Nikkei disclosure page and IRBANK dividend page. Stock price: current ~¥3,071 (as of May 28 2026 per Investing.com), 52-week range ¥2,642–¥3,554 (Investing.com). YoY stock performance estimated from 52-week high of ¥3,554 vs current ¥3,071 = approx -14% from peak; exact June-to-June comparison unavailable from search snippets but stock clearly down from prior year levels given the August 2025 downward revision shock and goodwill impairment announcement in Feb 2026. Tab classification R+xS-: revenue (売上総利益) up +0.3% YoY, stock down from 52-week high. Bucket 'all_up_stock_fell' chosen because underlying revenue and adjusted operating profit were near-flat/slightly positive, Japan operations hit record profit, but stock fell due to massive goodwill write-off, net loss, and dividend suspension — i.e. the 'top-line up but market punished by non-recurring charges and dividend cut'. FY scope: FY2025 = fiscal year ending December 2025 (Jan–Dec 2025), consolidated IFRS basis."
+}

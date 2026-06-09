@@ -1,0 +1,23 @@
+{
+  "code": "9719",
+  "name": "SCSK Corporation (SCSK株式会社)",
+  "tab": "R+xS+",
+  "bucket": "acceleration_rerating",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "+55% YoY (¥3,266 → ¥5,670)",
+  "biz_classification": "ITサービス / System Integration & BPO",
+  "jp_summary": "**会社概要:** SCSKは住友商事グループのITサービス会社で、企業向けにシステム開発・保守・運用、ITインフラ構築、BPO（業務処理の外部委託）などを提供しています。製造・自動車、金融、流通など幅広い業界の大企業を顧客に持ちます。2024年にネットワーク・セキュリティ専門のネットワンシステムズを完全子会社化し、規模を大きく拡大しました。\n\n**業績の動き:** 2025年3月期（FY2025）の売上収益は5,961億円で前年比＋24.1%増、営業利益は661億円で＋16.0%増、純利益は450億円で＋11.3%増でした。配当は年間71円。売上が約6,000億円というのは、日本の中堅ITサービス企業としては非常に大きな規模で、NTTデータや富士通には及ばないものの国内有力プレイヤーの一角です。増収率24%は業界平均（5〜10%程度）と比べても突出しており、「速い成長」と言えます。\n\n**業績が動いた理由:** 最大の要因はネットワンシステムズのTOB（2024年11月〜12月、買収総額約3,574億円）による連結化です。なぜなら、ネットワンシステムズの売上・利益がそのまま連結に加わったことで、売上が一気に約1,000億円単位で押し上げられたからです。それに加え、企業のDX（デジタルトランスフォーメーション）投資需要の継続的な拡大と、エンジニア単価の引き上げ・不採算案件の削減という収益性改善努力が重なりました。2026年3月期に入っても好調は続き、2026年6月に純利益予想を635億円へ10%上方修正（6期連続最高益更新見込み）しています。\n\n**株価が動いた理由:** 株価は過去1年で約55%上昇（¥3,266→¥5,670水準）しました。なぜなら、①ネットワンシステムズ買収による成長加速が市場に評価されたこと、②6期連続最高益という安定した利益成長と増配（71円→94円予想）が長期投資家に好まれたこと、③日本ITセクター全体のDX需要拡大によるセクター追い風、④2026年6月の上方修正発表が株価の一段上昇を後押ししたことが挙げられます。アナリストの平均目標株価は4,919円〜5,500円程度で買い推奨が優勢となっており、機関投資家からの注目度も高まっています。",
+  "sources": [
+    "https://www.scsk.jp/ir/library/briefing/pdf/scsk/20250430_financial_result.pdf",
+    "https://irbank.net/E04830/pl",
+    "https://kabutan.jp/stock/finance?code=9719",
+    "https://kabutan.jp/news/?b=k202506100016",
+    "https://www.nihon-ma.co.jp/news/20241219_9719-6/",
+    "https://stockanalysis.com/quote/tyo/9719/",
+    "https://finance.yahoo.com/quote/9719.T/",
+    "https://minkabu.jp/stock/9719"
+  ],
+  "notes": "Revenue ¥596,065M FY2025 actual — sourced from SCSK official 決算短信 (2025-04-30) and cross-checked via irbank.net/E04830/pl and stockanalysis.com (both confirm ¥596.07B, +24.1% YoY). Operating profit ¥66,121M (+16.0% YoY) — confirmed by 決算短信 PDF and kabutan.jp finance page. Net profit ¥45,035M (+11.3%) — confirmed by stockanalysis.com ('earnings increasing 11.30%') and irbank. Dividend ¥71/share FY2025 actual — from kabuyoho.jp dividend report; FY2026 forecast ¥94/share per company guidance. Stock price: ¥5,670 as of Feb 20 2026 (companiesmarketcap/stockanalysis), 52-week low ¥3,149~¥3,266 (minkabu/bitget), 52-week high ¥5,700 → YoY estimate +55% from low to current. FY2026 upward revision (net profit ¥57.6B→¥63.5B) announced 2026-06-10 per kabutan news. Net One Systems TOB: announced 2024-11-06, settled 2024-12-25, total acquisition ~¥357.4B per nihon-ma.co.jp and IT Leaders. Large revenue jump primarily attributed to Net One Systems consolidation (confirmed by moneyworld.jp quarterly report: Q1 FY2026 revenue +44.8% YoY). All figures are consolidated IFRS basis."
+}

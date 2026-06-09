@@ -1,0 +1,23 @@
+{
+  "code": "9474",
+  "name": "Zenrin Co., Ltd. (株式会社ゼンリン)",
+  "tab": "R+xS-",
+  "bucket": "all_up_stock_fell",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-25% from 52-week high; approx -15% YoY",
+  "biz_classification": "地図情報・位置情報サービス / Map Data & Location Intelligence",
+  "jp_summary": "**会社概要:**\nゼンリンは1948年創業の地図情報サービス会社です。日本全国を現地調査員が実際に歩いて集めた「住宅地図データベース」を核に、カーナビ向けデジタル地図データ、法人向けGIS（地理情報システム）、IoT・APIサービス、自治体向けデジタル化支援、自動運転向け3D地図など幅広い位置情報サービスを提供しています。東証プライム・福岡証券取引所に上場。\n\n**業績の動き:**\n2025年3月期（FY2025）の連結売上高は643億63百万円（前期比＋0.1%、ほぼ横ばい）、営業利益は39億23百万円（前期比＋9.0%）、親会社株主に帰属する当期純利益は26億06百万円（前期比＋25.4%）でした。配当は1株35円（前期28.5円から増配、約23%増）。売上の伸びは小さいですが、利益率は大幅改善——営業利益率が前期3.2%から6.1%へ跳ね上がっています。これは「売上はほぼ変わらないのに、利益だけ大きく増えた」状態で、コスト削減と高付加価値ビジネスへのシフトが効いたことを意味します。ただし、モビリティソリューション（カーナビ）向けに「過去の数量報告過少分」という一時的な増収要因が含まれており、実力値より少し膨らんでいる点に注意が必要です。\n\n**業績が動いた理由:**\nオートモーティブ（カーナビ用地図データ）では既存顧客からの増収があり、IoT部門ではAPI経由で地図データを提供するサービスや法人向けソリューションが堅調に拡大しました。なぜなら、カーナビのデータ更新需要は継続的に発生する「サブスクリプション型」に近い収益構造であり、またAPIサービスは一度導入すると解約しにくいストック型ビジネスだからです。コスト面では構造改革が進んだことで、売上成長が小さくても利益が大きく伸びる体制に変わりつつあります。2026年3月期の会社予想は売上655億円（＋1.8%）、営業利益43億円（＋9.6%）と連続増益を見込んでいます。\n\n**株価が動いた理由:**\n過去1年間（2024年6月→2025年6月）でゼンリンの株価は約15〜25%下落し、現在は856円前後（52週高値1,136円から大きく離れた水準）で推移しています。なぜなら、①売上高の伸びがわずか0.1%と実質横ばいで、成長株としての評価が難しくなったこと、②利益の伸びに一時的要因（過年度の報告漏れ補正）が含まれており「本当の実力か？」という懸念が広がったこと、③自動運転・IoT向けの成長ストーリーは長期的だが短期の業績インパクトが限定的であることが市場に嫌気されたからです。アナリストのコンセンサス目標株価も現株価に近い水準で、積極的な買い推奨は少ない状況です。",
+  "sources": [
+    "https://www.zenrin.co.jp/company/ir/management/25tanshin.pdf",
+    "https://irbank.net/9474/pl",
+    "https://irbank.net/E00717/dividend",
+    "https://irbank.net/9474",
+    "https://kabu.bridge-salon.jp/zenrin-stock/",
+    "https://www.google.com/finance/quote/9474:TYO?hl=en",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20250129557225/",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=9474"
+  ],
+  "notes": "FY2025 = fiscal year ending March 31, 2025 (連結). Revenue ¥64,363M — confirmed via irbank.net PL history and Zenrin official 決算短信 PDF (April 25, 2025). Cross-check: buffett-code and irbank both show same ¥64,363M figure. Operating profit ¥3,923M (+9.0% YoY) — primary source: first-search summary citing official tanshin; cross-checked via irbank showing FY2024 OP ¥3,600M and FY2025 ¥3,923M (consistent). Net profit ¥2,606M (+25.4% YoY) — sourced from irbank, consistent with search result citing ¥2,578M forecast at January upward revision. Dividend ¥35/share — confirmed via irbank dividend page (interim ¥15 + year-end ¥20); prior year was ¥28.5. January 31, 2025 disclosure confirmed mid-year increase (増配). Stock: current price ¥856 as of June 8, 2026 (Google Finance); 52-week high ¥1,136, low ¥844. YoY stock estimate is approximately -15% to -25% based on range data; exact June 2024 close not independently confirmed — labeled as estimate. One-time factor: mobility segment included prior-period underreported quantities (過年度の数量報告過少分) inflating FY2025 results slightly — flagged in notes per spec. Revenue direction: up (+0.1%, small but positive = 'up'). Op profit: up +9.0%. Net profit: up +25.4%. Stock: down from peak and YoY. Tab = R+xS-. Bucket = all_up_stock_fell (all three profit lines improved, yet stock declined materially over the past 12 months)."
+}

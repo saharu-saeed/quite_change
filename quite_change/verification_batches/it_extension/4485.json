@@ -1,0 +1,25 @@
+{
+  "code": "4485",
+  "name": "JTOWER Inc. (株式会社JTOWER)",
+  "tab": "R+xS+",
+  "bucket": "activist_corporate_action",
+  "rev_dir": "up",
+  "op_dir": "down",
+  "net_dir": "down",
+  "stock_yoy_estimate": "+152% TOBプレミアム (¥1,430→¥3,600)",
+  "biz_classification": "通信インフラシェアリング / Telecom Infrastructure Sharing (Tower & IBS)",
+  "jp_summary": "**会社概要:** JTOWERは「通信インフラのシェアリング」を専門とする日本唯一の独立系タワー会社です。携帯キャリア（NTTドコモ・KDDI・ソフトバンク・楽天）が個別に持っていた基地局用の鉄塔や屋内アンテナ設備を、複数キャリアで共同利用できる形に作り直して管理・貸し出します。屋外鉄塔を約7,000本保有するほか、ビル・地下・商業施設などへの屋内基地局（IBS）も展開しています。2012年創業、東証グロース上場を経て2025年1月に上場廃止。\n\n**業績の動き:** 直近完了の会計年度はFY2024（2024年3月期）で、売上高は約115億円（前期比+120%増）、営業利益は約8.7億円（前期比+641%増）と急成長を達成しました。続くFY2025（2025年3月期）の会社予想は売上高157億円（+36%）、営業利益4.5億円（−48%）、純損失13.2億円です。売上は伸びているのに利益が減っているのは、5G対応のための設備投資（減価償却費増）や金融費用がかさんでいるからです。配当はゼロ（成長投資優先）。規模感としては、売上100〜150億円台は上場インフラ会社としてはまだ小型ですが、成長速度は異例の速さです。\n\n**業績が動いた理由:** 売上が倍増した主な理由は、大手キャリアとのマスターリース契約（tower-lease）の積み上げと、屋内基地局（IBS）案件の竣工が一気に進んだことです。なぜなら、日本の5G整備に伴いキャリア各社が単独でタワーを建てるより共用する方がコスト効率が高いと判断し、JTOWERへのアウトソーシングが加速したからです。一方で利益が圧縮されたのは、なぜなら、長期ローンで取得した鉄塔の減価償却費や金利負担が重く、売上増加に比べてコスト上昇が先行しているからです（インフラ事業の典型的な「先行投資フェーズ」）。\n\n**株価が動いた理由:** 株価は上場廃止前の約1年間で約+152%上昇しました。なぜなら、2024年8月に米デジタルインフラ投資大手DigitalBridgeグループが1株3,600円（当時の株価¥1,430に対し約152%のプレミアム）でTOB（株式公開買付）を発表したからです。TOBは2024年10月に成立し、JTOWERは2025年1月7日に東証グロース市場から上場廃止となりました。買収総額は約930億円規模。DigitalBridgeが非公開化を選んだ理由は、なぜなら、数千億円規模の長期インフラ投資を行うには四半期ごとの株式市場の評価に縛られない方が都合がよく、ファンドの長期資金と組み合わせることで一気に成長を加速させる戦略をとったからです。",
+  "sources": [
+    "https://kabutan.jp/stock/finance?code=4485",
+    "https://kabutan.jp/news/marketnews/?b=n202408150669",
+    "https://maonline.jp/news/20240814c",
+    "https://k-tai.watch.impress.co.jp/docs/news/1616041.html",
+    "https://www.digitalbridge.com/news/2024-10-21-digitalbridge-to-take-jtower-private-acquires-majority-stake",
+    "https://business.nikkei.com/atcl/gen/19/00550/012000096/",
+    "https://www.jtower.co.jp/wp-content/uploads/2025/01/20250109_faq.pdf",
+    "https://irbank.net/E35333/results",
+    "https://profile.yahoo.co.jp/consolidate/4485",
+    "https://www.buffett-code.com/company/4485/"
+  ],
+  "notes": "【検証記録】FY2024（2024年3月期）売上高: 第1ソース=kabutan（約115億円、前期比+120%）、第2ソース=buffett-code・irbank（同数値で一致）→採用。FY2024営業利益: kabutan・irbank共に約868百万円（+641% YoY）→一致。FY2025（2025年3月期）業績予想: 売上高157億円・営業利益4.5億円・純損失13.2億円はJTOWER公式IR（2024年11月14日2Q決算短信）による予想値。確定決算は上場廃止後のため一般公開情報なし→「FY2025予想値」として注記。TOB価格: 複数ソース（kabutan, k-tai.watch, digitalbridge.com, maonline）で1株¥3,600を確認→一致。TOB発表前株価¥1,430はkabutan・Yahoo Finance記事で確認。プレミアム約152%は計算値。上場廃止日: JTOWER公式FAQ（2025年1月）・各メディアで2025年1月7日を確認→一致。配当: FY2025予想¥0（成長優先で無配継続）。rev_dir=up（FY2024実績・FY2025予想とも前期比増収）。op_dir=down（FY2025予想で前期比−48%）。net_dir=down（FY2025予想で純損失拡大）。株価はTOBによる特殊事情で大幅上昇→bucket=activist_corporate_action。"
+}

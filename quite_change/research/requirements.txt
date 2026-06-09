@@ -1,0 +1,11 @@
+# Runtime dependencies for the research/ module.
+#
+# Install with (from quite_change/):
+#   python -m pip install -r research/requirements.txt
+#
+# IMPORTANT: use `python -m pip` not bare `pip` — bare `pip` can resolve to
+# a different venv than `python` does, leaving the install in the wrong
+# site-packages directory.
+
+anthropic>=0.40       # Claude SDK — calls the Messages API + hosted web_search tool
+flask>=3.0            # Tiny web server for the interactive UI (research/serve.py)

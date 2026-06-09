@@ -1,0 +1,23 @@
+{
+  "code": "9416",
+  "name": "Vision Inc. (株式会社ビジョン)",
+  "tab": "R+xS-",
+  "bucket": "all_up_stock_fell",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-18% YoY (approx ¥1,263→¥1,031)",
+  "biz_classification": "Global WiFi rental / SME ICT solutions (テレコム・インターネットサービス)",
+  "jp_summary": "**会社概要:** ビジョンは、海外旅行者向けのWiFiルーターレンタルサービス「グローバルWiFi」（ブランド名：NINJA WiFi）を世界200カ国以上で展開するほか、国内中小企業向けにOA機器・クラウド・通信サービスを販売・提供するITソリューション会社です。東証プライム上場で、インバウンド（訪日外国人）需要にも対応した「NINJA WiFi for Japan」も手がけています。\n\n**業績の動き:** 2025年12月期（FY2025）連結実績は、売上高390億円（前年比+9.8%）、営業利益65億円（同+20.5%）、純利益45億円（同+34.0%）と三期連続の過去最高更新。「大きい？」という感覚で言えば、売上規模は中堅ITサービス企業として十分な伸び率で、営業利益率は約16.6%と高水準。配当は前年の27円から50円へ大幅増配（配当性向約55%）と株主還元も強化しました。\n\n**業績が動いた理由:** グローバルWiFi事業では、コロナ後の海外旅行需要が完全回復し、さらに訪日外国人（インバウンド）向け「NINJA WiFi」のレンタル件数が急増したことが主因です。なぜなら、訪日外客数が2019年比で100%超まで回復し、複数デバイスを持つ旅行者がWiFiをスタンダードとして使うようになったためです。また、国内情報通信サービス事業でもSMB（中小企業）向けOA・ITソリューションの受注が堅調で、全セグメントで増収増益を達成しました。\n\n**株価が動いた理由:** 2025年中は業績好調で株価が上昇し、2026年2月に52週高値1,343円をつけましたが、その後は2026年5月に994円まで下落し、2026年6月時点では1,031円と高値比-23%の水準です。なぜなら、業績は過去最高でも「成長ペースが鈍化するのでは」という懸念と、日本株全体の調整・金利上昇局面でバリュエーション（PER約10倍）が圧縮されたためです。加えて、インバウンド需要への依存度が高く、地政学リスクや為替変動による業績ぶれを嫌気した売りも影響したとみられます。",
+  "sources": [
+    "https://finance.yahoo.co.jp/quote/9416.T",
+    "https://finance.yahoo.co.jp/quote/9416.T/financials",
+    "https://finance.matsui.co.jp/stock/9416/settlement/index",
+    "https://irbank.net/9416/ir",
+    "https://minkabu.jp/stock/9416/settlement",
+    "https://finance.logmi.jp/articles/379207",
+    "https://www.vision-net.co.jp/ir/library/result.html",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=9416"
+  ],
+  "notes": "Revenue FY2025 actual ¥39,012M (+9.8% YoY) — confirmed independently by Matsui Finance fetch AND multiple search result summaries (Yahoo Finance, search snippets). FY2024 actual ¥35,528M as base. Operating profit FY2025 ¥6,465M (+20.5% YoY); FY2024 ¥5,365M — cross-checked Matsui Finance vs search snippets: match. Net profit FY2025 ¥4,522M (+34.0% YoY); search snippets cited ¥43.82億 forecast vs Matsui confirmed ¥4,522M — minor discrepancy likely forecast vs actual rounding, used Matsui actual. Dividend ¥50/share FY2025 confirmed (up from ¥27 FY2024) per IR shareholder benefit page and multiple sources: match. Stock price: current ¥1,031 (June 8 2026, Yahoo Finance fetch); 52-week high ¥1,343 (Feb 10 2026), low ¥994 (May 15 2026). YoY change estimated -18% (¥1,263 Nov 2025 → ¥1,031 Jun 2026); exact June 2025 price unavailable but directionally confirmed down. All figures are consolidated (連結). Fiscal year is calendar year ending December 31. Business: two main segments — Global WiFi (overseas/inbound WiFi rental) and 情報通信サービス (domestic SME ICT/OA solutions). Tab=R+xS- because revenues and profits are up record highs but stock is down ~18-23% over past year. Bucket=all_up_stock_fell: strong operational performance not rewarded by market due to valuation compression and growth-slowdown concerns."
+}

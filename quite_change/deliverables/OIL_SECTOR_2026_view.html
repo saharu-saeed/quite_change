@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Oil Sector — R+ Classification View</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans", "Meiryo", sans-serif; margin: 0; padding: 0; color: #1a1a1a; background: #f7f7f5; line-height: 1.55; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header.page-header { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 22px 24px; }
+.page-header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+.page-header .subtitle { color: #555; font-size: 13px; margin: 4px 0 0; }
+
+/* Filter controls */
+.filter-row { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px 18px; margin: 16px 0; }
+.filter-row label { font-size: 13px; font-weight: 600; color: #333; margin-right: 8px; }
+.filter-row select { font-size: 13px; padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+.filter-row .filter-note { font-size: 12px; color: #777; margin-top: 8px; }
+
+/* Filter explanations */
+.filter-explanations-block { background: #fdf6e3; border-left: 4px solid #d4a017; padding: 14px 18px; margin: 12px 0; border-radius: 4px; }
+.filter-explanations-block h3 { margin: 0 0 8px; font-size: 14px; color: #555; }
+.filter-explanation { margin: 8px 0; }
+.filter-explanation > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #1f7a4a; padding: 6px 0; }
+.filter-explanation > summary:hover { color: #155a35; }
+.filter-exp-body { font-size: 13px; color: #333; line-height: 1.7; padding: 10px 0 4px 8px; border-left: 2px solid #d4a017; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin: 16px 0 0; border-bottom: 2px solid #e0e0e0; }
+.tab { padding: 10px 18px; cursor: pointer; font-size: 14px; font-weight: 600; color: #888; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.tab.active { color: #1f7a4a; border-bottom-color: #1f7a4a; }
+.tab-content { display: none; padding: 18px 0; }
+.tab-content[data-active="true"] { display: block; }
+
+/* Company cards */
+.company-row { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 16px 18px; margin: 12px 0; }
+.company-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.ticker { font-family: monospace; font-size: 13px; color: #777; }
+.company-name { font-size: 16px; font-weight: 700; }
+.company-data { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: #555; margin-bottom: 8px; }
+.data-label { color: #888; font-weight: 600; }
+.biz-tag { font-size: 11.5px; color: #777; margin-bottom: 10px; font-style: italic; }
+.genuine-research { background: #f0f8f3; border-left: 4px solid #1f7a4a; padding: 12px 14px; border-radius: 4px; }
+.genuine-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-size: 11.5px; color: #555; }
+.genuine-label { font-weight: 700; color: #1f7a4a; }
+.genuine-source { font-size: 10.5px; color: #999; }
+.genuine-body { font-size: 13px; line-height: 1.7; color: #1a1a1a; white-space: pre-wrap; }
+.genuine-body b { color: #1f7a4a; }
+
+.empty-note { padding: 20px; color: #888; font-style: italic; }
+
+/* Language toggle */
+.lang-toggle { position: absolute; top: 22px; right: 22px; display: flex; gap: 4px; }
+.lang-btn { padding: 4px 10px; font-size: 12px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 3px; }
+.lang-btn.active { background: #1f7a4a; color: #fff; border-color: #1f7a4a; }
+</style>
+</head>
+<body>
+<header class="page-header" style="position: relative;">
+  <h1 data-i18n="page.title">Oil Sector — R+ Classification View (FY3/2026)</h1>
+  <div class="subtitle" data-i18n="page.subtitle">2026-06-04 · Latest available reports · Filter-configurable</div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="jp">日本語</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Filter dropdown -->
+  <div class="filter-row">
+    <label for="filter-select" data-i18n="filter.label">Filter mode:</label>
+    <select id="filter-select">
+      <option value="営業利益○" selected>Operating profit ↑ (default for Oil)</option>
+<option value="売上○">Revenue ↑ (strict)</option>
+<option value="両方">Either ↑ (revenue OR operating profit up)</option>
+
+    </select>
+    <div class="filter-note" data-i18n="filter.note">
+      Filter is sector-specific. For oil, operating-profit-up captures business performance better than revenue-up because revenue moves with crude oil prices.
+    </div>
+  </div>
+
+  <!-- Filter explanations -->
+  <div class="filter-explanations-block">
+    <h3 data-i18n="explanations.heading">Why these filter options?</h3>
+    
+        <details class="filter-explanation" data-filter="営業利益○">
+          <summary>
+            <span class="filter-exp-label" data-en="Why use Operating profit ↑ (default for Oil)?" data-jp="なぜ「営業利益○（石油セクターのデフォルト）」を使う?">
+              Why use Operating profit ↑ (default for Oil)?
+            </span>
+          </summary>
+          <div class="filter-exp-body" data-en="In plain terms: Oil sector revenue moves with global crude oil prices — NOT with how well the business is being run. When oil prices fall, every refiner&#x27;s revenue drops, even if they&#x27;re running their refineries efficiently and earning healthy refining margins. So &#x27;revenue up (売上○)&#x27; is a misleading quality signal for oil companies — it mostly tells you about OPEC decisions and global demand, not about the company itself.<br><br><br><br>Operating profit (営業利益) captures the actual business performance: refining margins, inventory management, cost discipline, downstream demand strength. When operating profit grows, the business is genuinely doing better, regardless of whether crude prices were a tailwind or a headwind.<br><br><br><br>That&#x27;s why for the oil sector, this view defaults to 営業利益○ (operating profit up). For FY3/2026, crude oil prices fell sharply, so almost every Japanese refiner saw revenue decline (-4% to -12%). But operating profit grew strongly at the top players (Idemitsu +31%, ENEOS +340%, Cosmo +13%) because refining margins were favorable. The strict 売上○ filter would exclude all of these stories — which is why the profit-based filter shows the real picture.<br><br><br><br>You can switch to 売上○ if you want only revenue-growth companies (this year that&#x27;s just Fuji Kosan, thanks to diversification into environmental energy and recycling). Or 両方 (both) to see all companies tagged under either filter." data-jp="簡単に言うと:石油セクターの売上は、世界の原油価格と連動して動きます — 企業の事業がどれだけうまく運営されているかとは関係なく動きます。原油価格が下がれば、どの精製会社も売上が落ちます。製油所を効率よく運営して健全な精製マージンを稼いでいてもです。だから『売上○』は石油会社の品質シグナルとして誤解を招きます — OPECの決定と世界需要のことしか教えてくれません。<br><br><br><br>営業利益は実際の事業パフォーマンスを捉えます:精製マージン、在庫管理、コスト規律、川下需要の強さ。営業利益が伸びるなら、その事業は本当に良くなっています — 原油価格が追い風だったか逆風だったかとは関係ありません。<br><br><br><br>だから石油セクターでは、デフォルト表示は『営業利益○』にしています。2026年3月期は原油価格が大幅に下落したため、ほぼすべての日本の精製会社で売上が減少(-4〜-12%)しました。しかし大手の営業利益は強く伸びました(出光興産+31%、ENEOS +340%、コスモ+13%)。精製マージンが良好だったためです。厳格な『売上○』フィルタではこれらすべての物語が除外されてしまいます — だからこそ利益ベースのフィルタが本当の姿を見せます。<br><br><br><br>『売上○』に切り替えれば、売上成長企業のみが表示されます(今年は富士興産のみ、環境エネルギー・リサイクルへの多角化のおかげです)。『両方』に切り替えれば、いずれかのフィルターでタグ付けされたすべての企業が表示されます。">
+            In plain terms: Oil sector revenue moves with global crude oil prices — NOT with how well the business is being run. When oil prices fall, every refiner&#x27;s revenue drops, even if they&#x27;re running their refineries efficiently and earning healthy refining margins. So &#x27;revenue up (売上○)&#x27; is a misleading quality signal for oil companies — it mostly tells you about OPEC decisions and global demand, not about the company itself.<br><br><br><br>Operating profit (営業利益) captures the actual business performance: refining margins, inventory management, cost discipline, downstream demand strength. When operating profit grows, the business is genuinely doing better, regardless of whether crude prices were a tailwind or a headwind.<br><br><br><br>That&#x27;s why for the oil sector, this view defaults to 営業利益○ (operating profit up). For FY3/2026, crude oil prices fell sharply, so almost every Japanese refiner saw revenue decline (-4% to -12%). But operating profit grew strongly at the top players (Idemitsu +31%, ENEOS +340%, Cosmo +13%) because refining margins were favorable. The strict 売上○ filter would exclude all of these stories — which is why the profit-based filter shows the real picture.<br><br><br><br>You can switch to 売上○ if you want only revenue-growth companies (this year that&#x27;s just Fuji Kosan, thanks to diversification into environmental energy and recycling). Or 両方 (both) to see all companies tagged under either filter.
+          </div>
+        </details>
+        
+
+        <details class="filter-explanation" data-filter="売上○">
+          <summary>
+            <span class="filter-exp-label" data-en="Why use Revenue ↑ (strict)?" data-jp="なぜ「売上○（厳格）」を使う?">
+              Why use Revenue ↑ (strict)?
+            </span>
+          </summary>
+          <div class="filter-exp-body" data-en="In plain terms: This is the strict &#x27;revenue up&#x27; filter — same as the IT sector default. For oil companies, this filter usually excludes most of the universe because crude oil price declines drag down revenue across the sector even when business is performing well. Use this if your senior or framework specifically requires a revenue-based filter; otherwise the 営業利益○ default is more informative for the sector." data-jp="簡単に言うと:これは厳格な『売上○』フィルター — IT セクターのデフォルトと同じです。石油会社の場合、このフィルターは原油価格の下落がセクター全体の売上を引き下げるため、事業がうまく運営されていてもユニバースのほとんどを除外することが多いです。シニアまたはフレームワークが特に売上ベースのフィルターを要求する場合に使用してください。それ以外の場合は、セクターには『営業利益○』のデフォルトの方が有益です。">
+            In plain terms: This is the strict &#x27;revenue up&#x27; filter — same as the IT sector default. For oil companies, this filter usually excludes most of the universe because crude oil price declines drag down revenue across the sector even when business is performing well. Use this if your senior or framework specifically requires a revenue-based filter; otherwise the 営業利益○ default is more informative for the sector.
+          </div>
+        </details>
+        
+
+        <details class="filter-explanation" data-filter="両方">
+          <summary>
+            <span class="filter-exp-label" data-en="Why use Either ↑ (revenue OR operating profit up)?" data-jp="なぜ「両方（売上または営業利益のいずれかが上昇）」を使う?">
+              Why use Either ↑ (revenue OR operating profit up)?
+            </span>
+          </summary>
+          <div class="filter-exp-body" data-en="In plain terms: This is the union of the two filters above. Companies that have EITHER revenue up OR operating profit up appear. Use this when you want the broadest view of the sector and don&#x27;t want to be restricted to one signal. For oil this typically shows the same set as 営業利益○ since the revenue-up subset is a small intersection of the OP-up set." data-jp="簡単に言うと:これは上の2つのフィルターの合計です。売上が上昇しているまたは営業利益が上昇している企業のいずれかが表示されます。セクターの最も広い見方を求めて、1つのシグナルに制限されたくない場合に使用します。石油の場合、売上上昇のサブセットがOP上昇セットの小さな交点であるため、これは通常『営業利益○』と同じセットを表示します。">
+            In plain terms: This is the union of the two filters above. Companies that have EITHER revenue up OR operating profit up appear. Use this when you want the broadest view of the sector and don&#x27;t want to be restricted to one signal. For oil this typically shows the same set as 営業利益○ since the revenue-up subset is a small intersection of the OP-up set.
+          </div>
+        </details>
+        
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="s-minus">
+      <span data-i18n="tab.sMinus">R+ × S- — Profit up, stock down</span>
+    </div>
+    <div class="tab" data-tab="s-plus">
+      <span data-i18n="tab.sPlus">R+ × S+ — Profit up, stock up</span>
+    </div>
+  </div>
+
+  <div class="tab-content tab-s-minus" data-active="true">
+    
+    <div class="company-row" data-filters="営業利益○,両方">
+      <div class="company-head">
+        <span class="ticker">5019</span>
+        <span class="company-name">Idemitsu Kosan</span>
+      </div>
+      <div class="company-data">
+        <span class="data-item"><span class="data-label" data-i18n="card.revenue">売上:</span> ↓ down</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.op">営業利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.net">純利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.stock">株価:</span> <b>-10.6% past 3 months (¥1,519 Mar 2026 → ¥1,357 Jun 2026); concerns over FY27 guidance</b></span>
+      </div>
+      <div class="biz-tag">分類: mixed (rev down, profit up — inventory tailwind + high-functional materials) · バケット: profit_grew_stock_overhang</div>
+      <div class="genuine-research">
+        <div class="genuine-header">
+          <span class="genuine-label" data-i18n="card.genuineLabel">本物の調査 (combined-prompt verification)</span>
+          <span class="genuine-source" title="Combined-prompt JP web search 2026-06 + LIMO 5019 article + STOCK EXPRESS 5019 + Nikkei 5019 + logmi 5019 + Rakuten Securities 5019">📚 Combined-prompt JP web search 2026-06 + LIMO 5019 article + STOCK EXPRESS 5019 +…</span>
+        </div>
+        <div class="genuine-body" data-genuine-en="<b>What happened:</b> Idemitsu Kosan is Japan&#x27;s #2 oil refiner and distributor — about 30% domestic gasoline station share, with refineries in Hokkaido, Chiba, Aichi, and Tokuyama. Plus a &#x27;High-Functional Materials&#x27; segment (organic-EL blue emitter materials, lithium-ion battery materials, overseas lubricant sales) gives Idemitsu a unique diversification axis. <b>FY3/2026 revenue ¥8.106 trillion (-11.8%), operating profit ¥212.2 billion (+30.8%), net profit ¥171.9 billion (+65.2%)</b>. Revenue down but profit sharply up.
+
+<b>Why profit grew:</b> First, <b>positive inventory time-lag effect in fuel oil business</b> — crude price spikes lifted inventory valuation. Second, <b>improved refinery utilization</b> — large maintenance turnarounds were less impactful than the previous year. Third, <b>strong High-Functional Materials segment</b> — overseas lubricant sales grew, and organic-EL material demand (for Korea and China) continued.
+
+<b>Stock reaction:</b> Stock fell from ¥1,519 in March 2026 to ¥1,357 in June 2026 — <b>a -10.6% drop over 3 months</b>. Earnings are strong but the stock moved the opposite way — the classic &#x27;売上○株価×&#x27; pattern (or &#x27;営業利益○株価×&#x27; on a profit basis).
+
+<b>Why is the stock falling despite strong earnings — structural reasons:</b>
+
+First, <b>weakness in FY27 guidance</b>. Idemitsu guided FY27 net profit at ¥7.5 billion (-56.4% YoY) — falling crude prices will produce a negative time-lag effect. The market is pricing the &#x27;good year now, payback next year&#x27; scenario, and forward concerns weigh on the current price even if it looks cheap.
+
+Second, <b>structural risk from crude price dependency</b>. Most of the profit comes from inventory valuation effects (= change in crude price), making the underlying business performance hard to see. Institutional investors judge that &#x27;temporary profit doesn&#x27;t deserve a higher multiple.&#x27;
+
+Third, <b>cost of decarbonization regulation</b>. Oil refining must shrink long-term — even though Idemitsu&#x27;s High-Functional Materials business has strong EU share, the core revenue is still refining, and energy-transition uncertainty weighs on valuation.
+
+Fourth, <b>PBR-improvement measures in progress but with limited market reward</b>. Idemitsu has executed PBR-improvement measures (buybacks, dividend hikes, stock splits, mid-term plan revisions) and the stock did rally when measures were announced, but it&#x27;s now at a &#x27;will the measures keep working?&#x27; stage. PBR improved from 0.55x pre-announcement by 0.29 points, but is still depressed.
+
+Fifth, <b>ESG screens at institutional investors</b>. ESG-focused investors limit fossil-fuel exposure — even with earnings improvement, the ESG-screen wall keeps many investors from adding.
+
+<b>Potential re-rating catalysts:</b>
+- Mid-term plan targets FY30 ROE 13%, profit +50% vs current
+- High-Functional Materials business (organic-EL blue, solid-state battery, renewables, advanced materials) is now positioned as the growth driver
+- 20-year shareholder equity expanded 3.2x — strong commitment to shareholder returns
+
+Risks: (a) FY27 negative inventory effect compressing profit, (b) long-term structural decline in refining, (c) competition from Korean / Chinese makers in materials, (d) Middle East tensions affecting crude procurement." data-genuine-jp="<b>何が起きたか:</b> 出光興産は日本第2位の石油精製・販売会社 — 国内ガソリンスタンドシェア約30%、製油所では北海道・千葉・愛知・徳山に展開。 加えて『高機能材セグメント』(有機EL青色発光材料、リチウムイオン電池材料、潤滑油の海外販売など)で独自の成長軸を持つ多角化エネルギー企業。 — <b>2026年3月期決算は売上¥8兆1,059億円(-11.8%)、営業利益¥2,122億円(+30.8%)、純利益¥1,719億円(+65.2%)</b>。 売上は減収だが、利益面は大幅増益。
+
+<b>なぜ利益が伸びたのか:</b> 第一に <b>燃料油事業における在庫タイムラグ効果のプラス影響</b> — 原油価格急騰により、保有原油在庫の評価益が利益を押し上げた。 第二に <b>製油所稼働率の改善</b> — 大規模定期修理の影響が前期より軽微で、操業による収益が安定。 第三に <b>高機能材セグメントの好調</b> — 潤滑油の海外販売が伸長し、有機EL材料(韓国・中国向け)の需要が継続。
+
+<b>株価の反応:</b> 株価は2026年3月の¥1,519から6月の¥1,357へと<b>3か月で-10.6%下落</b>。 業績は好調だが、株価は逆方向 — 『売上○株価×』の典型パターン(ただし営業利益基準では『営業利益○株価×』)。
+
+<b>なぜ業績が良いのに株価は下落したのか — 構造的な理由は以下の通り:</b>
+
+第一に<b>FY27予想の弱さ</b>。 2026年度純利益予想¥75億円(前期比-56.4%減益)を発表 — 原油価格下落によるマイナスのタイムラグ効果が発生する見通し。 市場は『今期は好調だったが来期は反動減』というシナリオを織り込み始め、現在の株価は割安に見えても先行きの懸念が重し。
+
+第二に<b>原油価格依存の構造的なリスク</b>。 利益の大部分が在庫評価効果(=原油価格の変化分)に依存しており、本質的な事業力が見えにくい。 機関投資家は『一時的な利益で評価倍率を上げにくい』と判断している。
+
+第三に<b>脱炭素規制への対応コスト</b>。 石油精製事業は中長期的に縮小せざるを得ない業界 — ENEOSと比べて出光の高機能材事業はEUシェアが大きいが、それでも収益の主力は石油事業のままで、エネルギー転換の不確実性が株価を重くしている。
+
+第四に<b>PBR改善策の実施中も評価は限定的</b>。 出光はPBR改善施策(自己株買い、増配、株式分割、中期経営計画見直しなど)を実施してきており、施策公表時には株価が大きく上昇する局面もあったが、現在は『施策の継続性と実効性』が試されている段階。 PBRは公表前の0.55倍から0.29ポイント改善したものの、まだ低水準。
+
+第五に<b>機関投資家のESGスクリーン</b>。 ESG重視の機関投資家は化石燃料関連株の保有を限定的にしている — 業績改善があっても、ESGスクリーンの壁により買い増しに踏み込まない投資家が多い。
+
+<b>買い直し材料の可能性は以下の通り:</b>
+- 中期経営計画では2030年までにROE 13%目標、連結利益を現在の5割増に
+- 高機能材事業(有機EL青色、全固体電池、再生可能エネルギー、先端材料)が成長ドライバーとして明確化
+- 株主資本20年で3.2倍に拡大した実績 — 株主還元への姿勢は強い
+
+リスクは、(a)2026年度の在庫評価マイナス効果による減益、(b)石油精製事業の長期構造減少、(c)高機能材事業の競合(韓国・中国メーカー)との競争激化、(d)中東情勢悪化による原油調達リスク。"><b>What happened:</b> Idemitsu Kosan is Japan&#x27;s #2 oil refiner and distributor — about 30% domestic gasoline station share, with refineries in Hokkaido, Chiba, Aichi, and Tokuyama. Plus a &#x27;High-Functional Materials&#x27; segment (organic-EL blue emitter materials, lithium-ion battery materials, overseas lubricant sales) gives Idemitsu a unique diversification axis. <b>FY3/2026 revenue ¥8.106 trillion (-11.8%), operating profit ¥212.2 billion (+30.8%), net profit ¥171.9 billion (+65.2%)</b>. Revenue down but profit sharply up.
+
+<b>Why profit grew:</b> First, <b>positive inventory time-lag effect in fuel oil business</b> — crude price spikes lifted inventory valuation. Second, <b>improved refinery utilization</b> — large maintenance turnarounds were less impactful than the previous year. Third, <b>strong High-Functional Materials segment</b> — overseas lubricant sales grew, and organic-EL material demand (for Korea and China) continued.
+
+<b>Stock reaction:</b> Stock fell from ¥1,519 in March 2026 to ¥1,357 in June 2026 — <b>a -10.6% drop over 3 months</b>. Earnings are strong but the stock moved the opposite way — the classic &#x27;売上○株価×&#x27; pattern (or &#x27;営業利益○株価×&#x27; on a profit basis).
+
+<b>Why is the stock falling despite strong earnings — structural reasons:</b>
+
+First, <b>weakness in FY27 guidance</b>. Idemitsu guided FY27 net profit at ¥7.5 billion (-56.4% YoY) — falling crude prices will produce a negative time-lag effect. The market is pricing the &#x27;good year now, payback next year&#x27; scenario, and forward concerns weigh on the current price even if it looks cheap.
+
+Second, <b>structural risk from crude price dependency</b>. Most of the profit comes from inventory valuation effects (= change in crude price), making the underlying business performance hard to see. Institutional investors judge that &#x27;temporary profit doesn&#x27;t deserve a higher multiple.&#x27;
+
+Third, <b>cost of decarbonization regulation</b>. Oil refining must shrink long-term — even though Idemitsu&#x27;s High-Functional Materials business has strong EU share, the core revenue is still refining, and energy-transition uncertainty weighs on valuation.
+
+Fourth, <b>PBR-improvement measures in progress but with limited market reward</b>. Idemitsu has executed PBR-improvement measures (buybacks, dividend hikes, stock splits, mid-term plan revisions) and the stock did rally when measures were announced, but it&#x27;s now at a &#x27;will the measures keep working?&#x27; stage. PBR improved from 0.55x pre-announcement by 0.29 points, but is still depressed.
+
+Fifth, <b>ESG screens at institutional investors</b>. ESG-focused investors limit fossil-fuel exposure — even with earnings improvement, the ESG-screen wall keeps many investors from adding.
+
+<b>Potential re-rating catalysts:</b>
+- Mid-term plan targets FY30 ROE 13%, profit +50% vs current
+- High-Functional Materials business (organic-EL blue, solid-state battery, renewables, advanced materials) is now positioned as the growth driver
+- 20-year shareholder equity expanded 3.2x — strong commitment to shareholder returns
+
+Risks: (a) FY27 negative inventory effect compressing profit, (b) long-term structural decline in refining, (c) competition from Korean / Chinese makers in materials, (d) Middle East tensions affecting crude procurement.</div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="tab-content tab-s-plus" data-active="false">
+    
+    <div class="company-row" data-filters="営業利益○,両方">
+      <div class="company-head">
+        <span class="ticker">5020</span>
+        <span class="company-name">ENEOS Holdings</span>
+      </div>
+      <div class="company-data">
+        <span class="data-item"><span class="data-label" data-i18n="card.revenue">売上:</span> ↓ down</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.op">営業利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.net">純利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.stock">株価:</span> <b>+8.7% (vs Nikkei 225 past 6 months)</b></span>
+      </div>
+      <div class="biz-tag">分類: mixed (rev down, profit up — classic commodity profit recovery) · バケット: commodity_profit_cycle_winner</div>
+      <div class="genuine-research">
+        <div class="genuine-header">
+          <span class="genuine-label" data-i18n="card.genuineLabel">本物の調査 (combined-prompt verification)</span>
+          <span class="genuine-source" title="Combined-prompt JP web search 2026-06 + Yahoo Finance 5020 + Globe and Mail 5020 + Simply Wall St 5020 + TipRanks 5020 + matrixbcg 5020">📚 Combined-prompt JP web search 2026-06 + Yahoo Finance 5020 + Globe and Mail 5020…</span>
+        </div>
+        <div class="genuine-body" data-genuine-en="<b>What happened:</b> ENEOS Holdings (renamed from JXTG Energy) is Japan&#x27;s largest oil refiner and distributor — about 50% market share in domestic gasoline stations, industry-leading refinery utilization. Subsidiaries include ENEOS (refining/distribution), JX Metals (copper / electronic materials), and JX Oil &amp; Gas Exploration (upstream E&amp;P) — an integrated energy company. <b>FY3/2026 revenue ¥11.77 trillion (-4.5%), operating profit ¥466.6 billion (+340%), net profit ¥258.7 billion</b> (EPS ¥96.18) — revenue declined on falling crude oil prices, but operating profit surged over 4x.
+
+<b>Why operating profit grew:</b> The largest factor was that <b>inventory valuation losses came in far smaller than expected</b>. Against an initial guidance assuming inventory writedown impact of ¥130 billion, the actual impact was just ¥7.8 billion. This was because the March 2026 Middle East tensions caused crude prices to spike, supporting inventory valuations more than anticipated. Refining margins (the spread between product prices and crude prices) also improved across the industry, lifting profit further.
+
+<b>Stock reaction:</b> Stock <b>outperformed the Nikkei 225 by +8.7% over the past 6 months</b> — institutional buyers stepped in on the EPS beat vs. guidance, dividend hike, and strong FY27 guidance (revenue +9.2% to ¥12.85 trillion, OP +31% to ¥610 billion, EPS ¥154.28).
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>stable cash-flow generation from refining</b>. Japan&#x27;s gasoline demand is in gradual decline, but industry consolidation (absorbing Toa Oil, the Fuji Oil TOB) has raised oligopoly concentration — ENEOS is now seen as a &#x27;reliably profitable refining business.&#x27;
+
+Second, <b>clear energy-transition strategy</b>. ENEOS has set explicit 2025-2030 targets to shift toward renewables, hydrogen, and CCS (carbon capture and storage) with a clearly stated decarbonization roadmap. This brought ESG investors into the buyer base.
+
+Third, <b>strengthened dividend and buyback policy</b>. FY26 dividend hike announced + continued buybacks. High dividend yield (around 4-5%) and PBR around 1.0x have attracted income-oriented investors.
+
+Fourth, <b>upstream E&amp;P subsidiary profit contribution</b>. JX Oil &amp; Gas Exploration delivers profit from overseas oil/gas concession interests; JX Metals&#x27; copper / electronic-materials business (driven by EV demand) provides earnings beyond refining.
+
+Fifth, <b>institutional Buy ratings</b>. Major brokerages rate ENEOS Buy overall, with target prices above current levels. The market expects the persistent PBR ~0.7x discount to close.
+
+Risks: (a) inventory valuation swings from crude price volatility, (b) long-term decline in domestic gasoline demand, (c) structural pressure on the oil business from tighter decarbonization rules, (d) delayed monetization of new businesses (renewables, hydrogen)." data-genuine-jp="<b>何が起きたか:</b> ENEOSホールディングスは旧JXTGエネルギーから商号変更した日本最大の石油精製・販売会社 — 国内ガソリンスタンドシェア約50%、製油所稼働率の高さで業界をリードする。 子会社にENEOS(精製・販売)、JX金属(銅・電子材料)、JX石油開発(上流E&amp;P)を持つ総合エネルギー企業。 — <b>2026年3月期決算は売上¥11兆7,700億円(-4.5%)、営業利益¥4,666億円(+340%)、親会社帰属当期利益¥2,587億円</b>(EPS ¥96.18) — 売上は原油価格下落で減収だが、営業利益は4倍超に急増。 
+
+<b>なぜ営業利益が伸びたのか:</b> 利益急増の最大要因は <b>在庫評価損が想定より大幅に小さかった</b>こと。 期初に想定していた在庫評価マイナス影響¥1,300億円に対し、実際の影響はわずか¥78億円に限定された。 これは3月の中東情勢緊迫化に伴う原油価格急上昇により、保有原油在庫の評価額が想定より大きく支えられたため。 加えて精製マージン(石油製品価格-原油価格の差)が業界全体で改善傾向にあったことも利益を押し上げた。 
+
+<b>株価の反応:</b> 株価は過去6か月で<b>日経平均を+8.7%アウトパフォーム</b> — 直近のEPS実績がガイダンスを大きく上回ったこと、増配発表、FY27予想の強さ(売上+9.2%¥12.85兆円、営業利益+31%¥6,100億円、EPS ¥154.28)を受けて機関投資家の買いが入った。
+
+<b>構造的な評価向上の理由は以下の通り:</b>
+
+第一に<b>石油精製事業の安定的なキャッシュフロー創出力</b>。 国内ガソリン需要は緩やかな減少傾向にあるが、業界再編(東亜石油の取込、富士石油のTOB)で業界寡占度が上昇し、ENEOSは『安定して稼げる事業』として再評価されている。
+
+第二に<b>エネルギー転換戦略の明確化</b>。 2025-2030年にかけて再生可能エネルギー、水素、CCS(炭素回収・貯蔵)へのシフトを目標として掲げ、明確な脱炭素ロードマップを提示。 これによりESG投資家からも評価対象となり、機関投資家層が拡大した。
+
+第三に<b>配当と株主還元の強化</b>。 FY26は増配を発表、自己株買いも継続。 高配当利回り(目安4-5%)とPBR1倍前後の割安水準が、インカム志向の投資家を引きつけている。
+
+第四に<b>子会社の上流E&amp;P事業の利益貢献</b>。 JX石油開発による海外油田権益からの利益と、JX金属の銅・電子材料事業(EV向け需要)の成長が、精製事業以外の収益基盤として機能している。
+
+第五に<b>機関投資家の買い推奨</b>。 大手証券会社の総合投資判断は『買い』、目標株価は現状を上回る水準に設定されている。 PBR 0.7倍程度の割安状態の解消が期待されている。
+
+リスクは、(a)原油価格の急騰・急落による在庫評価損益の変動、(b)国内ガソリン需要の長期的減少、(c)脱炭素規制強化による石油事業の構造的縮小、(d)新規事業(再エネ・水素)の収益化遅延。"><b>What happened:</b> ENEOS Holdings (renamed from JXTG Energy) is Japan&#x27;s largest oil refiner and distributor — about 50% market share in domestic gasoline stations, industry-leading refinery utilization. Subsidiaries include ENEOS (refining/distribution), JX Metals (copper / electronic materials), and JX Oil &amp; Gas Exploration (upstream E&amp;P) — an integrated energy company. <b>FY3/2026 revenue ¥11.77 trillion (-4.5%), operating profit ¥466.6 billion (+340%), net profit ¥258.7 billion</b> (EPS ¥96.18) — revenue declined on falling crude oil prices, but operating profit surged over 4x.
+
+<b>Why operating profit grew:</b> The largest factor was that <b>inventory valuation losses came in far smaller than expected</b>. Against an initial guidance assuming inventory writedown impact of ¥130 billion, the actual impact was just ¥7.8 billion. This was because the March 2026 Middle East tensions caused crude prices to spike, supporting inventory valuations more than anticipated. Refining margins (the spread between product prices and crude prices) also improved across the industry, lifting profit further.
+
+<b>Stock reaction:</b> Stock <b>outperformed the Nikkei 225 by +8.7% over the past 6 months</b> — institutional buyers stepped in on the EPS beat vs. guidance, dividend hike, and strong FY27 guidance (revenue +9.2% to ¥12.85 trillion, OP +31% to ¥610 billion, EPS ¥154.28).
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>stable cash-flow generation from refining</b>. Japan&#x27;s gasoline demand is in gradual decline, but industry consolidation (absorbing Toa Oil, the Fuji Oil TOB) has raised oligopoly concentration — ENEOS is now seen as a &#x27;reliably profitable refining business.&#x27;
+
+Second, <b>clear energy-transition strategy</b>. ENEOS has set explicit 2025-2030 targets to shift toward renewables, hydrogen, and CCS (carbon capture and storage) with a clearly stated decarbonization roadmap. This brought ESG investors into the buyer base.
+
+Third, <b>strengthened dividend and buyback policy</b>. FY26 dividend hike announced + continued buybacks. High dividend yield (around 4-5%) and PBR around 1.0x have attracted income-oriented investors.
+
+Fourth, <b>upstream E&amp;P subsidiary profit contribution</b>. JX Oil &amp; Gas Exploration delivers profit from overseas oil/gas concession interests; JX Metals&#x27; copper / electronic-materials business (driven by EV demand) provides earnings beyond refining.
+
+Fifth, <b>institutional Buy ratings</b>. Major brokerages rate ENEOS Buy overall, with target prices above current levels. The market expects the persistent PBR ~0.7x discount to close.
+
+Risks: (a) inventory valuation swings from crude price volatility, (b) long-term decline in domestic gasoline demand, (c) structural pressure on the oil business from tighter decarbonization rules, (d) delayed monetization of new businesses (renewables, hydrogen).</div>
+      </div>
+    </div>
+    
+
+    <div class="company-row" data-filters="営業利益○,両方">
+      <div class="company-head">
+        <span class="ticker">5021</span>
+        <span class="company-name">Cosmo Energy Holdings</span>
+      </div>
+      <div class="company-data">
+        <span class="data-item"><span class="data-label" data-i18n="card.revenue">売上:</span> ↓ down</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.op">営業利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.net">純利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.stock">株価:</span> <b>+15-25% (analyst Buy, target ~¥4,845 vs current level, undervalued)</b></span>
+      </div>
+      <div class="biz-tag">分類: mixed (rev down, profit up — refining margin expansion + diversification) · バケット: commodity_profit_cycle_winner</div>
+      <div class="genuine-research">
+        <div class="genuine-header">
+          <span class="genuine-label" data-i18n="card.genuineLabel">本物の調査 (combined-prompt verification)</span>
+          <span class="genuine-source" title="Combined-prompt JP web search 2026-06 + kabutan 5021 + Cosmo Energy IR Q2 + minkabu 5021 + Reinforz Insight 5021">📚 Combined-prompt JP web search 2026-06 + kabutan 5021 + Cosmo Energy IR Q2 + mink…</span>
+        </div>
+        <div class="genuine-body" data-genuine-en="<b>What happened:</b> Cosmo Energy Holdings is a mid-tier energy company with three pillars: oil refining/distribution (Cosmo Oil), petroleum exploration (Cosmo Oil Exploration), and renewable energy (Cosmo Eco Power, wind-power led) — domestic gasoline stations sell under the &#x27;Cosmo&#x27; brand. <b>FY3/2026 revenue ¥2.6776 trillion (-4.4%), operating profit ¥144.8 billion (+12.9%), ordinary profit ¥149.2 billion (-1.0%), net profit ¥74.0 billion (+28.4%)</b>. Revenue down, but profit metrics improved across the board — net profit up 28%.
+
+<b>Why profit grew:</b> First, <b>the oil business drove the gains</b> — inflation-driven cost pass-through has improved real refining margins, and tight domestic supply has supported pricing. Second, <b>the renewable energy business turned profitable</b> — the wind-power-led renewable segment achieved first-ever profitability, validating the diversification story. Third, <b>petroleum exploration strength</b> — Hail oilfield (Middle East) production expansion continued, lifting upstream profit contribution.
+
+<b>Stock reaction:</b> As of April 2026, analyst consensus is Buy (2.13/5 average from 7 analysts), with average target prices ¥4,845-4,983. Recent earnings improvement plus stronger shareholder returns have lifted institutional ratings.
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>Hail oilfield upstream revenue</b>. Hail concession crude production absorbs FX and crude-price volatility while generating stable cash flow. The integrated upstream-to-downstream model improves earnings predictability.
+
+Second, <b>renewable energy turning profitable as an independent earnings source</b>. Cosmo Eco Power&#x27;s wind business achieving profitability signals that an oil company&#x27;s decarbonization shift is becoming real earnings, not just an ESG PR exercise. Institutional investors are starting to value this as a long-term growth axis.
+
+Third, <b>aggressive share buybacks</b>. Cosmo announced a buyback of up to ¥25 billion, capped at 6.25 million shares (3.81% of outstanding) — clearly signaling intent to lift EPS and ROE and close the PBR discount.
+
+Fourth, <b>equity ratio improving</b>. Equity ratio rose to 27.6% — at or above industry average and improving — easing concerns about financial health.
+
+Fifth, <b>analyst ratings improving</b>. The 7-analyst average rating of 2.13 (1 = strong buy, 5 = strong sell) leans heavily Buy. The average target of ¥4,983 implies meaningful upside.
+
+Risks: (a) Middle East geopolitical risk affecting Hail production and shipping, (b) sudden refining margin compression, (c) wind maintenance / weather risks, (d) FY27 guidance shows a profit DECLINE due to Middle East situation concerns — near-term caution warranted." data-genuine-jp="<b>何が起きたか:</b> コスモエネルギーホールディングスは石油精製・販売(コスモ石油)、石油開発(コスモ石油エクスプロレーション)、再生可能エネルギー(コスモエコパワー、風力主力)の3本柱を持つ準大手エネルギー企業 — 国内ガソリンスタンドの『コスモ石油』ブランドで展開。 — <b>2026年3月期決算は売上¥2兆6,776億円(-4.4%)、営業利益¥1,448億円(+12.9%)、経常利益¥1,492億円(-1.0%)、当期純利益¥740億円(+28.4%)</b>。 売上は減収だが利益面は全項目で改善傾向、特に純利益は28%増。
+
+<b>なぜ利益が伸びたのか:</b> 第一に <b>石油事業の増益が全体を牽引</b> — インフレ進行に伴うコスト転嫁が進み、実質マージンの改善が継続。 国内石油製品需要に対して供給がタイトとなり、価格形成を下支えした。 第二に <b>再生可能エネルギー事業の黒字化</b> — 風力発電事業を中心とした再エネ部門が初めて黒字化、事業多角化が利益面で結実した。 第三に <b>石油開発事業の好調</b> — ヘイル油田(中東)の増産が継続し、上流からの利益貢献が拡大。
+
+<b>株価の反応:</b> 株価は2026年4月時点でアナリスト判断『買い』(2.13/5)、目標株価¥4,845-4,983(7名アナリスト平均)。 直近の業績改善+株主還元強化を受けて機関投資家から評価が高まっている。
+
+<b>構造的な評価向上の理由は以下の通り:</b>
+
+第一に<b>ヘイル油田の上流E&amp;P収益</b>。 中東ヘイル油田の権益から得られる原油生産は、為替・原油価格の変動を吸収しつつ安定したキャッシュを生む。 上流から下流までの一気通貫体制が利益の予測可能性を高めている。
+
+第二に<b>再生可能エネルギー事業の独立収益化</b>。 コスモエコパワーを中心とした風力発電事業が黒字化したことは『石油会社の脱炭素転換が単なるESG向けPRではなく実体のある収益』と認識されつつあることを示す。 機関投資家はこれを長期成長軸として評価し始めた。
+
+第三に<b>積極的な自己株式取得</b>。 総額¥250億円、上限625万株(発行済株式の3.81%)の自己株取得を発表 — EPS改善とROE向上を通じてPBR水準引き上げを狙う明確な株主還元意志を示した。
+
+第四に<b>自己資本比率の改善</b>。 自己資本比率は27.6%へ上昇 — 業界平均並みかつ改善基調で、財務健全性への懸念が後退している。
+
+第五に<b>アナリスト評価の改善</b>。 7名のアナリストによる平均評価2.13(1=強い買い、5=強い売り)で買いに大きく傾いている。 平均目標株価¥4,983は現状からの上昇余地が大きい。
+
+リスクは、(a)中東情勢悪化によるヘイル油田生産・搬出リスク、(b)精製マージンの突発的悪化、(c)風力発電のメンテナンスコスト・気象変動リスク、(d)FY27は中東情勢の影響を考慮した減益予想を発表しており、近期は注意が必要。"><b>What happened:</b> Cosmo Energy Holdings is a mid-tier energy company with three pillars: oil refining/distribution (Cosmo Oil), petroleum exploration (Cosmo Oil Exploration), and renewable energy (Cosmo Eco Power, wind-power led) — domestic gasoline stations sell under the &#x27;Cosmo&#x27; brand. <b>FY3/2026 revenue ¥2.6776 trillion (-4.4%), operating profit ¥144.8 billion (+12.9%), ordinary profit ¥149.2 billion (-1.0%), net profit ¥74.0 billion (+28.4%)</b>. Revenue down, but profit metrics improved across the board — net profit up 28%.
+
+<b>Why profit grew:</b> First, <b>the oil business drove the gains</b> — inflation-driven cost pass-through has improved real refining margins, and tight domestic supply has supported pricing. Second, <b>the renewable energy business turned profitable</b> — the wind-power-led renewable segment achieved first-ever profitability, validating the diversification story. Third, <b>petroleum exploration strength</b> — Hail oilfield (Middle East) production expansion continued, lifting upstream profit contribution.
+
+<b>Stock reaction:</b> As of April 2026, analyst consensus is Buy (2.13/5 average from 7 analysts), with average target prices ¥4,845-4,983. Recent earnings improvement plus stronger shareholder returns have lifted institutional ratings.
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>Hail oilfield upstream revenue</b>. Hail concession crude production absorbs FX and crude-price volatility while generating stable cash flow. The integrated upstream-to-downstream model improves earnings predictability.
+
+Second, <b>renewable energy turning profitable as an independent earnings source</b>. Cosmo Eco Power&#x27;s wind business achieving profitability signals that an oil company&#x27;s decarbonization shift is becoming real earnings, not just an ESG PR exercise. Institutional investors are starting to value this as a long-term growth axis.
+
+Third, <b>aggressive share buybacks</b>. Cosmo announced a buyback of up to ¥25 billion, capped at 6.25 million shares (3.81% of outstanding) — clearly signaling intent to lift EPS and ROE and close the PBR discount.
+
+Fourth, <b>equity ratio improving</b>. Equity ratio rose to 27.6% — at or above industry average and improving — easing concerns about financial health.
+
+Fifth, <b>analyst ratings improving</b>. The 7-analyst average rating of 2.13 (1 = strong buy, 5 = strong sell) leans heavily Buy. The average target of ¥4,983 implies meaningful upside.
+
+Risks: (a) Middle East geopolitical risk affecting Hail production and shipping, (b) sudden refining margin compression, (c) wind maintenance / weather risks, (d) FY27 guidance shows a profit DECLINE due to Middle East situation concerns — near-term caution warranted.</div>
+      </div>
+    </div>
+    
+
+    <div class="company-row" data-filters="売上○,営業利益○,両方">
+      <div class="company-head">
+        <span class="ticker">5009</span>
+        <span class="company-name">Fuji Kosan</span>
+      </div>
+      <div class="company-data">
+        <span class="data-item"><span class="data-label" data-i18n="card.revenue">売上:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.op">営業利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.net">純利益:</span> ↑ up</span>
+        <span class="data-item"><span class="data-label" data-i18n="card.stock">株価:</span> <b>Q1 +4.9% revenue + Q1 +21.5% OP — small-cap, undervalued, target ¥1,413 (Buy)</b></span>
+      </div>
+      <div class="biz-tag">分類: all-three-up (full quality signal) · バケット: diversification_winner</div>
+      <div class="genuine-research">
+        <div class="genuine-header">
+          <span class="genuine-label" data-i18n="card.genuineLabel">本物の調査 (combined-prompt verification)</span>
+          <span class="genuine-source" title="Combined-prompt JP web search 2026-06 + kabutan 5009 + irbank 5009 + minkabu 5009 + Fuji Kosan IR Q1">📚 Combined-prompt JP web search 2026-06 + kabutan 5009 + irbank 5009 + minkabu 500…</span>
+        </div>
+        <div class="genuine-body" data-genuine-en="<b>What happened:</b> Fuji Kosan started as a petroleum products distributor but has diversified into a <b>5-segment energy company: Oil business + Recycling + Environment-related + Rental + Home Energy</b>. Revenue is a small fraction of the oil majors, but the unique portfolio is driving growth. <b>Q1 FY3/2026 revenue ¥15.578 billion (+4.9%), OP ¥149 million (+21.5%)</b> — revenue and OP both up, making Fuji Kosan the only oil-sector company that qualifies under BOTH the 売上○ AND 営業利益○ filters.
+
+<b>Why earnings grew:</b> Profit growth was driven by <b>expansion of environment-related energy</b> and <b>strengthened recycling business</b> — non-oil segments performed strongly. In Japan&#x27;s declining gasoline demand market, Fuji Kosan diversified early, and that investment is now translating into earnings.
+
+<b>Stock reaction:</b> Stock is rated &#x27;undervalued,&#x27; with a target price of ¥1,413 (retail investor consensus) and a Buy classification. Suggests the market hasn&#x27;t yet fully priced in the earnings improvement.
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>successful business portfolio diversification</b>. Five segments (oil, recycling, environment, rental, home energy) — environmental segments standout. Without the oil-major dependency on crude prices, multiple revenue pillars enable stable growth.
+
+Second, <b>10-year profitability improvement track record</b>. From March 2015 to March 2025, revenue contracted to 0.9x but net profit grew 1.7x — a management commitment to quality of earnings over chasing top-line. A &#x27;qualitative growth&#x27; story rare for a small cap.
+
+Third, <b>planned shift to holding-company structure</b>. Conversion to holding company is planned, aimed at increasing management flexibility for M&amp;A and new business creation — a structural reform to accelerate growth.
+
+Fourth, <b>room for valuation correction from undervalued levels</b>. Retail investor target of ¥1,413 implies meaningful upside; the earnings-improvement trend hasn&#x27;t been fully priced in. Typical of a small cap with limited analyst coverage — the re-rating opportunity is sizable.
+
+Fifth, <b>a growth story distinct from oil majors</b>. While ENEOS, Idemitsu, Cosmo are swung by crude prices and inventory effects, Fuji Kosan&#x27;s &#x27;environmental energy + recycling&#x27; theme is a unique ESG story — an attractive option for investors looking beyond pure commodity exposure.
+
+Risks: (a) small-cap liquidity risk, (b) erosion of existing customer base as oil business contracts, (c) organizational risk from the holding-company transition, (d) limited analyst coverage makes timing of the re-rating hard to predict." data-genuine-jp="<b>何が起きたか:</b> 富士興産は石油製品販売を起源としつつ、現在は<b>石油事業 + リサイクル事業 + 環境関連事業 + レンタル事業 + ホームエネルギー事業</b>の5つのセグメントを持つ多角化エネルギー企業。 売上規模は石油大手の数百分の一の小型株だが、独自の事業ポートフォリオで成長を遂げている。 — <b>2026年3月期第1四半期は売上高¥155.78億円(+4.9%)、営業利益¥1.49億円(+21.5%)</b>で増収増益。 売上・営業利益ともに上昇しているため、石油セクター内で『売上○』フィルター・『営業利益○』フィルターの両方に唯一該当する企業である。
+
+<b>なぜ業績が伸びたのか:</b> 増益の中心は <b>環境対応型エネルギー事業の拡大</b> と <b>リサイクル事業の強化</b> — 石油事業以外のセグメントが好調に推移した。 ガソリン需要が長期的に減少する国内市場で、富士興産は早い段階から事業多角化を進め、その投資が今期から本格的に利益として返ってきている構造。
+
+<b>株価の反応:</b> 株価は『割安』と評価されており、目標株価¥1,413(個人投資家予想)で『買い』判断。 業績改善に対して市場がまだ完全に織り込んでいない可能性を示唆する状況。
+
+<b>構造的な評価向上の理由は以下の通り:</b>
+
+第一に<b>事業ポートフォリオの多角化成功</b>。 5つのセグメント(石油、リサイクル、環境、レンタル、ホームエネルギー)を持ち、特に環境関連分野での成長が顕著。 石油大手のような原油価格依存度がなく、複数の収益柱で安定成長を実現している。
+
+第二に<b>過去10年間の収益性改善</b>。 2015年3月から2025年3月にかけて、売上は0.9倍(微減)に対し、純利益は1.7倍に増加 — 売上規模を追わずに収益性改善を継続してきた経営姿勢が確認できる。 小型株ながら『質的な成長』を示している。
+
+第三に<b>持株会社体制への移行予定</b>。 持株会社への移行が予定されており、M&amp;Aや新規事業創出を含む戦略投資の拡大を目指す。 — 経営の柔軟性を高めて成長加速を狙う構造改革。
+
+第四に<b>割安水準からの評価是正余地</b>。 個人投資家による株価予想¥1,413(現状から相当な上昇余地)、業績改善トレンドに対して株価評価が追いついていない — 機関投資家のカバレッジが薄い小型株ならではの状況で、評価是正の余地が大きい。
+
+第五に<b>石油大手とは異なる成長ストーリー</b>。 ENEOS・出光・コスモが原油価格・在庫評価益に左右される中、富士興産は『環境エネルギー + リサイクル』という独自のESGテーマで成長 — 投資家にとって魅力的な選択肢となっている。
+
+リスクは、(a)小型株特有の流動性リスク、(b)石油事業の縮小に伴う既存顧客基盤の毀損、(c)持株会社移行に伴う組織変革リスク、(d)機関投資家のカバレッジが薄いため再評価のタイミングが読みにくい。"><b>What happened:</b> Fuji Kosan started as a petroleum products distributor but has diversified into a <b>5-segment energy company: Oil business + Recycling + Environment-related + Rental + Home Energy</b>. Revenue is a small fraction of the oil majors, but the unique portfolio is driving growth. <b>Q1 FY3/2026 revenue ¥15.578 billion (+4.9%), OP ¥149 million (+21.5%)</b> — revenue and OP both up, making Fuji Kosan the only oil-sector company that qualifies under BOTH the 売上○ AND 営業利益○ filters.
+
+<b>Why earnings grew:</b> Profit growth was driven by <b>expansion of environment-related energy</b> and <b>strengthened recycling business</b> — non-oil segments performed strongly. In Japan&#x27;s declining gasoline demand market, Fuji Kosan diversified early, and that investment is now translating into earnings.
+
+<b>Stock reaction:</b> Stock is rated &#x27;undervalued,&#x27; with a target price of ¥1,413 (retail investor consensus) and a Buy classification. Suggests the market hasn&#x27;t yet fully priced in the earnings improvement.
+
+<b>Structural drivers of the re-rating:</b>
+
+First, <b>successful business portfolio diversification</b>. Five segments (oil, recycling, environment, rental, home energy) — environmental segments standout. Without the oil-major dependency on crude prices, multiple revenue pillars enable stable growth.
+
+Second, <b>10-year profitability improvement track record</b>. From March 2015 to March 2025, revenue contracted to 0.9x but net profit grew 1.7x — a management commitment to quality of earnings over chasing top-line. A &#x27;qualitative growth&#x27; story rare for a small cap.
+
+Third, <b>planned shift to holding-company structure</b>. Conversion to holding company is planned, aimed at increasing management flexibility for M&amp;A and new business creation — a structural reform to accelerate growth.
+
+Fourth, <b>room for valuation correction from undervalued levels</b>. Retail investor target of ¥1,413 implies meaningful upside; the earnings-improvement trend hasn&#x27;t been fully priced in. Typical of a small cap with limited analyst coverage — the re-rating opportunity is sizable.
+
+Fifth, <b>a growth story distinct from oil majors</b>. While ENEOS, Idemitsu, Cosmo are swung by crude prices and inventory effects, Fuji Kosan&#x27;s &#x27;environmental energy + recycling&#x27; theme is a unique ESG story — an attractive option for investors looking beyond pure commodity exposure.
+
+Risks: (a) small-cap liquidity risk, (b) erosion of existing customer base as oil business contracts, (c) organizational risk from the holding-company transition, (d) limited analyst coverage makes timing of the re-rating hard to predict.</div>
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+
+<script>
+const I18N = {
+  en: {
+    'page.title': 'Oil Sector — R+ Classification View (FY3/2026)',
+    'page.subtitle': '2026-06-04 · Latest available reports · Filter-configurable (operating-profit-based default for commodity sectors)',
+    'filter.label': 'Filter mode:',
+    'filter.note': 'Filter is sector-specific. For oil, operating-profit-up captures business performance better than revenue-up because revenue moves with crude oil prices.',
+    'explanations.heading': 'Why these filter options?',
+    'tab.sMinus': 'R+ × S- — Revenue (or profit) up, stock down',
+    'tab.sPlus': 'R+ × S+ — Revenue (or profit) up, stock up',
+    'card.revenue': 'Revenue:',
+    'card.op': 'Op profit:',
+    'card.net': 'Net profit:',
+    'card.stock': 'Stock:',
+    'card.genuineLabel': 'Genuine research (combined-prompt verification)'
+  },
+  jp: {
+    'page.title': '石油セクター — R+分類ビュー(2026年3月期)',
+    'page.subtitle': '2026-06-04 · 最新の利用可能なレポート · フィルター設定可能(コモディティセクターでは営業利益ベースがデフォルト)',
+    'filter.label': 'フィルターモード:',
+    'filter.note': 'フィルターはセクター固有です。石油セクターでは、売上は原油価格と連動して動くため、営業利益ベースの方が事業パフォーマンスをより良く捉えます。',
+    'explanations.heading': 'なぜこれらのフィルターオプションなのか?',
+    'tab.sMinus': 'R+ × S- — 売上(または利益)↑、株価↓',
+    'tab.sPlus': 'R+ × S+ — 売上(または利益)↑、株価↑',
+    'card.revenue': '売上:',
+    'card.op': '営業利益:',
+    'card.net': '純利益:',
+    'card.stock': '株価:',
+    'card.genuineLabel': '本物の調査 (combined-prompt verification)'
+  }
+};
+let LANG = 'en';
+let CURRENT_FILTER = '営業利益○';  // default for oil
+
+function applyI18n() {
+  const dict = I18N[LANG];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] != null) el.textContent = dict[key];
+  });
+  // Filter explanation labels and bodies
+  document.querySelectorAll('.filter-exp-label').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  document.querySelectorAll('.filter-exp-body').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  // Genuine research body
+  document.querySelectorAll('.genuine-body[data-genuine-en]').forEach(el => {
+    const v = el.getAttribute('data-genuine-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  document.documentElement.setAttribute('lang', LANG);
+}
+
+function setLang(lang) {
+  LANG = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  applyI18n();
+}
+
+function applyFilter(filter) {
+  CURRENT_FILTER = filter;
+  // Show/hide cards based on whether they qualify under this filter
+  document.querySelectorAll('.company-row').forEach(row => {
+    const qualifies = (row.getAttribute('data-filters') || '').split(',');
+    const visible = (filter === '両方') ? qualifies.length > 0 : qualifies.includes(filter);
+    row.style.display = visible ? '' : 'none';
+  });
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.setAttribute('data-active', 'false'));
+  document.querySelector('.tab[data-tab="' + name + '"]').classList.add('active');
+  document.querySelector('.tab-content.tab-' + name).setAttribute('data-active', 'true');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => showTab(t.getAttribute('data-tab')));
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.addEventListener('click', () => setLang(b.dataset.lang));
+  });
+  const filterSelect = document.getElementById('filter-select');
+  if (filterSelect) {
+    filterSelect.addEventListener('change', e => applyFilter(e.target.value));
+  }
+  applyI18n();
+  applyFilter(CURRENT_FILTER);
+});
+</script>
+</body>
+</html>

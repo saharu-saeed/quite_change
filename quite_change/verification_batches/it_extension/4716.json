@@ -1,0 +1,23 @@
+{
+  "code": "4716",
+  "name": "Oracle Corporation Japan (日本オラクル株式会社)",
+  "tab": "R+xS-",
+  "bucket": "saas_derated",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-47% YoY (peak ~¥17,875 Jun 2025 → ~¥9,396 Jun 2026)",
+  "biz_classification": "Enterprise Cloud / SaaS & IaaS (Oracle Cloud Infrastructure)",
+  "jp_summary": "**会社概要:** 日本オラクルは、米オラクル社（持株比率約74%）の日本法人として東証スタンダードに上場するITソフトウェア・クラウドサービス会社。データベース（Oracle DB）、ERP・HCMなどの業務アプリケーション（Fusion Cloud）、クラウドインフラ（OCI＝Oracle Cloud Infrastructure）の3本柱で法人向けにサービスを提供している。日本の官公庁・自治体向けにはデジタル庁のガバメントクラウドに選定されるなど、公共分野でも存在感を高めている。\n\n**業績の動き:** 2025年5月期（FY2025）の通期業績は、売上高2,635億円（前期比+7.8%）、営業利益868億円（同+8.8%）、純利益607億円（同+9.2%）となり、経常利益は14期連続の過去最高益を更新した。営業利益率は約33%と高水準を維持している。配当は年190円（前期比増配）。これは「大きい成長」か？——売上7〜9%増・利益9%増は、大企業としては安定的に高い伸び率。特に営業利益率33%は国内IT大手の中でも突出している。\n\n**業績が動いた理由:** クラウド事業が売上全体を牽引した。FY2025通期でクラウド売上は約35%増と急成長しており、OCI（クラウドインフラ）が東京・大阪データセンターの利用増で伸びた。なぜなら、日本政府のデジタル化推進（ガバメントクラウド選定）とISMAP登録によって官公庁・自治体への新規案件が増加し、既存のオンプレミス顧客のクラウド移行も加速しているため、クラウド収益が二桁以上の高成長を続けている。データベースとFusion Cloudアプリのサブスクリプション収益が積み上がる構造になっており、売上・利益ともに増収増益基調が続いている。\n\n**株価が動いた理由:** 業績は好調なのに、株価は2025年6月の高値（約17,875円）から2026年6月時点で約9,396円と約47%下落した。なぜなら、①2024〜2025年に親会社の米オラクル（ORCL）のAI・クラウド期待で株価が急騰した後、バリュエーション（PER）が歴史的高水準に達しており、グローバルなテック・SaaSセクターの金利上昇・割高感への修正売りが日本オラクルにも波及したため。②業績予想が非開示（レンジ開示に変更）となり、将来の利益成長の可視性が低下したことも市場の失望を招いた。③米国株・テック株の調整局面と連動し、機関投資家のリスクオフ売りが集中した。業績自体は過去最高益を更新し続けているが、「高成長が既に株価に織り込まれていた」分だけ、期待剥落による株価調整が大きくなった。",
+  "sources": [
+    "https://kabutan.jp/news/?b=k202506270007",
+    "https://note.com/tousi525/n/nb1cc35a90d2a",
+    "https://note.com/royal_rabbit9673/n/nf96a96362502",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20250627501988/",
+    "https://irbank.net/4716",
+    "https://finance.yahoo.co.jp/quote/4716.T",
+    "https://kabutan.jp/stock/?code=4716",
+    "https://www.dividendjapan.com/p/oracle-japan-dividend-growth-star"
+  ],
+  "notes": "Revenue: FY2025 (ended May 2025) ¥263,510M (+7.8% YoY) — confirmed by kabutan news (kabutan.jp/news/?b=k202506270007) and note.com analysis; cross-checked with Yahoo Finance financials page. Operating profit: ¥86,832M (+8.8%) — same sources. Net profit: ¥60,725M (+9.2%) — same. Dividend: ¥190/share — confirmed by dividendjapan.com and investing.com dividend history. Stock price: Current ~¥9,396 as of Jun 5, 2026 (Yahoo Finance result via search). Prior year peak ~¥17,875 (week of Jun 23, 2025) from weekly chart data mentioned in search results — YoY decline approximately -47%. Cloud revenue growth 34.8-35% confirmed by Q3 FY2026 disclosure and FY2025 annual results analysis. 14 consecutive record operating profits — stated in kabutan news headline (14期連続最高益). FY2026 guidance: revenue growth 6-10% range, EPS ¥490-505 range (レンジ開示, full-year guidance not provided as a single point). All figures are non-consolidated (非連結) as Oracle Japan reports on a standalone basis. Stock direction: Rev↑ (7.8%) + Stock↓ (~-47% YoY) → tab=R+xS-. Bucket=saas_derated: strong cloud/SaaS fundamentals but stock de-rated from peak valuations driven by global tech/SaaS multiple compression and valuation normalization post-AI hype peak."
+}

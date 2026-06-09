@@ -1,0 +1,24 @@
+{
+  "code": "7383",
+  "name": "Net Protections Holdings, Inc. (ネットプロテクションズホールディングス)",
+  "tab": "R+xS-",
+  "bucket": "saas_derated",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-40% from peak (52-week range ¥150–¥773; current ~¥433 as of May 2026)",
+  "biz_classification": "BNPL / Fintech — Buy Now Pay Later決済プラットフォーム",
+  "jp_summary": "**会社概要:** ネットプロテクションズホールディングスは、日本のBNPL（後払い決済）市場のパイオニア企業。個人向けに「NP後払い」（ECサイトの受取後払い）と会員制サービス「atone」を展開し、法人向けには「NP掛け払い」（BtoB後払い）でも業界トップシェアを持つ。20年以上の独自与信データを蓄積し、低い未払い率を実現しながら幅広い取引に信用を付与するのが強み。台湾など海外向けにも「AFTEE」ブランドでBNPLを展開している。\n\n**業績の動き:** 2026年3月期（FY2026）の確定通期連結業績は、営業収益252億円（前年比+9.5%）、営業利益28.5億円（同+35.4%）、親会社帰属当期利益17.3億円（同+28.3%）。GMV（流通取引総額）は7,644億円（+19.1%）。これは「大きな成長」か「普通」かで言えば、収益規模の水準は中小規模だが、利益成長率（+35%超）はかなり高い部類に入る。特にatone（B2C会員制）のGMVが前年比+55%増と急拡大しており、NP掛け払い（B2B）も+38.5%と二桁成長が続いている。配当は無配を継続中。\n\n**業績が動いた理由:** 業績が伸びた主因は3つ。①NP後払い（既存の安定収益基盤）が安定利益を出しながら、②高成長ドライバーであるatoneとNP掛け払いのGMVが大幅拡大し、利益の絶対額が底上げされたこと。なぜなら、ECの拡大・BtoB取引のデジタル化という構造的な追い風を受け、後払い決済へのニーズが年々高まっているため。③費用効率の改善（上期に営業利益が前年比約1.8倍と急伸）も利益率改善に寄与した。なぜなら、スケールアップに伴うオペレーティングレバレッジが効いてきたため。\n\n**株価が動いた理由:** 業績は好調にもかかわらず株価は52週安値（¥150）から年高値（¥773）まで乱高下し、2026年5月時点では¥433程度と高値から大きく下落している。なぜなら、①2025年に「BNPL規制強化」の懸念が報道され（株式新聞でも「後払い決済に規制も、ネットプロテが急落」と報じられた）、規制リスクが株価を急落させたため。②また、赤字体質から黒字転換を果たしたばかりの成長株として高バリュエーションがついていたが、金利上昇局面でグロース株全体が再評価（デレーティング）され、株価が業績改善を織り込みきれない状態になっているため。なぜなら、成長株に求められる割引率が上昇すると、将来利益への期待が現在価値で目減りするから。",
+  "sources": [
+    "https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20260515/20260515538387.pdf",
+    "https://finance.biggo.com/news/jpx_tdnet_140120260515538445",
+    "https://www.theglobeandmail.com/investing/markets/markets-news/Tipranks/1972388/net-protections-lifts-profit-and-gmv-forecasts-double-digit-growth-for-fy-2027/",
+    "https://finance.logmi.jp/articles/383115",
+    "https://kabushiki.jp/news/665001",
+    "https://corp.netprotections.com/ir/new_investor/value-proposition/",
+    "https://minkabu.jp/stock/7383",
+    "https://irbank.net/E37194/results",
+    "https://finance.yahoo.co.jp/quote/7383.T/financials"
+  ],
+  "notes": "FY2026 = fiscal year ended March 31, 2026. All figures confirmed via May 15 2026 official IR disclosure (Yahoo Finance PDF) and cross-verified via BigGo Finance earnings transcript and Globe and Mail news report. Revenue: ¥252.14B (+9.5% YoY) — confirmed by two independent sources (IR PDF + Globe and Mail). Operating profit: ¥28.48B (+35.4% YoY) — confirmed by two sources. Net profit attributable to parent: ¥17.3B (+28.3% YoY) — from IR PDF (primary source). GMV: ¥764.4B (+19.1%) — confirmed. atone B2C GMV: ¥62.0B (+55.4%); NP Corporate Payment GMV: ¥343.8B (+38.5%) — from earnings transcript. Stock price: ¥433 as of ~May 14 2026 (Yahoo Finance JP); 52-week range ¥150–¥773 from search results. No dividend paid (¥0 per share). Revenue figures use IFRS 'operating revenue' basis (consolidated). BNPL regulation risk reported by Kabushiki Shimbun as a key negative catalyst for stock. Stock classified R+xS- (revenue up, stock significantly down from peaks) with bucket 'saas_derated' reflecting high-growth fintech re-rating in rising rate / regulatory-risk environment."
+}

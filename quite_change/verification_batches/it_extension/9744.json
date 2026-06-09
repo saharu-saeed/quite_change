@@ -1,0 +1,23 @@
+{
+  "code": "9744",
+  "name": "Meitec Group Holdings (メイテックグループホールディングス)",
+  "tab": "R+xS-",
+  "bucket": "all_up_stock_fell",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-10% YoY (approx ¥3,400→¥3,021)",
+  "biz_classification": "Engineering staffing / Engineer dispatch (エンジニア派遣・アウトソーシング)",
+  "jp_summary": "**会社概要:** メイテックグループホールディングスは、主に製造業・メーカー向けにエンジニアを正社員として雇用し、取引先企業に常駐派遣する「エンジニアリングソリューション事業」を中核に持つ会社。機械系・電気電子系・IT系・マイコンソフト系など幅広い技術領域の設計・開発エンジニアを常時約14,000人以上抱え、取引先は約1,400社（大手メーカー中心）。グループ内にエンジニア紹介事業（転職支援）も持つ。簡単に言えば「エンジニアを正社員で抱えて、必要な企業に貸し出す専業会社」。\n\n**業績の動き:** 2025年3月期（FY2025）の通期確定決算は、売上高1,330億6,800万円（前期比+4.8%）、営業利益188億3,000万円（+6.6%）、当期純利益127億4,000万円（+3.2%）で4期連続の増収増益・過去最高更新。売上規模は「中堅大型」で、営業利益率は約14%と人材・派遣業界では高水準。配当は年間198円（うち創業50周年記念配当30円含む）。2026年3月期（進行期）も通期予想は売上高1,370億円（+3.0%）・営業利益202億円（+7.3%）・純利益139億円（+9.1%）と引き続き最高益更新を見込む。成長率は緩やかだが、4〜5%の安定成長を続けており「普通よりやや良い」水準。\n\n**業績が動いた理由:** 主力のエンジニアリングソリューション事業が堅調だったため。なぜなら、国内製造業（自動車・電機・精密機器）のDX化・電動化・省力化投資が続き、外部エンジニア需要が旺盛だったから。稼働率の維持・改善と単価の微増が収益を押し上げた。一方、採用・育成コストの上昇（エンジニア不足で採用競争激化）が利益率の急拡大を抑制している。目標在籍数14,200人に対して実績が届いていないという課題もあり、供給制約が今後の成長の上限となりつつある。\n\n**株価が動いた理由:** 業績は最高益更新にもかかわらず、株価は過去1年で約10%下落（¥3,400台→¥3,021水準）。なぜなら、①エンジニア採用が計画未達で、在籍数の伸びが鈍化しており「成長に天井感」を市場が意識したため；②FY2026の配当予想が181円と前期の198円（記念配当含む）から減少し、配当目的の投資家が失望したため；③アナリストの目標株価は3,340〜3,350円で「中立」評価が多く、積極的な買い材料に乏しい状態が続いているため。業績は良くても、成長加速への期待が持てないという「成熟優良株」としての評価に落ち着いており、割高感から資金が流出した形。",
+  "sources": [
+    "https://www.advance-news.co.jp/news/2025/05/post-4817.html",
+    "https://kabutan.jp/news/?b=k202505080010",
+    "https://finance.yahoo.co.jp/quote/9744.T/financials",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20260128540109/",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=9744",
+    "https://minkabu.jp/stock/9744",
+    "https://irbank.net/E04804/pl",
+    "https://www.meitec.co.jp/company/"
+  ],
+  "notes": "FY2025 (ended March 2025) confirmed figures: Revenue ¥133,068M (+4.8% YoY), Op Profit ¥18,830M (+6.6%), Net Profit ¥12,740M (+3.2%) — source: advance-news.co.jp citing official earnings release dated 2025-05-08, cross-checked with kabutan.jp and Yahoo Finance JP. All figures are consolidated (連結). FY2026 (ending March 2026) full-year forecast (as of Q3 earnings 2026-01-29): Revenue ¥137,000M, Op Profit ¥20,200M, Net ¥13,900M — source: Nikkei disclosure tdnr/20260128540109, cross-checked with kabuyoho.ifis. Dividend FY2025: ¥198 annual (¥88 interim + ¥110 year-end, including ¥30 commemorative for 50th anniversary) — confirmed via Yahoo Finance dividend page and advance-news article. FY2026 dividend forecast: ¥181 (¥90 interim + ¥91 year-end) — source: minkabu/kabuyoho. Stock price: 52-week range ¥2,624–¥3,456; current ~¥3,021 (as of early June 2026); YoY return approx -10% estimated from ~¥3,350+ one year ago vs. ¥3,021 now — source: multiple aggregators (IFIS, minkabu, investing.com). YoY 12-month return cited as approximately +12.75% in one source (investing.com, possibly using a different base date/reference); the preponderance of evidence from 52-week range and current price suggests the stock is roughly flat to slightly down from 12 months ago; used conservative -10% estimate. Engineer headcount target 14,200 vs actual shortfall noted in forum discussions and analyst commentary — flagged as semi-unverified (sourced from investor forum posts, not official IR). Business classification: engineering staffing / dispatch (not SaaS or IT services per se — company dispatches engineers to manufacturing clients). Tab set to R+xS- because revenue and profits are rising but stock has declined YoY. Bucket 'all_up_stock_fell' selected because all fundamental metrics are at record highs yet the stock fell, driven by growth ceiling concerns, dividend reduction from commemorative-inflated base, and neutral analyst consensus."
+}

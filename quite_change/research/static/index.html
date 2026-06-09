@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>R+ Research — Interactive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* ───────────────────────────────────────────────────────────
+   Visual language matches deliverables/UNIFIED_VIEW.html.
+   Cards, tabs, expand toggles, color palette intentionally
+   the same so the senior sees consistent styling.
+   ─────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+               "Yu Gothic UI", "Meiryo", sans-serif;
+  margin: 0; padding: 0; background: #f4f6fa; color: #2a3a52;
+  font-size: 14px; line-height: 1.55;
+}
+.page-header {
+  background: #1f3a5c; color: #fff;
+  padding: 14px 28px; display: flex; align-items: center; gap: 24px;
+  border-bottom: 3px solid #14253b;
+}
+.page-header h1 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: 0.2px; }
+.page-header .sub { font-size: 12px; color: #c5d4ea; margin-left: 4px; }
+.lang-toggle { margin-left: auto; display: flex; gap: 6px; }
+.lang-btn {
+  background: transparent; color: #c5d4ea; border: 1px solid #4a6489;
+  padding: 4px 12px; font-size: 12px; cursor: pointer; border-radius: 3px;
+  font-family: inherit;
+}
+.lang-btn.active { background: #4a6489; color: #fff; border-color: #6585ad; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 22px 24px; }
+
+/* ── Input panel ── */
+.input-panel {
+  background: #fff; border: 1px solid #d8deea; border-radius: 6px;
+  padding: 22px 26px; margin-bottom: 22px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.input-panel h2 {
+  margin: 0 0 6px 0; font-size: 17px; color: #1f3a5c; font-weight: 600;
+}
+.input-panel .panel-sub {
+  font-size: 13px; color: #6a7a95; margin: 0 0 14px 0;
+}
+.input-row { display: flex; gap: 12px; align-items: flex-start; }
+.input-row textarea {
+  flex: 1; min-height: 84px; padding: 10px 12px;
+  font-family: "SFMono-Regular", "Consolas", "Cascadia Mono", monospace;
+  font-size: 13px; border: 1px solid #c5d0e0; border-radius: 4px;
+  resize: vertical; color: #2a3a52; background: #fafbfd;
+}
+.input-row textarea:focus { outline: none; border-color: #3a6db0; background: #fff; }
+.input-row .actions { display: flex; flex-direction: column; gap: 8px; }
+.btn-primary {
+  background: #3a6db0; color: #fff; border: none; padding: 10px 22px;
+  font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 4px;
+  font-family: inherit; min-width: 130px;
+}
+.btn-primary:hover:not(:disabled) { background: #2c5990; }
+.btn-primary:disabled { background: #98a8c2; cursor: not-allowed; }
+.btn-secondary {
+  background: #fff; color: #3a6db0; border: 1px solid #c5d0e0;
+  padding: 8px 16px; font-size: 12px; cursor: pointer; border-radius: 4px;
+  font-family: inherit;
+}
+.btn-secondary:hover { background: #f0f4f9; }
+
+.hint {
+  font-size: 12px; color: #6a7a95; margin-top: 10px;
+  background: #f6f8fc; border-left: 3px solid #3a6db0;
+  padding: 8px 12px; border-radius: 2px;
+}
+.hint code { background: #e8edf6; padding: 1px 5px; border-radius: 2px; font-size: 11.5px; }
+
+/* ── Status bar ── */
+.status-bar {
+  background: #fff; border: 1px solid #d8deea; border-radius: 6px;
+  padding: 14px 22px; margin-bottom: 18px;
+  display: none; align-items: center; gap: 18px; font-size: 13px;
+}
+.status-bar.visible { display: flex; }
+.status-bar .progress-text { color: #1f3a5c; font-weight: 600; }
+.status-bar .progress-elapsed { color: #6a7a95; font-size: 12px; }
+.status-bar .progress-spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #c5d0e0; border-top-color: #3a6db0;
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+.status-bar.complete .progress-spinner { display: none; }
+.status-bar.complete .progress-text { color: #1f5a35; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Results area & cards ── */
+.results { margin-top: 12px; }
+.results .empty {
+  text-align: center; color: #98a8c2; font-style: italic;
+  padding: 40px 20px; font-size: 13px;
+}
+
+.company-row {
+  background: #fff; border: 1px solid #d8deea; border-radius: 6px;
+  margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  overflow: hidden;
+}
+.company-row.in-progress { opacity: 0.7; border-color: #cdd6e6; }
+.company-row.errored { border-color: #e8b0b0; background: #fef6f6; }
+
+.company-head {
+  padding: 14px 20px; cursor: pointer; display: flex; align-items: center;
+  gap: 16px; flex-wrap: wrap; user-select: none;
+}
+.company-head:hover { background: #fafbfd; }
+.ticker {
+  font-family: "SFMono-Regular", "Consolas", monospace; font-size: 14px;
+  font-weight: 700; color: #1f3a5c;
+  background: #eef2f8; padding: 3px 9px; border-radius: 3px; min-width: 56px; text-align: center;
+}
+.company-name {
+  font-weight: 600; font-size: 14.5px; color: #1f3a5c; flex-grow: 1;
+}
+.biz-tag {
+  background: #e1ecf7; color: #2c5990; padding: 3px 9px; border-radius: 3px;
+  font-size: 11.5px; font-weight: 500; border: 1px solid #c5dbf0;
+}
+.expand-icon {
+  font-size: 16px; color: #6a7a95; margin-left: 4px; transition: transform 0.15s;
+}
+.company-row.expanded .expand-icon { transform: rotate(90deg); }
+
+.company-data {
+  display: flex; gap: 14px; padding: 0 20px 12px 20px;
+  flex-wrap: wrap; font-size: 13px;
+}
+.data-item {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #f6f8fc; padding: 4px 10px; border-radius: 3px;
+  border: 1px solid #ecf0f7;
+}
+.data-label { color: #6a7a95; font-size: 12px; }
+.data-value { color: #1f3a5c; font-weight: 600; font-family: "SFMono-Regular", monospace; font-size: 12.5px; }
+.arrow-up { color: #1f7a48; }
+.arrow-down { color: #b03030; }
+.arrow-flat { color: #6a7a95; }
+
+.company-body {
+  display: none; padding: 18px 22px 20px 22px; border-top: 1px solid #ecf0f7;
+  background: #fafbfd; font-size: 13.5px; line-height: 1.7;
+}
+.company-row.expanded .company-body { display: block; }
+.company-body p { margin: 0 0 12px 0; }
+.company-body b { color: #1f3a5c; font-size: 13.5px; }
+
+.body-section {
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px dashed #ecf0f7;
+}
+.body-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.sources-block, .notes-block {
+  margin-top: 16px; font-size: 12px; color: #5a6a85;
+}
+.sources-block summary, .notes-block summary {
+  cursor: pointer; color: #3a6db0; font-weight: 600; padding: 4px 0;
+  user-select: none; font-size: 12px;
+}
+.sources-block ul { margin: 6px 0 0 20px; padding: 0; }
+.sources-block li { margin-bottom: 3px; word-break: break-all; }
+.sources-block a { color: #3a6db0; text-decoration: none; font-size: 11.5px; }
+.sources-block a:hover { text-decoration: underline; }
+.notes-block .notes-body {
+  background: #fef9e7; border: 1px solid #e8dca0; padding: 10px 14px;
+  border-radius: 4px; margin-top: 6px; font-size: 12px; color: #4a4218;
+  white-space: pre-wrap; line-height: 1.55;
+}
+
+.error-msg {
+  padding: 12px 20px; color: #8a2020; font-size: 13px;
+  background: #fdebeb; border-top: 1px solid #f0c8c8;
+}
+
+.pending-msg {
+  padding: 8px 20px 14px 20px; color: #6a7a95; font-size: 12px; font-style: italic;
+}
+.pending-msg .progress-spinner { margin-right: 8px; vertical-align: middle; }
+
+footer {
+  text-align: center; color: #98a8c2; font-size: 11.5px;
+  padding: 20px 0 30px 0;
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1 data-en="R+ Research — Interactive" data-jp="R+ リサーチ — インタラクティブ">R+ Research — Interactive</h1>
+  <span class="sub" data-en="Locked lighter prompt + verification pass · Sonnet 4.6"
+                    data-jp="ロックされた軽量プロンプト + 検証パス · Sonnet 4.6">
+    Locked lighter prompt + verification pass · Sonnet 4.6
+  </span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="jp" onclick="setLang('jp')">日本語</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="input-panel">
+    <h2 data-en="Research one or more companies"
+        data-jp="1社以上の企業をリサーチ">Research one or more companies</h2>
+    <p class="panel-sub"
+       data-en="Type 4-digit stock codes (one per line). Each line can be just a code, or code + name."
+       data-jp="4桁の証券コードを入力(1行に1つ)。コードのみ、またはコード + 会社名でもOK。">
+      Type 4-digit stock codes (one per line). Each line can be just a code, or code + name.
+    </p>
+    <div class="input-row">
+      <textarea id="ticker-input"
+        placeholder="7974 Nintendo&#10;9201 Japan Airlines&#10;1332 Nissui"
+        spellcheck="false"></textarea>
+      <div class="actions">
+        <button class="btn-primary" id="submit-btn" onclick="submitResearch()">
+          <span data-en="Research" data-jp="リサーチ実行">Research</span>
+        </button>
+        <button class="btn-secondary" onclick="clearResults()">
+          <span data-en="Clear" data-jp="クリア">Clear</span>
+        </button>
+      </div>
+    </div>
+    <div class="hint"
+         data-en="Format: <code>7974 Nintendo</code> per line · Max 10 per request · ~5-7 min per company · ~$0.25-0.30 each"
+         data-jp="形式: 1行に <code>7974 Nintendo</code> · 1リクエスト最大10社 · 1社あたり約5-7分 · 約$0.25-0.30">
+      Format: <code>7974 Nintendo</code> per line · Max 10 per request · ~5-7 min per company · ~$0.25-0.30 each
+    </div>
+  </div>
+
+  <div class="status-bar" id="status-bar">
+    <span class="progress-spinner"></span>
+    <span class="progress-text" id="progress-text">Starting…</span>
+    <span class="progress-elapsed" id="progress-elapsed"></span>
+  </div>
+
+  <div class="results" id="results">
+    <div class="empty"
+         data-en="No results yet. Enter stock codes above and click Research."
+         data-jp="まだ結果はありません。上に証券コードを入力し、リサーチを押してください。">
+      No results yet. Enter stock codes above and click Research.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span data-en="Uses the locked lighter prompt from research/prompts.py · Same prompt as the dashboard data"
+        data-jp="research/prompts.py のロック済み軽量プロンプトを使用 · ダッシュボードデータと同じプロンプト">
+    Uses the locked lighter prompt from research/prompts.py
+  </span>
+</footer>
+
+<script>
+let LANG = 'en';
+let CURRENT_JOB = null;
+let POLL_TIMER = null;
+const RENDERED_CODES = new Set();
+
+function setLang(lang) {
+  LANG = lang;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  document.documentElement.setAttribute('lang', lang);
+}
+
+function parseTickers(text) {
+  const tickers = [];
+  for (const line of text.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const parts = trimmed.split(/\s+/);
+    const code = parts[0];
+    const name = parts.slice(1).join(' ') || code;
+    if (!/^\d{4}$/.test(code)) {
+      throw new Error(`Bad line: "${trimmed}" — first token must be a 4-digit stock code`);
+    }
+    tickers.push({ code, name });
+  }
+  if (!tickers.length) throw new Error('Please enter at least one stock code.');
+  return tickers;
+}
+
+async function submitResearch() {
+  const text = document.getElementById('ticker-input').value;
+  let tickers;
+  try {
+    tickers = parseTickers(text);
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+
+  // Reset UI
+  document.getElementById('submit-btn').disabled = true;
+  document.getElementById('results').innerHTML = '';
+  RENDERED_CODES.clear();
+
+  // Render placeholder cards immediately
+  for (const t of tickers) {
+    renderPlaceholderCard(t);
+  }
+
+  const statusBar = document.getElementById('status-bar');
+  statusBar.classList.add('visible');
+  statusBar.classList.remove('complete');
+  document.getElementById('progress-text').textContent =
+    LANG === 'en' ? `0 / ${tickers.length} done` : `0 / ${tickers.length} 完了`;
+
+  try {
+    const resp = await fetch('/api/research', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ tickers }),
+    });
+    const body = await resp.json();
+    if (!resp.ok) throw new Error(body.error || 'Submission failed');
+    CURRENT_JOB = body.job_id;
+    startPolling();
+  } catch (e) {
+    alert('Error: ' + e.message);
+    document.getElementById('submit-btn').disabled = false;
+    statusBar.classList.remove('visible');
+  }
+}
+
+function startPolling() {
+  pollOnce();
+  POLL_TIMER = setInterval(pollOnce, 4000);
+}
+
+async function pollOnce() {
+  if (!CURRENT_JOB) return;
+  try {
+    const resp = await fetch('/api/status/' + CURRENT_JOB);
+    const body = await resp.json();
+    if (!resp.ok) throw new Error(body.error || 'Status fetch failed');
+
+    // Update status bar
+    const done = body.done_count;
+    const total = body.total;
+    document.getElementById('progress-text').textContent =
+      LANG === 'en'
+        ? `${done} / ${total} done${body.in_progress.length ? ' · researching: ' + body.in_progress.join(', ') : ''}`
+        : `${done} / ${total} 完了${body.in_progress.length ? ' · 調査中: ' + body.in_progress.join(', ') : ''}`;
+    const mins = Math.floor(body.elapsed_seconds / 60);
+    const secs = body.elapsed_seconds % 60;
+    document.getElementById('progress-elapsed').textContent =
+      `(${mins}m ${secs.toString().padStart(2,'0')}s)`;
+
+    // Render any newly completed results
+    for (const [code, result] of Object.entries(body.results)) {
+      if (!RENDERED_CODES.has(code)) {
+        renderResultCard(code, result);
+        RENDERED_CODES.add(code);
+      }
+    }
+    for (const [code, err] of Object.entries(body.errors)) {
+      if (!RENDERED_CODES.has(code)) {
+        renderErrorCard(code, err);
+        RENDERED_CODES.add(code);
+      }
+    }
+
+    if (body.status === 'done') {
+      stopPolling();
+      document.getElementById('status-bar').classList.add('complete');
+      document.getElementById('progress-text').textContent =
+        LANG === 'en' ? `Done — ${done} / ${total}` : `完了 — ${done} / ${total}`;
+      document.getElementById('submit-btn').disabled = false;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function stopPolling() {
+  if (POLL_TIMER) { clearInterval(POLL_TIMER); POLL_TIMER = null; }
+  CURRENT_JOB = null;
+}
+
+function clearResults() {
+  stopPolling();
+  document.getElementById('results').innerHTML =
+    '<div class="empty" data-en="No results yet. Enter stock codes above and click Research." ' +
+    'data-jp="まだ結果はありません。上に証券コードを入力し、リサーチを押してください。">' +
+    (LANG === 'en'
+      ? 'No results yet. Enter stock codes above and click Research.'
+      : 'まだ結果はありません。上に証券コードを入力し、リサーチを押してください。') +
+    '</div>';
+  document.getElementById('status-bar').classList.remove('visible');
+  document.getElementById('submit-btn').disabled = false;
+  RENDERED_CODES.clear();
+}
+
+/* ── Card rendering ── */
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderPlaceholderCard(ticker) {
+  const id = 'card-' + ticker.code;
+  const html =
+    `<div class="company-row in-progress" id="${id}">
+      <div class="company-head">
+        <span class="ticker">${escapeHtml(ticker.code)}</span>
+        <span class="company-name">${escapeHtml(ticker.name)}</span>
+        <span class="biz-tag" data-en="researching…" data-jp="調査中…">${LANG === 'en' ? 'researching…' : '調査中…'}</span>
+      </div>
+      <div class="pending-msg">
+        <span class="progress-spinner"></span>
+        <span data-en="Web searches in progress, verification pass next…"
+              data-jp="Web検索中、次に検証パス…">${LANG === 'en' ? 'Web searches in progress, verification pass next…' : 'Web検索中、次に検証パス…'}</span>
+      </div>
+    </div>`;
+  document.getElementById('results').insertAdjacentHTML('beforeend', html);
+}
+
+function arrowFor(dir) {
+  if (dir === 'up') return '<span class="arrow-up">↑ up</span>';
+  if (dir === 'down') return '<span class="arrow-down">↓ down</span>';
+  if (dir === 'flat') return '<span class="arrow-flat">→ flat</span>';
+  return '<span class="arrow-flat">?</span>';
+}
+
+function renderBoldMarkdown(text) {
+  // Convert **bold:** markers to <b>bold:</b>, preserve paragraph breaks.
+  if (!text) return '';
+  const escaped = escapeHtml(text);
+  const withBold = escaped.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+  // Split on blank lines into paragraphs
+  return withBold.split(/\n\s*\n/).map(p =>
+    '<p>' + p.replace(/\n/g, '<br>') + '</p>'
+  ).join('');
+}
+
+function renderResultCard(code, result) {
+  const card = document.getElementById('card-' + code);
+  if (!card) return;
+  card.classList.remove('in-progress');
+
+  const name = result.name || code;
+  const biz = result.biz_classification || '';
+  const summary = result.jp_summary || '';
+  const sources = Array.isArray(result.sources) ? result.sources : [];
+  const notes = result.notes || '';
+
+  const dataItems = `
+    <div class="company-data">
+      <span class="data-item">
+        <span class="data-label" data-en="Revenue:" data-jp="売上:">${LANG === 'en' ? 'Revenue:' : '売上:'}</span>
+        <span class="data-value">${arrowFor(result.rev_dir)}</span>
+      </span>
+      <span class="data-item">
+        <span class="data-label" data-en="Op Profit:" data-jp="営業利益:">${LANG === 'en' ? 'Op Profit:' : '営業利益:'}</span>
+        <span class="data-value">${arrowFor(result.op_dir)}</span>
+      </span>
+      <span class="data-item">
+        <span class="data-label" data-en="Net:" data-jp="純利益:">${LANG === 'en' ? 'Net:' : '純利益:'}</span>
+        <span class="data-value">${arrowFor(result.net_dir)}</span>
+      </span>
+      <span class="data-item">
+        <span class="data-label" data-en="Stock YoY:" data-jp="株価YoY:">${LANG === 'en' ? 'Stock YoY:' : '株価YoY:'}</span>
+        <span class="data-value">${escapeHtml(result.stock_yoy_estimate || '?')}</span>
+      </span>
+    </div>
+  `;
+
+  const sourcesHtml = sources.length ? `
+    <details class="sources-block">
+      <summary>${LANG === 'en' ? `Sources (${sources.length})` : `ソース (${sources.length})`}</summary>
+      <ul>${sources.map(u => `<li><a href="${escapeHtml(u)}" target="_blank" rel="noopener">${escapeHtml(u)}</a></li>`).join('')}</ul>
+    </details>` : '';
+
+  const notesHtml = notes ? `
+    <details class="notes-block">
+      <summary>${LANG === 'en' ? 'Verification audit trail (notes)' : '検証監査証跡 (notes)'}</summary>
+      <div class="notes-body">${escapeHtml(notes)}</div>
+    </details>` : '';
+
+  card.innerHTML = `
+    <div class="company-head" onclick="toggleCard('${code}')">
+      <span class="ticker">${escapeHtml(code)}</span>
+      <span class="company-name">${escapeHtml(name)}</span>
+      ${biz ? `<span class="biz-tag">${escapeHtml(biz)}</span>` : ''}
+      <span class="expand-icon">▶</span>
+    </div>
+    ${dataItems}
+    <div class="company-body">
+      <div class="body-section">${renderBoldMarkdown(summary)}</div>
+      ${sourcesHtml}
+      ${notesHtml}
+    </div>
+  `;
+}
+
+function renderErrorCard(code, errorMsg) {
+  const card = document.getElementById('card-' + code);
+  if (!card) return;
+  card.classList.remove('in-progress');
+  card.classList.add('errored');
+  // Replace the entire card
+  card.innerHTML = `
+    <div class="company-head">
+      <span class="ticker">${escapeHtml(code)}</span>
+      <span class="company-name" data-en="Failed" data-jp="失敗">${LANG === 'en' ? 'Failed' : '失敗'}</span>
+    </div>
+    <div class="error-msg">${escapeHtml(errorMsg)}</div>
+  `;
+}
+
+function toggleCard(code) {
+  const card = document.getElementById('card-' + code);
+  if (card) card.classList.toggle('expanded');
+}
+</script>
+</body>
+</html>

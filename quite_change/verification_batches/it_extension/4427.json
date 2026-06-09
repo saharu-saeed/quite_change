@@ -1,0 +1,22 @@
+{
+  "code": "4427",
+  "name": "EduLab, Inc. (株式会社EduLab)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-60% from 52-week high of ¥559; current ~¥203 (Jun 2026)",
+  "biz_classification": "EdTech / Test & Certification Services (教育テクノロジー・試験運営)",
+  "jp_summary": "**会社概要:** EduLabは2015年創業、東京・港区に本社を置く教育テクノロジー企業。英語能力測定（英検CBT、CASEC、TEAP CBT）などの試験ライセンス事業、試験の運営・受託事業、教育機関向けITソリューション事業を展開。日本国内の大学・民間企業・個人向けに英語・学習力測定サービスを提供している。従業員数は約232名。\n\n**業績の動き:** 2025年9月期（通期）の連結売上高は約62.3億円で、前期比約12.8%減（前期は約71.4億円）。一方、営業利益は約3.9億円の黒字となり、前期の約3.3億円の赤字から黒字転換。経常利益は約4.5億円。最終利益（純利益）は約1,600万円と小幅黒字で、こちらも前期の大幅赤字から黒字転換した。配当は0円。売上は縮んだが、採算改善で損益は大きく好転した。利益額自体はまだ小さく「回復初期」の水準。\n\n**業績が動いた理由:** 売上が減ったのは、海外拠点（香港・上海・シンガポール・ボストン等）の子会社を相次いで清算・縮小したことで不採算事業からの撤退が進んだため。なぜなら、過去に積み上げた海外展開や大型投資が収益化できず損失を垂れ流していたことから、構造改革として不採算拠点を閉鎖・整理したからである。利益が回復したのは、外注費を削減して内製化を進め、採算重視で案件を選別したことで、テスト運営・受託事業が利益率・利益額ともに大幅改善したため。なぜなら、不採算人員を内製業務に再配置することでコスト構造が抜本的に改善されたからである。\n\n**株価が動いた理由:** 52週レンジは187円〜559円と非常に広く、乱高下が激しかった。2025年前半には業績回復期待・黒字転換観測から559円まで急騰。なぜなら、長年赤字が続いていた企業が初めて営業黒字に転換するという「サプライズ」があったからである。しかし2025年11月の通期決算発表後は株価が急落し、2026年6月時点では約203円まで下落。なぜなら、実際の売上高が前期比13%減と縮小しており、純利益もわずか1,600万円と小さく、回復の規模感への失望感および利益水準に対してPER130倍超という割高感が売りを呼んだからである。",
+  "sources": [
+    "https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20251113/20251111595727.pdf",
+    "https://irbank.net/E34544",
+    "https://kabutan.jp/news/?b=k202411130341",
+    "https://www.google.com/finance/quote/4427:TYO?hl=en",
+    "https://www.investing.com/equities/edulab-inc-company-profile",
+    "https://www.edulab-inc.com/en/",
+    "https://minkabu.jp/stock/4427/settlement"
+  ],
+  "notes": "FY2025 actual (2025年9月期, ended Sep 30 2025, announced Nov 13 2025). Revenue ¥6,229,675K — source: Yahoo Finance PDF disclosure 20251111595727.pdf and irbank.net cross-check. Operating profit ¥391,647K (vs operating loss ¥325,746K FY2024) — source: same PDF, cross-confirmed by search snippet. Ordinary profit ¥450,090K. Net profit ~¥16.4M — source: irbank.net summary, consistent with search snippets. Prior year (FY2024) revenue implied ~¥7.14B from the -12.8% YoY figure. Dividend: 0 yen confirmed via Yahoo Finance dividend page. Stock 52-week range ¥187-¥559; current price ~¥203 as of Jun 8 2026 per Google Finance. Stock YoY from mid-2025 high of ~¥559 down to ~¥203 = approximately -64% from peak. Classification R- because revenue is down 12.8% YoY. Op profit and net profit both improved (op_dir=up, net_dir=up) due to restructuring not growth. Revenue consolidation due to overseas subsidiary liquidations (Hong Kong, Shanghai, Singapore, Boston). No analyst upgrade/downgrade data available. Fiscal year: September year-end (9月決算)."
+}

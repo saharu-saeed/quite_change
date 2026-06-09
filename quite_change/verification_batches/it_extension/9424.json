@@ -1,0 +1,21 @@
+{
+  "code": "9424",
+  "name": "Japan Communications Inc. (日本通信株式会社)",
+  "tab": "R+xS-",
+  "bucket": "profit_compressed",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-27% YoY (¥155 Jan-2026 high → ¥113 Jun-2026)",
+  "biz_classification": "MVNO / モバイル仮想通信事業者",
+  "jp_summary": "**会社概要:** 日本通信は東証プライム上場のMVNO（仮想移動体通信事業者）で、ドコモ・ソフトバンクの回線を借りて「日本通信SIM」「b-mobile」ブランドで格安SIMを提供している。月20GBで5分かけ放題が1,390円という業界最安値水準が売り。SIM事業に加え、本人確認・通信認証を組み合わせた独自技術「FPoS」の法人向け展開、海外（米国）モバイル・ソリューション事業（MSP）も手掛ける。2001年に世界初のデータ通信MVNOサービスを開始した先駆者で、従業員数は少数精鋭。\n\n**業績の動き:** 2026年3月期（FY2026）通期で売上高116.3億円（前年比+25.9%）、営業利益11.3億円（+17.8%）と増収増益。ただし子会社の減損損失を計上したため、最終純利益は7.6億円（−10.1%）に落ちた。売上100億円超えは事業規模が着実に拡大しているサインで「普通より速い成長」だが、純利益は減損という一時的な損失に足を引っ張られた格好。営業利益率は約9.7%で、前年（10.4%）より小幅低下している。配当は0円（無配継続）。\n\n**業績が動いた理由:** 売上・営業利益が伸びた主因は「日本通信SIM」の契約回線数増加。なぜなら、大手キャリアの値上げや格安SIMへの乗り換え需要が続く中、業界最安値を維持する同社に新規契約が流入し続けているから。純利益が減少したのは子会社の減損損失計上によるもので、事業の稼ぐ力（営業利益）自体は増加しており、本業は健全に成長している。FPoS事業・MSP事業は現時点ではまだ収益貢献が限定的で、主力はSIM事業。\n\n**株価が動いた理由:** 過去1年（2025年6月→2026年6月）で株価は大きく下落し、52週高値¥155（2026年1月）から現在¥113前後まで約27%下落している。なぜなら、①純利益が減損で前年比−10.1%と「増収増益なのに最終赤字方向」という決算内容が投資家をがっかりさせたこと、②営業利益率が低下トレンド（FY2024の15%超→FY2026の9.7%）であり「成長の質」への疑念が広がったこと、③無配継続で配当狙いの投資家がいないこと、④MVNO市場の競争激化・価格圧力への警戒感が重なったためと考えられる。FY2024の高値¥312から見れば株価は半値以下で、業績成長ペースに対して以前の高いバリュエーションが剥落した状態。",
+  "sources": [
+    "https://finance.yahoo.co.jp/quote/9424.T/performance",
+    "https://finance.yahoo.co.jp/quote/9424.T",
+    "https://irbank.net/9424",
+    "https://finance.yahoo.co.jp/quote/9424.T/financials",
+    "https://finance.yahoo.co.jp/quote/9424.T/dividend",
+    "https://kabuyoho.jp/sp/report?bcode=9424"
+  ],
+  "notes": "FY2026 = 2026年3月期（2025年4月〜2026年3月）通期連結。売上高¥11,634M（+25.9% YoY）— source: Yahoo Finance performance page, confirmed by search snippet (116.33億円)。営業利益¥1,134M（+17.8% YoY）— confirmed by two independent sources (Yahoo Finance + search snippet)。純利益¥764M（−10.1% YoY）— confirmed: Yahoo Finance performance data + IRBANK EPS ¥4.58 × shares implied ≈ ¥764M。FY2025純利益 implied ≈ ¥849M、FY2024純利益 ¥1,365M（高水準から低下トレンド）。減損損失の対象子会社名・金額は公開ソース上に詳細なし（unverified detail）。配当: FY2026実績0円、FY2027予想0円 — source: Yahoo Finance dividend page + search result。株価: 現在¥113〜116（2026年6月時点）、52週高値¥155（2026年1月16日）、52週安値¥111（2026年6月1日）— source: Yahoo Finance quote page。YoY推移: IRBANKのFY2026(Mar)レンジ¥119〜¥193 vs FY2025(Mar)レンジ¥114〜¥208より、株価はほぼ横ばいからやや下落。高値比では大幅下落。tab=R+xS-: 売上・営業利益は増加（Rev↑）、株価は52週高値比-27%かつ中長期でFY2024高値比大幅下落（Stock↓）。bucket=profit_compressed: 増収も純利益が減損・利益率低下で圧縮されているパターンに合致。"
+}

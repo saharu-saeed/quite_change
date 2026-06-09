@@ -1,0 +1,25 @@
+{
+  "code": "9479",
+  "name": "Impress Holdings, Inc. (インプレスホールディングス)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "+32% YoY (MBO premium spike from ~¥159 to ¥210 buyout price)",
+  "biz_classification": "IT Publishing / Digital Media (IT専門出版・デジタルメディア)",
+  "jp_summary": "**会社概要:** インプレスホールディングスは、IT・テクノロジー分野を中心とした専門出版社グループの持ち株会社です。「できる」シリーズなどのPC書籍、「GAME Watch」「PC Watch」などのネットメディア、山と渓谷社（登山・アウトドア出版）などを傘下に持ちます。紙の出版、電子書籍、Webメディア広告、デジタルコンテンツの4本柱で事業を展開しており、IT専門出版のパイオニア的存在です。\n\n**業績の動き:** 2025年3月期（第33期）の連結売上高は143.87億円で、前期（144.66億円）比0.5%減とほぼ横ばいでした。営業損失は2.37億円（前期は4.83億円の赤字）、経常損失は1.22億円、最終損失は1.05億円（前期は10.36億円の赤字）でした。2期連続の赤字ですが、損失幅は大幅に縮小しました。売上規模としては約144億円は中堅出版グループ程度で、「大手ではないが業界では存在感のある規模」です。損失の縮小は出版事業の立て直しが進んだためで、まだ黒字回復には至っていません。\n\n**業績が動いた理由:** 売上高がわずかに減少したのは、ネットメディア事業（Webメディア広告収入）の減収が続いているためです。なぜなら、デジタル広告市場でYouTubeやSNSとの競争が激化し、専門メディアへの広告費が縮小傾向にあるからです。一方、出版事業（紙・電子書籍）は書店の減少などの逆風はあるものの、電子書籍の伸びが一定の下支えとなり収益力は回復傾向にありました。最終損失が前期（10.36億円赤字）から大幅に縮小した（1.05億円赤字）のは、前期に計上した特別損失・資産評価損などの一時的要因がなくなったためです。\n\n**株価が動いた理由:** 株価は2025年5月13日に創業者・塚本慶一郎氏（T&Co.と合わせて約57%の株式を保有）による株式併合を通じた非公開化（MBO）の発表により急騰しました。なぜなら、少数株主の持ち分を1株210円で買い取る計画が発表され、発表前日終値159円に対して約32%のプレミアムが提示されたからです。その後、2025年7月28日をもって東証スタンダード市場から上場廃止となりました。非公開化の理由は、出版業界の構造変化への対応を短期市場の圧力なしに進めるためとされています。",
+  "sources": [
+    "https://www.impressholdings.com/ir/library/earnings/",
+    "https://www.itmedia.co.jp/news/articles/2505/14/news119.html",
+    "https://www.nikkei.com/article/DGXZQOUC1462N0U5A510C2000000/",
+    "https://www.jpx.co.jp/news/1023/20250625-11.html",
+    "https://www.publickey1.jp/blog/25/post_305.html",
+    "https://kabutan.jp/stock/finance?code=9479",
+    "https://minkabu.jp/stock/9479/settlement",
+    "https://www.nikkei.com/article/DGXZRST0583711Y4A500C2000000/",
+    "https://media-innovation.jp/article/2025/05/13/142444.html",
+    "https://www.impressholdings.com/pdf.php?neid=825"
+  ],
+  "notes": "Revenue verification: FY2025 (ended March 2025) revenue ¥143.87億 confirmed by kabutan.jp and minkabu.jp (both aggregate from official filings). FY2024 revenue ¥144.66億 confirmed by Nikkei article and kabutan. Operating loss FY2025 ¥2.37億 — source: kabutan/minkabu aggregated from 決算短信. Net loss FY2025 ¥1.05億 confirmed by two sources (kabutan, search summary citing official disclosure). Net loss FY2024 ¥10.36億 confirmed by Nikkei article (下方修正 article) and minkabu. MBO/buyout price ¥210/share confirmed by ITmedia and Nikkei articles. Pre-announcement closing price ¥159 (May 12, 2025) confirmed by multiple sources; premium ~32% confirmed. Delisting date July 28, 2025 confirmed by JPX official announcement and multiple news sources. Dividend: 未定 (not determined) per search results — no dividend paid for FY2025. All figures are consolidated (連結). Fiscal year: April 1 to March 31. Revenue FY2025 ¥143.87億 = approx. ¥14.387 billion — FY2025 actual, source: kabutan.jp/impressholdings.com IR. Revenue direction classified 'down' (−0.5% YoY). Op_dir 'up' because operating loss narrowed from ¥4.83億 to ¥2.37億. Net_dir 'up' because net loss narrowed from ¥10.36億 to ¥1.05億. Tab R- because revenue declined. Stock YoY driven entirely by MBO announcement premium, not organic business improvement."
+}

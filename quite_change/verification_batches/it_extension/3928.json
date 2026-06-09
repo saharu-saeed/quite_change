@@ -1,0 +1,23 @@
+{
+  "code": "3928",
+  "name": "Mynet Inc. (マイネット)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "~-10% to -15% YoY (approx. ¥255 in Nov 2025 vs ¥280-300 range prior year)",
+  "biz_classification": "スマホゲーム運営 / Mobile game operations (secondary market)",
+  "jp_summary": "**会社概要:** マイネットは、他社が開発したスマートフォンゲームの運営権を買い取り、長期運営・収益化を専門とする会社です。自社でゲームを作るのではなく、すでに存在するゲームを引き継いで運営し続ける「セカンダリー（二次流通）」に特化しています。近年は異業種向けにDX支援なども展開しています。\n\n**業績の動き:** 直近の完結した会計年度（2024年12月期）では、売上高が約88億円（前年比＋1.5%）、営業利益が約4.3億円（前年比＋154%）、純利益も期初予想を大幅に上回りました。ただし2025年12月期（今期）は、売上高を約75億円（前年比▲15%）に下方修正しています。これは業績「見た目は改善中」から「縮小局面入り」への転換点です。営業利益は3.1〜3.7億円と微増が続いていますが、売上規模の縮小は明確です。\n\n**業績が動いた理由:** 2024年12月期の利益急改善は、ゲーム運営タイトルのコスト構造の見直しと収益性向上によるものです。なぜなら、低採算タイトルの整理と運営効率化を進めた結果、売上は横ばいながら利益率が大幅改善したからです。一方、2025年12月期の売上下方修正は、新規案件（ゲームタイトル買収）の契約が期をまたいで遅延（期ズレ）したことが主因です。なぜなら、セカンダリー事業はタイトル買収タイミングに大きく依存するため、1件の遅延が売上に直接響くからです。\n\n**株価が動いた理由:** 2025年の株価は概ね200〜260円台で低迷しています。なぜなら、2025年12月期の通期業績予想が減収・大幅減益（売上高▲11.8%、利益も期初予想比で一時大幅減）と発表されたことで、成長期待が剥落したからです。また、時価総額が約22億円と小型株であり、アナリストカバレッジも薄いため、業績悪化のネガティブサプライズが株価に素直に反映される傾向があります。12月の下方修正発表後、利益部分の上方修正が一定のサポートになりましたが、売上縮小への不安が上値を重くしています。",
+  "sources": [
+    "https://gamebiz.jp/news/400862",
+    "https://gamebiz.jp/news/418339",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20251225526951/",
+    "https://kabutan.jp/stock/finance?code=3928",
+    "https://minkabu.jp/stock/3928/settlement",
+    "https://finance.yahoo.co.jp/quote/3928.T/financials",
+    "https://kabuyoho.jp/sp/report?bcode=3928",
+    "https://gamebiz.jp/news/415533"
+  ],
+  "notes": "FY2024 (ended Dec 2024) actuals: Revenue ¥8.846B (+1.5% YoY), Operating profit ¥428M (+154% YoY) — source: gamebiz.jp/news/400862 (primary). Cross-checked via kabutan.jp/stock/finance?code=3928 (confirms improvement trend). FY2025 (ending Dec 2025) revised guidance (Dec 26, 2025 disclosure): Revenue revised down to ¥7.5B (from ¥8.5B) due to project timing delays; operating profit revised up to ¥312M–¥375M; net profit revised up to ¥166M–¥220M — source: gamebiz.jp/news/418339 and Nikkei TDNET disclosure 20251225526951. Stock price ~¥255 as of Nov 21, 2025 (Yahoo Finance / kabuyoho). Exact net profit FY2024 confirmed figure not independently sourced (gamebiz article states 'period-initial forecast significantly exceeded' but absolute number not cited in search snippets — flagged as partially unverified). Dividend: ¥0 for both FY2024 and FY2025 forecast, confirmed across Yahoo Finance and kabuyoho. Revenue direction: FY2025 guidance (¥7.5B) is materially below FY2024 actuals (¥8.8B) → rev_dir = down → tab = R-. Operating and net profit directionally improving YoY (FY2024 vs FY2023) but FY2025 outlook uncertain given revenue contraction."
+}

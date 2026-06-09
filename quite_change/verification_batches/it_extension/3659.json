@@ -1,0 +1,24 @@
+{
+  "code": "3659",
+  "name": "NEXON Co., Ltd. (ネクソン株式会社)",
+  "tab": "R+xS-",
+  "bucket": "profit_compressed",
+  "rev_dir": "up",
+  "op_dir": "flat",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-45% YoY (from ~¥4,100 area Jun 2025 to ~¥2,250 Jun 2026; 52-week high ¥4,434, low ¥2,144)",
+  "biz_classification": "オンラインゲーム / Online gaming (PC & mobile)",
+  "jp_summary": "**会社概要:** ネクソンは東京証券取引所プライム市場に上場する韓国系オンラインゲーム会社（本社：東京）。「メイプルストーリー」「ダンジョン＆ファイター（アラド戦記）」「EA SPORTS FC ONLINE」の3大フランチャイズを中核とし、PC・スマホ向けに世界190か国以上でゲームを提供している。2025年には新作「ARC Raiders」と「マビノギモバイル」を投入し、フランチャイズ外の収益を急拡大した。\n\n**業績の動き:** 2025年12月期（FY2025）の通期実績は、売上収益4,751億円（前期比＋6.5%）と過去最高を更新。一方、営業利益は1,240億円（前期比±0%・横ばい）、純利益は921億円（前期比▲32%）と大幅減益だった。売上が増えたのに純利益が3割以上落ちたのは、前期（FY2024）に金融資産の売却益など一時的な大きな利益が乗っていたためで、事業そのものが悪化したわけではない。ただし営業利益率は約26%→約26%と横ばいであり、人件費や開発費の増加が増収分を吸い取った格好。配当は1株22.5円→45円へ倍増しており、株主還元は強化された。規模感としては、売上約5,000億円は日本のゲーム大手（任天堂・バンナム・スクエニ）に次ぐ水準で「大型グローバルゲーム会社」の部類に入る。\n\n**業績が動いた理由:** 増収の主な要因は①「メイプルストーリー」フランチャイズが前期比＋43%と急伸したこと、②新作「ARC Raiders」がリリース初期に約1,400万本を販売し史上最大の新作ローンチとなったこと、③「マビノギモバイル」が好調だったこと。なぜなら、メイプルストーリーはコンテンツ強化・リマスター施策が既存ユーザーの課金を刺激し、ARC Raidersはコンシューマー市場への多様化戦略が初めて大きく実を結んだからである。一方で純利益が落ちたのは、なぜなら前期に一時的な投資収益（資産売却益）が約600億円規模で発生しており、それがFY2025には剥落したため。また新作開発・マーケティング費用も増加した。\n\n**株価が動いた理由:** 株価は2025年初から一時4,400円超まで上昇（ARC Raidersへの期待とQ1好決算）したが、2025年後半以降に急落し2026年6月時点では2,250円前後と52週高値比▲49%となっている。なぜなら①2025年後半（Q2・Q3）の業績が中国・韓国向け主力タイトルの減速で前年割れに転じ失望売りが発生したこと、②2026年Q2ガイダンスが売上▲10%〜±0%・営業利益▲33%〜▲57%という弱気見通しを示し、ARC Raidersの成長持続性に懸念が広がったこと、③純利益が▲32%と大きく落ちた数字が意識されたことが重なった。加えて中国規制リスクと円高リスクが重石となっている。",
+  "sources": [
+    "https://www.businesswire.com/news/home/20260212446839/en/Nexon-Releases-Earnings-for-Fourth-Quarter-and-Full-Year-2025",
+    "https://www.morningstar.com/news/business-wire/20260212446839/nexon-releases-earnings-for-fourth-quarter-and-full-year-2025",
+    "https://finance.yahoo.com/news/look-nexon-tse-3659-valuation-131130253.html",
+    "https://pdf.irpocket.com/C3659/YpwX/MxJ9/ynGD.pdf",
+    "https://pdf.irpocket.com/C3659/YpwX/lT2o/ZTd3.pdf",
+    "https://finance.yahoo.com/quote/3659.T/",
+    "https://irbank.net/E25850/pl",
+    "https://kabutan.jp/stock/finance?code=3659",
+    "https://www.invenglobal.com/articles/20781/nexon-korea-surpasses-31-trillion-in-2025-revenue-operating-profit-up-59"
+  ],
+  "notes": "FY2025 = 2025年1月〜12月期（NEXON採用のIFRS連結、12月決算）。売上収益¥475.1B: BusinessWire 2026-02-12リリース（一次ソース・IR）と検索サマリー（¥4,751億円）で一致確認。営業利益¥124.0B（前期比flat on as-reported basis）: 同リリースより。純利益¥92.1B（▲32% YoY）: 同リリース確認。前期（FY2024）純利益¥134.8B: IRBank・Yahoo Finance JPより確認（前期は資産売却等の一時益が含まれており、FY2025との単純比較には注意）。配当¥45/株（¥22.5→¥45、倍増）: BusinessWireリリース記載。株価52週レンジ¥2,143.5〜¥4,434.0: Yahoo Finance 2026-05-19付データ確認。現在株価約¥2,250（2026年6月）、1年前（2025年6月頃）はおよそ¥4,000〜4,100水準と推定、YoY約▲45%。30日リターン▲25.66%も別ソース確認。株価下落要因（Q2 2026弱気ガイダンス、中国事業低迷）はStockAnalysis・Yahoo Finance記事で確認。FY2024のQ1時点で営業利益▲48%減という記載（gamebiz.jp）はFY2024Q1単独の話であり、通期とは別。consolidatedベースの数値を使用（セグメント別ではない）。ネクソンコリアの¥3.1兆ウォン（invenglobal）は子会社単体の韓国GAAP数値であり、東証3659連結とは別のため参考扱い。"
+}

@@ -1,0 +1,23 @@
+{
+  "code": "4784",
+  "name": "GMO Internet, Inc. (GMOインターネット株式会社; formerly GMO AD Partners / GMOアドパートナーズ株式会社)",
+  "tab": "R+xS-",
+  "bucket": "special_situation",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-82% YoY (approx ¥478 current vs ¥2,849 52-week high hit in mid-2025; 52-week low ¥474)",
+  "biz_classification": "Internet Infrastructure & Advertising / GPU Cloud",
+  "jp_summary": "**会社概要:** もともとはGMOアドパートナーズ株式会社という、インターネット広告の代理店・配信プラットフォームを運営する中堅IT企業だった（東証スタンダード上場）。2025年1月1日、親会社GMOインターネットグループ（9449）が持株会社に移行するのに伴い、同グループのインターネットインフラ事業（ドメイン・サーバー・ネット接続）とインターネット広告・メディア事業を丸ごと引き継いだ。社名をGMOインターネット株式会社に変更し、東証プライム市場に鞍替えした。現在の主な事業は①ドメイン・レンタルサーバーなどインフラサービス（収益の約82%がサブスク型の安定収入）、②インターネット広告、③AI向けGPUクラウド（GMO GPUクラウド）の三本柱。\n\n**業績の動き:** FY2025（2025年12月期）の連結売上高は約785億円（前期比+503%）、営業利益は約82億円（前期は1.4億円）、純利益は約56億円（前期は▲0.04億円の赤字）。数字だけ見ると「爆発的成長」に見えるが、これはほぼ全て2025年1月の事業承継による規模拡大の効果であり、実態は新しく親会社の事業を取り込んだ結果。配当は2025年12月期に年間18円20銭（通常配当11円83銭＋記念配当6円37銭）を実施予定。旧GMOアドパートナーズ単体の最後の決算（FY2024）は売上130億円（前年比▲12.8%）、営業利益1.4億円、純損失400万円と、広告市場の縮小で苦戦していた。\n\n**業績が動いた理由:** 業績が大きく伸びたのは、GMOインターネットグループ全体の経営効率化のためのグループ再編が背景にある。なぜなら、持株会社（9449）が純粋持株会社に移行するにあたり、事業子会社であった同社に主力事業を集約させたため、売上・利益の規模が一変した。既存の広告事業は業種によって広告需要が縮小し、取扱高が減っていたが、インフラ事業のサブスク収益（ドメイン・サーバー）は景気の影響を受けにくく安定的だった。さらに、生成AI向けGPUクラウドサービス（2022年11月開始）が2026年1Q時点で利益貢献フェーズに入りつつあり、新たな成長ドライバーになりつつある。\n\n**株価が動いた理由:** 過去1年の株価は約▲82%と大幅下落。なぜなら、2025年初の事業承継・市場変更・社名変更の発表を受けて株価は一時2,849円まで急騰（プライム昇格・大幅増収期待）したが、その後は①FY2025実績が市場期待に届かなかった（750億円予想に対し785億円とほぼ想定内）、②GPU事業の収益化が想定より遅れた、③2026年に入り米中貿易摩擦を起因とする市場全体の急落（2025年4月7日に日経平均が歴代3位の下落幅）があった、という複合要因で売り込まれた。4月7日の全面安の日に同社は逆行高（+18.5%）を記録したが、それもインフラ収益の関税リスク耐性が評価されたに過ぎず、株価水準は依然として低迷している。",
+  "sources": [
+    "https://media.moneyforward.com/articles/9942",
+    "https://irbank.net/4784/pl",
+    "https://irbank.net/4784/chart",
+    "https://www.investing.com/equities/gmo-ad-partners-inc",
+    "https://finance.yahoo.co.jp/quote/4784.Q/financials",
+    "https://www.nikkei.com/article/DGXZQOUC258E40V20C24A6000000/",
+    "https://internet.gmo/en/ir/",
+    "https://finance.yahoo.co.jp/news/detail/94300617166605116b1d540e26697d88d0314b4c"
+  ],
+  "notes": "Identity clarification: Stock code 4784 was GMOアドパートナーズ株式会社 (internet ad agency, TSE Standard) until Dec 31, 2024. On Jan 1, 2025, it inherited GMO Internet Group's (9449) internet infrastructure and ad/media businesses, renamed to GMOインターネット株式会社, and moved to TSE Prime Market. The same legal entity (same ticker) continues. FY2024 (last full year as ad agency, ended Dec 31 2024): Revenue ¥12.999B (−12.8% YoY), op profit ¥139M (vs ¥−25M prior year), net loss ¥−4M — confirmed by MoneyForward article and Yahoo Finance JP Q financials page. FY2025 (first full year post-succession, ended Dec 31 2025): Revenue approx ¥78.55B (+503% YoY), op profit ¥8.224B, net profit ¥5.597B — source: irbank.net/4784/pl and Yahoo Finance consolidated financials. Discrepancy note: irbank showed ¥785.5B in one view (likely in 百万円 units = ¥78.55B) vs FY2025 guidance of ¥75B; actual appears to have exceeded guidance slightly. MoneyForward article cited FY2025 projection as '売上75億円' confirming the scale. FY2026 Q1: Revenue ¥203.78億 (+6.8% YoY), op profit ¥24.4億 (+49.5%) — from Yahoo Finance post-succession financials. Stock: current ¥478 (Investing.com, June 2026); 52-week high ¥2,849 / 52-week low ¥474 (Investing.com); YoY change −81.66% (Investing.com). One year ago (June 2025) stock was near peak ~¥2,800+ after Prime promotion surge; now collapsed due to expectation vs reality gap and macro sell-off. Dividend FY2024: ¥6.90/share; FY2025: ¥18.20/share (incl. commemorative dividend) — Yahoo Finance news and search results. Tab=R+xS- because FY2025 revenue is massively up (inorganic succession) but stock is down ~82% YoY. Bucket=special_situation: the dramatic revenue jump is entirely due to a parent-company business succession (inorganic), not organic growth; classified as special situation rather than clean_grower or acceleration_rerating."
+}

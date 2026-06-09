@@ -1,0 +1,22 @@
+{
+  "code": "3681",
+  "name": "V-cube, Inc. (株式会社ブイキューブ)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "down",
+  "net_dir": "down",
+  "stock_yoy_estimate": "-87% from 52-week high (¥175→¥22)",
+  "biz_classification": "SaaS / Web conferencing & Event DX platform",
+  "jp_summary": "**会社概要:** ブイキューブは、Web会議・ウェビナー・オンラインイベント配信のSaaSプラットフォームを企業向けに提供する会社。主な事業は「エンタープライズDX」（社内会議・研修用のWeb会議ツール）、「イベントDX」（大規模オンラインイベント・株主総会配信）、「サードプレイスDX」（シェアオフィス等の働く場所のDX）の3本柱。コロナ禍での在宅勤務・リモートイベント需要で急成長した後、2021年に米国のイベント配信企業Xyvid（現TEN Holdings / 10events）を約36億円で買収し、海外展開を狙った。\n\n**業績の動き:** 2024年12月期（最新の完了年度）の連結売上高は約104.6億円で、前年比5.6%減。営業損失は約23.7億円（前年度は約15.6億円の損失）、純損失は約14.2億円（前年度は大型減損が加わり約56.2億円の損失だったため数字上は改善）。配当はゼロ。これはどういう規模感か：売上約100億円というのは中堅SaaSとして小さくはないが、2期連続で営業赤字が続き、純資産も毀損して2025年度末には約6.55億円の債務超過に陥った。つまり「売上は落ち続け、コストをカバーできていない」状態。\n\n**業績が動いた理由:** 主因は2021年の海外買収の失敗と、コロナ特需の剥落。なぜなら、コロナ禍でオンラインイベント需要が急騰した時期に米国のXyvidを36億円で買収したが、2022年以降に米国で「リアル回帰」が急速に進んだため、Xyvidの事業は計画を大幅に下回り、2023年度に約37.5億円（のれん約32億円＋ソフトウェア約5億円）の大型減損を余儀なくされた。さらにXyvidの後継会社TEN Holdingsのナスダック上場に向けた準備費用が2024年度に追加負担となり、2期連続の連結営業損失を計上。国内の主力Web会議事業もZoom・Microsoft Teamsとの競争激化で収益性が低下し、売上の下落が止まらなかった。\n\n**株価が動いた理由:** 2024年初（約150〜180円水準）から2026年6月時点で約22円と、ピーク比で約87%超の大幅下落。なぜなら、2期連続の営業赤字と純資産毀損が進むにつれ、市場は「再建困難」と判断し売りが加速した。2026年3月31日にスポンサー（日本革新投資）との基本契約締結と上場廃止基準抵触が開示されると、株価はストップ安となり1株40円でのスクイーズアウト（強制買い取り）が事実上確定。2026年6月26日に東証プライムから上場廃止予定となり、残存株主には1株40円の対価が支払われる見込み。なぜなら、債務超過の解消には大規模な外部スポンサーによる資本注入が必要となり、既存株主は大幅な希薄化を免れなかったため。",
+  "sources": [
+    "https://irbank.net/3681/pl",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20250221580593/",
+    "https://finance.yahoo.co.jp/news/detail/747a86ffd18560ddfe18c87668e3f1551b72af44",
+    "https://finance.yahoo.co.jp/news/detail/58daebe95b85ebb64dd18a33f39d225b43f1c5ed",
+    "https://www.nikkei.com/nkd/disclosure/tdnr/20260331595191/",
+    "https://finance.biggo.jp/news/jpx_tdnet_140120260331595191",
+    "https://finance.yahoo.co.jp/quote/3681.T"
+  ],
+  "notes": "FY2024 = 2024年12月期（連結）。Revenue ¥104.6億円 — source: irbank.net/3681/pl (confirmed by Nikkei 決算短信 20250221). Operating loss -¥23.7億円 — source: irbank.net (primary); search snippet from equity.jiji.com PDF (-¥23.68億円) consistent. Net loss -¥14.2億円 — source: irbank.net; prior year (FY2023) showed -¥56.2億円 net loss due to one-time ¥37.5億円 impairment on Xyvid acquisition. FY2023 revenue ¥110.8億円 (down 9.4% YoY). Revenue direction: down both FY2023 and FY2024. Op profit direction: down (losses deepening). Net profit direction: down (still in net loss, though smaller than FY2023 due to absence of impairment). Dividend: ¥0 in FY2024 (confirmed kabuyoho.jp). Stock price: Yahoo Finance showed 52-week high ¥175 (Jan 9, 2026), low ¥18 (May 19, 2026), current ¥22 as of late May 2026; squeeze-out offer price ¥40/share confirmed by multiple sources. YoY stock change estimated at ~-87% from high; roughly -75% from early-2025 levels (~¥90-100). Classification R- because revenue is declining (down 5.6% in FY2024, down 9.4% in FY2023). Bucket skipped per spec for R-. Note: company is delisting June 26, 2026 — this is a terminal special situation, not a going-concern investment. TEN Holdings NASDAQ listing (Feb 2025) is ironically succeeding as independent entity while former parent collapses."
+}

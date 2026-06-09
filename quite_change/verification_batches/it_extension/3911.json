@@ -1,0 +1,23 @@
+{
+  "code": "3911",
+  "name": "Aiming Inc. (株式会社Aiming / エイミング)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-40% from 52-week high (¥331→¥197)",
+  "biz_classification": "スマートフォン向けオンラインゲーム開発・運営 / Mobile online game development & operation",
+  "jp_summary": "**会社概要:** Aiming Inc.（エイミング）は2011年設立の東証グロース上場のスマートフォン向けオンラインゲーム会社。主にスマホ向けMMORPGやRPGを自社開発・運営するほか、外部パブリッシャーからの受託開発も行っている。代表的なタイトルは『ドラゴンクエストタクト（DQタクト）』『陰の実力者になりたくて！マスターオブガーデン（カゲマス）』『WIND BREAKER 不良たちの英雄譚（ウィンヒロ）』など。アニメ放映に合わせてゲームを開発・納品できる体制が強みで、アニメIPと連動したゲーム展開を得意としている。\n\n**業績の動き:** 2025年12月期（通期）の売上高は158億2,600万円（前期比7.4%減）、営業利益は20億7,900万円（前期は5億5,200万円の営業損失から黒字転換）、経常利益14億1,100万円、最終純利益10億8,600万円。売上は減ったものの、利益は大幅にプラスに転換した。規模感でいうと、売上約158億円は中小規模のゲーム会社であり、営業利益率は約13%とゲーム会社としては水準的。前期まで赤字だった会社が「初めて本格的に黒字を出した」年という位置づけ。\n\n**業績が動いた理由:** 売上が減ったのは、既存タイトルの自然減衰（プレイヤー数・課金額の経年低下）が主因。一方で利益が大きく改善した理由は二つ：①外注費や人件費などの費用を適正化（開発規模の見直しとプロジェクト精査）でコストを大幅圧縮、②外部決済（App Store等の手数料を回避する直接決済）の導入で決済コストを削減。なぜなら、スマホゲームはApp StoreやGoogle Playを通じた課金だと手数料が30%かかるところ、独自決済なら手数料を大幅に抑えられるため、売上が減っても手取りが増える構造になったから。加えて、アニメ放映と連動したゲームの受託開発収益（アニメ配当含む）も利益の押し上げに貢献した。\n\n**株価が動いた理由:** 直近1年間の株価は52週高値¥331から現在¥197付近まで約40%下落しており、軟調推移。なぜなら、①黒字転換は評価されたものの、売上自体は減収傾向にあり、成長性への懐疑が残ったため；②2025年10月の通期予想開示時には一時的に注目が集まったが（黒字転換＋通期予想の初開示）、その後は材料出尽くし感から売られた；③東証グロース市場全体のリスクオフムードや、スマホゲーム業界への先行き不安感が重なった。なぜなら、スマホゲームは新規タイトルの成否に業績が左右されやすく、次の大型IPが見えにくい状況では株価が評価されにくいから。",
+  "sources": [
+    "https://gamebiz.jp/news/420949",
+    "https://gamebiz.jp/news/400867",
+    "https://x.com/kessan_db/status/1983513935874867678",
+    "https://kabuyoho.jp/sp/consNewsDetail?nid=3911_20251028_act_20251028_153021_4&cat=1&bcode=3911",
+    "https://www.nikkei.com/article/DGXZRST0560302T10C26A2000000/",
+    "https://kabu.bridge-salon.jp/20251028-3911/",
+    "https://www.investing.com/equities/aiming-inc",
+    "https://gamebiz.jp/news/415058"
+  ],
+  "notes": "Revenue verification: Full-year FY2025 revenue ¥15.826B (158億2,600万円) confirmed as -7.4% YoY by gamebiz.jp/news/420949 and Nikkei article (DGXZRST0560302T10C26A2000000). Q3 cumulative showed +7.3% (¥12.639B) per official kessan_db disclosure, but Q4 was weak, bringing full year into negative. Operating profit ¥2.079B (黒字転換) cross-confirmed by gamebiz and Nikkei. FY2024 operating loss was ¥552M per gamebiz/news/400867 — both sources agree on prior-year loss. Net profit ¥1.086B for FY2025 confirmed by Nikkei article. Stock price 52-week range ¥189–¥331 per Investing.com; current ~¥197 as of research date. Year-on-year stock change estimated at approximately -40% from 52-week high; precise 12-month % unavailable from search results — flagged as approximate. Dividend: not declared for FY2025 or FY2026 per IR disclosures. Fiscal year scope: all figures are consolidated (連結), FY2025 = January–December 2025. Company name confirmed as '株式会社Aiming' (エイミング) — no name confusion found; ticker 3911 unambiguously maps to this company on TSE Growth market."
+}

@@ -1,0 +1,23 @@
+{
+  "code": "5034",
+  "name": "unerry Inc. (株式会社unerry)",
+  "tab": "R+xS-",
+  "bucket": "saas_derated",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-20% YoY (approx. ¥2,600 Jun 2025 → ¥2,116 Jun 2026)",
+  "biz_classification": "SaaS / 位置情報・人流データプラットフォーム (Location Data Platform)",
+  "jp_summary": "**会社概要:** unerryは「Beacon Bank®」という人流データプラットフォームを運営する会社です。GPSやBluetooth ビーコンを使って、月間840億件超・約4.2億IDのリアル行動データを蓄積し、「どんな人が・いつ・どこにいるか」を可視化します。そのデータを使って、小売業者や商業施設などに「来店分析」「行動変容（広告配信）」「One to One マーケティング」の3種類のサービスをSaaS型で提供しています。三菱商事・電通とも資本業務提携しており、リテールDX・リテールメディア領域で存在感を高めています。\n\n**業績の動き:** 2025年6月期（最新通期）の売上高は37億2,600万円（前年比+31%）、営業利益は3億1,100万円（同+74%）、純利益は3億3,100万円（同+386%）でした。売上成長率31%は「速い」部類で、スモールキャップのSaaS企業としては十分な伸び。営業利益の+74%はさらに速く、売上増加に対してコストが抑制できていることを示します。純利益が+386%と突出しているのは、前期の純利益ベースが非常に小さかった（約6,800万円）反動です。ROEは18%を達成しており、資本効率も改善中。配当はゼロ（成長投資優先）。\n\n**業績が動いた理由:** 主役はリカーリング顧客（4四半期連続取引の継続顧客）の積み上げです。なぜなら、契約を維持し続ける顧客数が109社→140社へ増え、1社あたりの年間取引額も約2,300万円と安定しているため、解約リスクが低い安定収益基盤が膨らみ、売上が自然に上積みされていったからです。加えてNRR（売上維持率）が118%と高く、既存顧客がサービスを拡張・追加購入していることも収益拡大を後押ししています。リテールDX需要（小売業者のデジタル化）とリテールメディア（店舗データを活用した広告）の市場拡大もうまく取り込みました。\n\n**株価が動いた理由:** 2025年7月に一時3,245円の高値をつけた後、2026年6月時点では2,116円まで下落（約-35%の高値比調整）しており、1年前比でも約-20%程度と低調です。なぜなら、成長は続いているものの、グロース株全般に対する市場のリスク選好が低下し、高PER銘柄が売られやすい地合いが続いているためです。また、FY2026 1Q（2025年9月期）の営業利益が300万円の赤字と季節性による一時的な落ち込みを見せたことが投資家心理を冷やしました。なぜなら、SaaS企業では期初に先行投資が集中するため赤字になりやすいのですが、グロース株に敏感な市場ではそれが「成長鈍化」と誤読されやすいからです。業績の実態（通期で2桁超成長）と株価の下落には乖離があり、見落とされた状態にあると言えます。",
+  "sources": [
+    "https://finance.logmi.jp/articles/382364",
+    "https://finance.logmi.jp/articles/381648",
+    "https://irbank.net/5034/chart",
+    "https://irbank.net/5034",
+    "https://www.unerry.co.jp/ir/results/",
+    "https://minkabu.jp/stock/5034/settlement",
+    "https://kabuyoho.ifis.co.jp/index.php?action=tp1&sa=report&bcode=5034",
+    "https://finance.logmi.jp/articles/378444"
+  ],
+  "notes": "FY2025 revenue ¥3,726M confirmed by two sources: logmi.jp/382364 (決算説明会transcript) and initial search snippets from kabuyoho/minkabu. Operating profit ¥311M (+74% YoY) confirmed same dual sources. Net profit ¥331M (+386% YoY) confirmed same. FY2024 baseline back-calculated: OP ¥311M ÷ 1.74 ≈ ¥179M; NP ¥331M ÷ 4.86 ≈ ¥68M; Revenue ¥3,726M ÷ 1.31 ≈ ¥2,844M — consistent with '前期比31%増' stated in multiple sources and the FY2024 revenue of ¥2,834M cited in earlier search result. All figures are non-consolidated (単独) as unerry has no subsidiaries per IR disclosure. FY = July–June fiscal year. Stock price: 52-week high ¥3,245 (2025/07/17), 52-week low ¥1,334 (2025/04/07), current ¥2,116 (2026/06/05) per irbank.net/5034/chart. YoY stock change estimated at approx. -20% (Jun 2025 ~¥2,600 inferred from proximity to July high ¥3,245; exact Jun 2025 close unavailable — flagged as approximate). Dividend: ¥0 confirmed. FY2026 guidance: Revenue ¥5,002M (+34%), OP ¥500M (+60%) — unverified guidance figure, not actual. Tab R+xS- assigned because revenue and profits are strongly up while stock is down ~20% YoY. Bucket 'saas_derated' selected because: high-growth SaaS (31% rev growth, 74% OP growth) on Tokyo Growth market that re-rated up then pulled back amid broader growth-stock de-rating and a 1Q FY2026 operating loss quarter."
+}

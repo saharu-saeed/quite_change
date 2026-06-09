@@ -1,0 +1,23 @@
+{
+  "code": "4384",
+  "name": "Raksul Inc. (ラクスル株式会社)",
+  "tab": "R+xS+",
+  "bucket": "activist_corporate_action",
+  "rev_dir": "up",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "+52% YoY (MBO TOB price ¥1,900 vs ~¥1,250 pre-announcement)",
+  "biz_classification": "Internet platform / SME procurement & marketing SaaS",
+  "jp_summary": "**会社概要:** ラクスルは「仕組みを変えれば、世界はもっと良くなる」をミッションに掲げる東京のインターネットプラットフォーム企業。主な事業は3つ。①印刷・集客支援プラットフォーム「ラクスル」（中小企業が格安でチラシや名刺を発注できるECサイト＋デジタル化支援）、②テレビCM・動画広告を小ロットで購入できるプラットフォーム「ノバセル」、③物流マッチングプラットフォーム「ハコベル」。いずれも「遊休リソースを持つ業者」と「発注したい中小企業」をオンラインでつなぐ構造で、自社では製造や配送を持たないアセットライト型。東証プライム上場だったが、2026年3月にMBO（経営陣による買収）が成立し上場廃止へ。\n\n**業績の動き:** 2025年7月期（FY2025）の連結業績は、売上高619億円（前年比+21.2%）、営業利益38億円（前年比+51.3%）、純利益27億円（前年比+27.6%）。売上21%増は「大きめ」の成長——上場IT企業の平均的な成長率（5〜10%程度）を大きく上回る。営業利益の伸びが売上の伸びの2倍以上というのも注目点で、規模拡大に伴ってコスト効率が改善している（レバレッジが効いている）ことを示す。まだ利益規模は小さい（営業利益率6%強）ものの、方向感は明確に改善中。配当は2025年7月期に増配したが、MBOに伴い2026年7月期は無配予定。\n\n**業績が動いた理由:** 売上・利益ともに拡大したのは、主に調達プラットフォーム事業の深化による。なぜなら、単なる印刷ECから「ソフトウェア（SaaS）＋金融（ファイナンス）＋物販EC」を組み合わせたEnd-to-Endの中小企業向け経営支援プラットフォームへとビジネスモデルを転換し、顧客単価と利用頻度が上がったからである。デジタル化支援サービスの導入企業数が3,659社に達し、この部門の売上は倍増ペースで拡大。また固定費増加を上回る粗利成長により、営業レバレッジが効いて利益率が改善した。\n\n**株価が動いた理由:** 株価は過去1年で約+52%上昇（¥1,250台→TOB価格¥1,900）したが、その主因は業績ではなくMBO（経営陣による非公開化）の発表。なぜなら、2025年12月11日にゴールドマン・サックス傘下のファンドと組んだMBOが公表され、当初のTOB価格¥1,710が市場株価に対して約37%プレミアムだったため、株価が急騰したからである。その後、TOB価格はさらに¥1,900に引き上げられ（追加+11%）、2026年3月にTOBが成立。株価上昇の大部分はこのM&Aイベントによるもので、業績成長単体では説明できない水準での株価上昇となった。",
+  "sources": [
+    "https://irbank.net/4384/140120250912557513",
+    "https://www.investing.com/news/company-news/raksul-fy2025-presentation-slides-revenue-jumps-21-as-sme-platform-strategy-pays-off-93CH-4236402",
+    "https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20250912/20250912557659.pdf",
+    "https://catr.jp/tss/55df7/203830",
+    "https://www.nihon-ma.co.jp/news/20260311_4384-72/",
+    "https://info.manda.bz/2025/12/17/%E3%83%A9%E3%82%AF%E3%82%B9%E3%83%AB%E3%81%8Cmbo%E3%81%A7%E6%A0%AA%E5%BC%8F%E9%9D%9E%E5%85%AC%E9%96%8B%E5%8C%96%E3%81%B8%EF%BD%9Ctob%E4%BE%A1%E6%A0%BC1710%E5%86%86%E3%81%A7%E4%B8%8A%E5%A0%B4%E5%BB%83/",
+    "https://stockanalysis.com/quote/tyo/4384/statistics/",
+    "https://note.com/aikessanlab/n/nfe4e8a0946b3"
+  ],
+  "notes": "VERIFICATION AUDIT TRAIL — FY2025 (ended July 31, 2025, consolidated): Revenue ¥61.95B +21.2% YoY — confirmed by Investing.com FY2025 presentation slides article AND Yahoo Finance disclosure PDF (20250912557659.pdf). Op profit ¥3.819B +51.3% YoY — sourced from catr.jp official disclosure database and corroborated by AI決算ラボ note article; both agree on +51.3% figure. Net profit ¥2.702B +27.6% YoY — same sources agree. No discrepancy found between sources on headline numbers. Dividend: ラクスル paid first dividend in FY2024 (¥1.7/share), increased in FY2025; FY2026 dividend set to zero due to MBO going-private process — sourced from toushi-matomeblog.com and kabukiso.com. Stock price: 52-week range ¥1,002–¥2,120 per Investing.com/StockAnalysis; pre-MBO announcement price ~¥1,250 (Dec 11, 2025 prior close) per nihon-ma.co.jp; TOB initial price ¥1,710 (+36.8% premium), raised to ¥1,900 on Feb 19, 2026; TOB completed March 10, 2026 per nihon-ma.co.jp. YoY stock change calculated as ¥1,900 (final TOB price, effective floor) vs ~¥1,250 pre-MBO (approximately June 2025 price range). The ¥1,888 trading price near close (April 2026) consistent with arbitrage spread to TOB at ¥1,900. Bucket rationale: Revenue up + stock up = R+xS+; stock rise is primarily driven by MBO/TOB action (Goldman Sachs-backed, management-led buyout), placing this firmly in activist_corporate_action bucket rather than clean_grower. Business model: Internet platform / procurement SaaS for SMEs. Measures: all figures consolidated (連結). Fiscal year: August–July (FY2025 = Aug 2024–Jul 2025)."
+}

@@ -1,0 +1,24 @@
+{
+  "code": "4051",
+  "name": "GMO Financial Gate, Inc. (GMOフィナンシャルゲート株式会社)",
+  "tab": "R-",
+  "bucket": "",
+  "rev_dir": "down",
+  "op_dir": "up",
+  "net_dir": "up",
+  "stock_yoy_estimate": "-5.6% YoY",
+  "biz_classification": "Fintech / キャッシュレス決済インフラ (Cashless Payment Infrastructure)",
+  "jp_summary": "**会社概要:** GMOフィナンシャルゲートは、日本国内の対面キャッシュレス決済市場において決済インフラを提供する会社です。具体的には、マルチ決済端末（クレジット・デビット・電子マネー・QRコードなど複数の支払い方法に対応する端末）の販売・リースと、その端末を通じた決済処理センター接続サービス（CCTセンター）を運営しています。郵便局や流通チェーンなどに大規模展開し、端末設置後も継続的に手数料収益（リカーリング収益）を得るビジネスモデルです。GMOペイメントゲートウェイ（3769）の子会社で、東証プライム市場に上場しています。\n\n**業績の動き:** 2025年9月期（直近完結期）の業績は、売上収益が約179億円（前年比 -4.2%、前年は187億円）と小幅に減収した一方、営業利益は約22.3億円（前年比 +58%、前年は14.1億円）、純利益は約16.3億円（前年比 +61%）と大幅増益を達成しました。1株配当は99円（前期から9円増配）で、今期（2026年9月期）はさらに125円へ増配予定です。売上は小さく落ちましたが（―4%程度）、利益は6割増という「利益先行型の成長」であり、上場以来8期連続の最高純利益を更新しています。これは「普通の成熟企業の利益水準ではなく、高い成長率」といえます。\n\n**業績が動いた理由:** 売上収益が前年比で微減したのは、端末初期導入（ハードウェア売上）のタイミングによる変動が影響したとみられます。なぜなら、端末を大量導入する時期は売上が一時的に膨らみ、その反動で翌期は減少するためです。一方で利益が急拡大したのは、端末設置後に得られるリカーリング（継続課金）型収益の比率が大きく上昇したためです。なぜなら、郵便局2万店舗への2.6万台の端末展開が完了し、その後は手数料収入が積み上がるストック型ビジネスに転換したからです。GMV（決済総額）はFY2024実績で約4.1兆円（前年比+69%増）まで拡大しており、処理件数の増加がリカーリング収益を底上げしています。2030年に営業利益50億円という中計目標に向けて、利益体質が着実に改善しています。\n\n**株価が動いた理由:** 株価は直近1年で約-5.6%と、市場全体に対してやや軟調でした。なぜなら、FY2025の売上収益が前年比で減少したことが市場に「成長の踊り場」と受け取られた可能性があるためです。また、2026年9月期中間期（2026年5月時点）では売上収益が前年同期比+16.2%・営業利益+12.8%と再び成長軌道に戻っており、株価は2026年5月に一時+11%急騰する場面もありました。なぜなら、プライム市場への移行承認や増益・増配の継続が好感されたためです。アナリスト3社は全員「買い」推奨で、平均目標株価は約8,557円（現在株価5,600円から+53%の上値余地）となっており、市場の本質的評価は高い状態が続いています。",
+  "sources": [
+    "https://finance.logmi.jp/articles/378758",
+    "https://traders.co.jp/stocks/61_4051/news/2111730",
+    "https://stockanalysis.com/quote/tyo/4051/",
+    "https://www.investing.com/equities/gmo-financial-gate-inc",
+    "https://kabutan.jp/news/?b=k202511130328",
+    "https://gmo-fg.com/ir/library/presentation/index.html",
+    "https://finance-frontend-pc-dist.west.edge.storage-yahoo.jp/disclosure/20241113/20241108515962.pdf",
+    "https://kabutan.jp/stock/finance?code=4051",
+    "https://minkabu.jp/stock/4051/settlement"
+  ],
+  "notes": "Verification audit trail: (1) FY2025 revenue ¥17.93B — sourced from stockanalysis.com (TYO:4051 page, Jun 2026), showing -4.16% YoY vs FY2024 ¥18.71B. Cross-checked with search snippet from kabutan/traders.co.jp confirming FY2025 op profit 22.3億円. (2) FY2024 revenue: logmi article stated ¥19.2B guidance/result while stockanalysis shows ¥18.71B as the actual — discrepancy likely due to logmi using management guidance figures vs audited IFRS consolidated result; main text uses ¥18.71B (stockanalysis, more conservative/verified). (3) FY2025 op profit ¥2.23B confirmed by traders.co.jp news headline (IFRS consolidated). (4) FY2025 net profit ¥1.63B confirmed by stockanalysis.com. 8 consecutive record net profits confirmed by kabutan news headline. (5) Dividend: search results confirm FY2025 actual ¥99/share (9円 increase from prior), FY2026 forecast ¥125/share (26円 further increase). (6) Stock price ¥5,600 as of Jun 8, 2026 — sourced from stockanalysis.com and investing.com. 1-year change: -5.56% per stockanalysis, -4.76% per investing.com — using -5.6% as the more conservative estimate. 52-week range: ¥4,750–¥6,540. (7) FY2024 GMV ¥4.1 trillion and 4.8B transactions from logmi.jp article. (8) Revenue direction is DOWN (FY2025 vs FY2024: ¥17.93B vs ¥18.71B = -4.2%), so tab=R-. Op profit and net profit are both UP strongly. Fiscal year scope: GMO Financial Gate uses September fiscal year end (9月期). All figures are IFRS consolidated."
+}
