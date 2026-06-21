@@ -1,0 +1,431 @@
+<style>
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans", "Meiryo", sans-serif; margin: 0; padding: 0; color: #1a1a1a; background: #f7f7f5; line-height: 1.55; }
+.container { max-width: 1080px; margin: 0 auto; padding: 24px; }
+header.page-header { background: #fff; border-bottom: 1px solid #e0e0e0; padding: 22px 24px; position: relative; }
+.page-header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+.page-header .subtitle { color: #555; font-size: 13px; margin: 4px 0 0; }
+
+/* Top-level controls */
+.top-controls { display: flex; gap: 16px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+.top-controls label { font-size: 13px; font-weight: 600; color: #333; }
+.top-controls select { font-size: 13px; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+
+/* Filter row */
+.filter-row { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 14px 18px; margin: 16px 0; }
+.filter-row label { font-size: 13px; font-weight: 600; color: #333; margin-right: 8px; }
+.filter-row select { font-size: 13px; padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+.filter-row .filter-note { font-size: 12px; color: #777; margin-top: 8px; }
+
+/* Filter explanations */
+.filter-explanations-block { background: #fdf6e3; border-left: 4px solid #d4a017; padding: 14px 18px; margin: 12px 0; border-radius: 4px; }
+.filter-explanations-block h3 { margin: 0 0 8px; font-size: 14px; color: #555; }
+.filter-explanation { margin: 8px 0; }
+.filter-explanation > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #1f7a4a; padding: 6px 0; }
+.filter-explanation > summary:hover { color: #155a35; }
+.filter-exp-body { font-size: 13px; color: #333; line-height: 1.7; padding: 10px 0 4px 8px; border-left: 2px solid #d4a017; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin: 16px 0 0; border-bottom: 2px solid #e0e0e0; }
+.tab { padding: 10px 18px; cursor: pointer; font-size: 14px; font-weight: 600; color: #888; border-bottom: 3px solid transparent; margin-bottom: -2px; background: none; border-left: none; border-right: none; border-top: none; }
+.tab.active { color: #1f7a4a; border-bottom-color: #1f7a4a; }
+.tab.s-minus.active { color: #1f7a4a; border-bottom-color: #1f7a4a; }
+.tab-count { background: #f0f0f0; border-radius: 9px; padding: 1px 8px; font-size: 11px; margin-left: 6px; color: #555; }
+.tab-focus-note { background: #d4f7e0; color: #1f7a4a; border-radius: 3px; padding: 1px 6px; font-size: 11px; margin-left: 6px; font-weight: 700; }
+.tab-content { display: none; padding: 18px 0; }
+.tab-content[data-active="true"] { display: block; }
+
+/* Buckets — clickable toggle buttons. Closed by default; click to expand to show deep
+   explanation + the list of company cards inside. */
+.reason-bucket { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px 16px; margin: 12px 0; transition: border-color 0.15s, box-shadow 0.15s; }
+.reason-bucket:hover { border-color: #1f7a4a; box-shadow: 0 1px 4px rgba(31, 122, 74, 0.08); }
+.reason-bucket > summary { cursor: pointer; font-size: 15px; font-weight: 700; color: #1a1a1a; display: flex; align-items: center; gap: 10px; padding: 6px 0; list-style: none; user-select: none; }
+.reason-bucket > summary::-webkit-details-marker { display: none; }
+.reason-bucket > summary::marker { display: none; }
+.bucket-toggle-icon { font-size: 12px; color: #1f7a4a; transition: transform 0.15s; display: inline-block; min-width: 14px; }
+.reason-bucket[open] > summary .bucket-toggle-icon { transform: rotate(90deg); }
+.bucket-title { color: #1f7a4a; flex: 1; }
+.reason-bucket:hover .bucket-title { color: #155a35; }
+.bucket-count { background: #f0f0f0; border-radius: 9px; padding: 1px 8px; font-size: 11px; color: #555; }
+.bucket-note { font-size: 13px; color: #555; padding: 10px 8px 12px 8px; line-height: 1.65; background: #fafaf5; border-left: 3px solid #d4a017; margin: 8px 0 12px; border-radius: 3px; white-space: pre-wrap; }
+.bucket-cards { padding-top: 4px; }
+
+/* Company cards — WHOLE card is click-to-toggle when collapsed */
+.company-row { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 16px 18px; margin: 10px 0; transition: background 0.15s, border-color 0.15s; cursor: pointer; }
+.company-row:hover { background: #f0f8f3; border-color: #1f7a4a; }
+/* When expanded, only the head/data area shows the pointer feel; the body is
+   read-only content where text selection is fine */
+.company-row:not(.collapsed) { cursor: default; }
+.company-row:not(.collapsed) .company-head,
+.company-row:not(.collapsed) .company-data,
+.company-row:not(.collapsed) .biz-tag { cursor: pointer; }
+.company-row:not(.collapsed) .company-body { cursor: text; }
+.company-head { display: flex; align-items: baseline; gap: 12px; user-select: none; }
+.expand-icon { font-size: 12px; color: #999; transition: transform 0.15s; margin-left: auto; }
+.company-row:not(.collapsed) .expand-icon { transform: rotate(90deg); }
+.ticker { font-family: monospace; font-size: 13px; color: #777; }
+.company-name { font-size: 16px; font-weight: 700; }
+.company-meta { display: inline-flex; gap: 6px; margin-left: 6px; }
+.badge { font-size: 10.5px; padding: 1px 6px; border-radius: 3px; background: #ececec; color: #555; font-weight: 600; }
+.badge.sub { background: #e6f0f8; color: #2f5377; }
+.badge.size { background: #f8eee6; color: #774b2f; }
+.company-data { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: #555; margin: 8px 0; }
+.data-label { color: #888; font-weight: 600; }
+.biz-tag { font-size: 11.5px; color: #777; margin: 6px 0 8px; font-style: italic; }
+
+/* Hidden by default — shown when company is expanded */
+.company-row.collapsed .company-body { display: none; }
+.company-body { padding-top: 10px; }
+.company-body > * { margin-top: 8px; }
+
+/* Genuine research green block */
+.genuine-research { background: #f0f8f3; border-left: 4px solid #1f7a4a; padding: 12px 14px; border-radius: 4px; }
+.genuine-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-size: 11.5px; color: #555; flex-wrap: wrap; gap: 8px; }
+.genuine-label { font-weight: 700; color: #1f7a4a; }
+.genuine-source { font-size: 10.5px; color: #999; }
+.genuine-body { font-size: 13px; line-height: 1.7; color: #1a1a1a; white-space: pre-wrap; }
+.genuine-body b { color: #1f7a4a; }
+
+/* Pattern + source prose collapsibles */
+.pattern-collapse, .source-prose { margin-top: 8px; }
+.pattern-collapse > summary, .source-prose > summary {
+  cursor: pointer; font-size: 11px; font-weight: 600; color: #555; padding: 4px 8px;
+  background: #ececec; border-radius: 3px; display: inline-block;
+}
+.reason-text { padding: 8px; font-size: 12px; color: #444; line-height: 1.7; }
+.reason-pattern-text b { color: #1f7a4a; font-weight: 700; }
+.source-prose-body { padding: 10px; font-size: 12px; color: #555; line-height: 1.7; background: #fafafa; border-radius: 3px; }
+.source-thin, .genuine-missing { padding: 8px; font-size: 12px; color: #c2541b; background: #fdf6f0; border-radius: 3px; }
+
+.empty-note { padding: 20px; color: #888; font-style: italic; }
+
+/* Non-qualifying majors transparency block (marine, etc.) */
+.non-qualifying-block { background: #fafafa; border-left: 4px solid #aaa; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+.non-qualifying-block > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #555; padding: 4px 0; }
+.non-qual-body { font-size: 12.5px; color: #555; padding: 10px 8px 4px 8px; line-height: 1.7; }
+.non-qual-body ul { padding-left: 20px; margin: 8px 0; }
+.non-qual-body li { margin-bottom: 6px; }
+
+/* Sector statistics transparency block (top of each sector pane) */
+.sector-stats-block {
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  border-left: 4px solid #2f5377;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 16px 0 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.sector-stats-block .stats-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2f5377;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ececec;
+}
+.sector-stats-block .stats-counts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.sector-stats-block .stat-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #fafafa;
+  border-radius: 5px;
+  border: 1px solid #ececec;
+}
+.sector-stats-block .stat-cell.stat-qualifying { background: #f0f8f3; border-color: #d2e9dc; }
+.sector-stats-block .stat-cell.stat-excluded { background: #fdf4f4; border-color: #ecd5d5; }
+.sector-stats-block .stat-cell.stat-delisted { background: #f5f5f5; border-color: #e0e0e0; }
+.sector-stats-block .stat-cell.stat-delisted .stat-value { color: #999; }
+.sector-stats-block .stats-math-note {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  margin: 8px 0 4px;
+  padding: 6px 10px;
+  background: #f8f9fa;
+  border-left: 3px solid #c0c0c0;
+  border-radius: 3px;
+}
+.sector-stats-block .stat-label {
+  font-size: 11px;
+  color: #777;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.sector-stats-block .stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+}
+.sector-stats-block .stat-qualifying .stat-value { color: #1f7a4a; }
+.sector-stats-block .stat-excluded .stat-value { color: #888; }
+.sector-stats-block .excluded-list {
+  margin-top: 8px;
+  border-top: 1px solid #ececec;
+  padding-top: 10px;
+}
+.sector-stats-block .excluded-list > summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  padding: 4px 0;
+}
+.sector-stats-block .excluded-list > summary:hover { color: #1a1a1a; }
+.sector-stats-block .excl-items {
+  list-style: none;
+  padding: 8px 0 0 0;
+  margin: 0;
+}
+.sector-stats-block .excl-items li {
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: #555;
+  border-left: 2px solid #d8d8d8;
+  margin: 4px 0;
+  background: #fafafa;
+  border-radius: 0 3px 3px 0;
+}
+.sector-stats-block .excl-items li b { color: #1a1a1a; font-family: monospace; margin-right: 4px; }
+.sector-stats-block .excl-reason { color: #777; font-style: italic; }
+.sector-stats-block .excl-smaller { font-size: 11.5px; color: #888; padding: 8px 0 0; margin: 6px 0 0; border-top: 1px dashed #e0e0e0; font-style: italic; }
+@media (max-width: 720px) {
+  .sector-stats-block .stats-counts { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Language toggle */
+.lang-toggle { position: absolute; top: 22px; right: 22px; display: flex; gap: 4px; }
+.lang-btn { padding: 4px 10px; font-size: 12px; border: 1px solid #ccc; background: #fff; cursor: pointer; border-radius: 3px; }
+.lang-btn.active { background: #1f7a4a; color: #fff; border-color: #1f7a4a; }
+
+/* ── Methodology pane ── */
+.methodology-pane { max-width: 980px; margin: 0 auto; padding: 8px 4px; }
+.methodology-intro h2 { font-size: 22px; margin: 4px 0 12px 0; color: #1f3a5c; }
+.meth-lede { font-size: 14.5px; line-height: 1.65; color: #334; background: #f6f8fc; border-left: 4px solid #3a6db0; padding: 14px 18px; border-radius: 4px; margin: 0 0 22px 0; }
+.meth-section { background: #fff; border: 1px solid #d8deea; border-radius: 6px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+.meth-section > summary { padding: 14px 20px; font-size: 15.5px; font-weight: 600; color: #1f3a5c; cursor: pointer; list-style: none; user-select: none; }
+.meth-section > summary::-webkit-details-marker { display: none; }
+.meth-section > summary::before { content: '▸ '; color: #6a7a95; margin-right: 4px; transition: transform 0.15s; display: inline-block; }
+.meth-section[open] > summary::before { content: '▾ '; }
+.meth-section > summary:hover { background: #f3f6fb; }
+.meth-section > *:not(summary) { padding: 0 22px 18px 22px; }
+.meth-diagram { font-family: 'Cascadia Mono', 'Consolas', 'Courier New', monospace; font-size: 12px; line-height: 1.4; background: #fafbfd; border: 1px solid #e8ecf3; border-radius: 4px; padding: 14px 16px; overflow-x: auto; color: #2a3a52; margin: 8px 0; }
+.meth-prompt { font-family: 'Cascadia Mono', 'Consolas', 'Courier New', monospace; font-size: 12.5px; line-height: 1.55; background: #fef9e7; border: 1px solid #e8dca0; border-radius: 4px; padding: 14px 18px; overflow-x: auto; white-space: pre-wrap; color: #2b2818; margin: 6px 0; }
+/* Show only the prompt matching the current page language */
+html[lang="en"] .meth-prompt[data-lang="jp"] { display: none; }
+html[lang="jp"] .meth-prompt[data-lang="en"] { display: none; }
+.meth-output-schema { font-family: 'Cascadia Mono', 'Consolas', 'Courier New', monospace; font-size: 12.5px; line-height: 1.55; background: #f0f7ee; border: 1px solid #c5d9bf; border-radius: 4px; padding: 14px 18px; overflow-x: auto; color: #1f3a1f; margin: 6px 0; }
+.meth-explain { font-size: 14px; line-height: 1.65; color: #334; }
+.meth-explain p { margin: 8px 0 12px 0; }
+.meth-explain code { background: #f0f3f8; padding: 1px 5px; border-radius: 3px; font-family: 'Cascadia Mono', 'Consolas', monospace; font-size: 12.5px; color: #444; }
+.meth-steps, .meth-controls, .meth-cost { font-size: 14px; line-height: 1.7; color: #334; margin: 4px 0 0 8px; padding-left: 22px; }
+.meth-steps li, .meth-controls li, .meth-cost li { margin-bottom: 8px; }
+.meth-controls li { padding-left: 4px; }
+
+</style>
+<script>
+const I18N = {
+  en: {
+    'page.title': 'R+ Classification View — Multi-Sector (FY3/2026)',
+    'page.subtitle': '2026-06-05 · 5 TOPIX-33 sectors · per-sector filter + transparency block',
+    'sector.label': 'Sector:',
+    'filter.label': 'Filter mode:',
+    'filter.note.IT': 'For IT sector, revenue growth = business growth. No alternative filter needed.',
+    'filter.note.LandTransport': 'For Land Transportation, revenue captures real business quality — fare/parcel volume growth. Strong FY3/2026: JR Big 3 + private railways + logistics all growing.',
+    'filter.note.Mining': 'For mining (oil & gas exploration), operating-profit-up best captures business performance — revenue moves with crude oil & gas prices.',
+    'filter.note.Petroleum': 'For petroleum refining, operating-profit-up captures business performance better than revenue-up because revenue moves with crude oil prices.',
+    'filter.note.Marine': 'For marine FY3/2026 — container rate fall caused all majors\' operating profit to decline. The active default is 売上○ (only MOL qualifies). Would normally default to 営業利益○ when container rates recover.',
+    'marine.nonqual.intro': 'The following marine sector majors are R- (revenue down) under all filter modes this year, hence excluded from the R+ cards above. Listed here for transparency:',
+    'explanations.heading': 'Why these filter options?',
+    'tab.sMinus': 'R+ × S- — Revenue (or profit) up, stock down',
+    'tab.sPlus': 'R+ × S+ — Revenue (or profit) up, stock up',
+    'tab.focus': '本命 / Focus',
+    'card.revenue': 'Revenue:',
+    'card.op': 'Op profit:',
+    'card.net': 'Net profit:',
+    'card.stock': 'Stock:',
+    'card.stockYoy': 'Stock 2025 YoY:',
+    'card.genuineLabel': 'Genuine research (combined-prompt verification)',
+    'card.patternLabel': 'Pattern (bucket-templated):',
+    'card.sourceLabel': 'Source prose (fixture rawExplanation)',
+    'card.sourceThin': '⚠ Source prose for this company-year is thin.',
+    'card.genuineMissing': '⚠ Per-company web-search research not yet completed for this ticker.'
+  },
+  jp: {
+    'page.title': 'R+分類ビュー — マルチセクター (2026年3月期)',
+    'page.subtitle': '2026-06-05 · TOPIX-33の5セクター · セクター別フィルター + 透明性ブロック',
+    'sector.label': 'セクター:',
+    'filter.label': 'フィルターモード:',
+    'filter.note.IT': '情報・通信業セクターでは売上成長＝事業成長。代替フィルターは不要。',
+    'filter.note.LandTransport': '陸運業セクターでは売上が事業の質を捉える — 運賃・宅配個数の成長。2026年3月期は強い年:JR Big 3+大手私鉄+物流が全て成長。',
+    'filter.note.Mining': '鉱業(石油・ガス開発)では、売上は原油・ガス価格と連動して動くため、営業利益ベースの方が事業パフォーマンスをより良く捉えます。',
+    'filter.note.Petroleum': '石油・石炭製品(石油精製)では、売上は原油価格と連動して動くため、営業利益ベースの方が事業パフォーマンスをより良く捉えます。',
+    'filter.note.Marine': '2026年3月期の海運セクター — コンテナ運賃下落で大手全社が営業利益減益。アクティブなデフォルトは『売上○』(該当はMOLのみ)。コンテナ運賃回復時は通常『営業利益○』がデフォルト。',
+    'marine.nonqual.intro': '以下の海運大手は今年は全フィルターモードでR-(売上減)であり、上のR+カードからは除外されています。透明性のためにここに記載:',
+    'explanations.heading': 'なぜこれらのフィルターオプションなのか?',
+    'tab.sMinus': 'R+ × S- — 売上(または利益)↑、株価↓',
+    'tab.sPlus': 'R+ × S+ — 売上(または利益)↑、株価↑',
+    'tab.focus': '本命 / 注力',
+    'card.revenue': '売上:',
+    'card.op': '営業利益:',
+    'card.net': '純利益:',
+    'card.stock': '株価:',
+    'card.stockYoy': '株価2025年前年比:',
+    'card.genuineLabel': '本物の調査 (combined-prompt verification)',
+    'card.patternLabel': 'パターン (バケット・テンプレート):',
+    'card.sourceLabel': '元の説明文 (fixture rawExplanation)',
+    'card.sourceThin': '⚠ この企業年度の元説明文は薄いです。',
+    'card.genuineMissing': '⚠ この銘柄の企業別Web検索調査は未完了。'
+  }
+};
+let LANG = 'en';
+let CURRENT_SECTOR = 'IT';
+let CURRENT_FILTER = {IT: '売上○', LandTransport: '売上○', Mining: '営業利益○', Petroleum: '営業利益○', Marine: '売上○'};
+
+function applyI18n() {
+  const dict = I18N[LANG];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] != null) el.textContent = dict[key];
+  });
+  // Filter explanation labels and bodies (dual-language data attrs)
+  document.querySelectorAll('.filter-explanation > summary > span[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  document.querySelectorAll('.filter-exp-body[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  // Bucket title + note
+  document.querySelectorAll('.bucket-title[data-title-en]').forEach(el => {
+    const v = el.getAttribute('data-title-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  document.querySelectorAll('.bucket-note[data-note-en]').forEach(el => {
+    const v = el.getAttribute('data-note-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  // Pattern text
+  document.querySelectorAll('.reason-pattern-text[data-pattern-en]').forEach(el => {
+    const v = el.getAttribute('data-pattern-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  // Genuine research body
+  document.querySelectorAll('.genuine-body[data-genuine-en]').forEach(el => {
+    const v = el.getAttribute('data-genuine-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  // Source prose body
+  document.querySelectorAll('.source-prose-body[data-source-en]').forEach(el => {
+    const v = el.getAttribute('data-source-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  // Select <option> elements with data-en/data-jp — translate display text
+  document.querySelectorAll('select option[data-en]').forEach(opt => {
+    const v = opt.getAttribute('data-' + LANG);
+    if (v != null) opt.textContent = v;
+  });
+  // Sector-statistics block: TOPIX name + 4 stat labels + excluded-list summary + math note
+  document.querySelectorAll('.stats-topix-name[data-en], .stat-label[data-en], .excluded-list > summary > span[data-en], .stats-math-note[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  // Methodology pane: lede paragraph (innerHTML supports inline tags) + section summaries + step lists
+  document.querySelectorAll('.methodology-pane h2[data-en], .meth-section > summary > span[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.textContent = v;
+  });
+  document.querySelectorAll('.meth-lede[data-en], .meth-explain p[data-en], .meth-steps li[data-en], .meth-controls li[data-en], .meth-cost li[data-en]').forEach(el => {
+    const v = el.getAttribute('data-' + LANG);
+    if (v != null) el.innerHTML = v;
+  });
+  document.documentElement.setAttribute('lang', LANG);
+}
+
+function setLang(lang) {
+  LANG = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  applyI18n();
+}
+
+function setSector(sector) {
+  CURRENT_SECTOR = sector;
+  document.querySelectorAll('.sector-pane').forEach(pane => {
+    pane.style.display = (pane.getAttribute('data-sector') === sector) ? 'block' : 'none';
+  });
+}
+
+function applyFilter(sector, filter) {
+  CURRENT_FILTER[sector] = filter;
+  const pane = document.querySelector('.sector-pane[data-sector="' + sector + '"]');
+  if (!pane) return;
+  // For oil sector cards, filter by data-filters attribute. For IT, all visible (no filter).
+  // If data-filters is empty/missing, treat the card as qualifying for all filters
+  // (the new lighter-prompt entries don't always emit filter_qualifies).
+  pane.querySelectorAll('.company-row[data-filters]').forEach(row => {
+    const raw = row.getAttribute('data-filters') || '';
+    if (!raw) { row.style.display = ''; return; }
+    const quals = raw.split(',');
+    const visible = (filter === '両方') ? quals.length > 0 : quals.includes(filter);
+    row.style.display = visible ? '' : 'none';
+  });
+}
+
+function showTabInSector(tabName) {
+  // tabName looks like 's-minus-IT' or 's-plus-Oil'
+  const sector = tabName.split('-').pop();
+  const pane = document.querySelector('.sector-pane[data-sector="' + sector + '"]');
+  if (!pane) return;
+  pane.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  pane.querySelectorAll('.tab-content').forEach(c => c.setAttribute('data-active', 'false'));
+  pane.querySelector('.tab[data-tab="' + tabName + '"]').classList.add('active');
+  pane.querySelector('.tab-content.tab-' + tabName).setAttribute('data-active', 'true');
+}
+
+function toggleCompany(rowEl, event) {
+  // Don't toggle if the click was inside the expanded body (so user can read,
+  // click <details> toggles, select text, etc. without collapsing the card)
+  if (event && event.target && event.target.closest('.company-body')) return;
+  // Don't toggle if user is selecting text
+  if (window.getSelection && window.getSelection().toString().length > 0) return;
+  rowEl.classList.toggle('collapsed');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Sector dropdown
+  const sectorSelect = document.getElementById('sector-select');
+  if (sectorSelect) sectorSelect.addEventListener('change', e => setSector(e.target.value));
+
+  // Per-sector filter dropdowns
+  document.querySelectorAll('.sector-filter').forEach(sel => {
+    const sec = sel.getAttribute('data-sector');
+    sel.addEventListener('change', e => applyFilter(sec, e.target.value));
+  });
+
+  // Tabs (each tab knows which sector it's in via data-tab name suffix)
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => showTabInSector(t.getAttribute('data-tab')));
+  });
+
+  // Language toggle
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.addEventListener('click', () => setLang(b.dataset.lang));
+  });
+
+  applyI18n();
+  // Apply initial filter for each sector
+  Object.entries(CURRENT_FILTER).forEach(([sector, filter]) => applyFilter(sector, filter));
+});
+</script>
