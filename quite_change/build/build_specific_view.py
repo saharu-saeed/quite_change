@@ -323,6 +323,41 @@ def main():
                              f'<div class="bucket-cards">{"".join(cards)}</div></details>')
         panes.append(f'<div class="cat-pane" data-cat="{k}" style="display:{ "block" if i==0 else "none"};">{buckets_html}</div>')
 
+    # ── coverage stats (top-of-view transparency, like UNIFIED_VIEW) ──
+    classified = [c for c in comps.values() if c.get('specific_bucket')]
+    n = len(classified)
+    residual = sum(1 for c in classified if c['specific_bucket'] in ('no_report_reason_found', 'other'))
+    grounded = n - residual
+    n_flash = n_fb = 0
+    for c in classified:
+        pk = load_pkt(c['ticker'])
+        if (pk.get('tanshin_text') or '').strip():
+            n_flash += 1
+        elif (pk.get('why_text') or '').strip():
+            n_fb += 1
+
+    def _cell(en, jp, val, cls=''):
+        return (f'<div class="stat-cell {cls}"><span class="stat-label" data-en="{esc(en)}" '
+                f'data-jp="{esc(jp)}">{esc(jp)}</span><span class="stat-value">{esc(val)}</span></div>')
+
+    note_en = (f"{n} companies considered = {grounded} with a grounded report reason + {residual} residual "
+               f"(no clear reason in the filing). Each is classified from its announce-date 決算短信 "
+               f"({n_flash}) or 有報 MD&A fallback ({n_fb}) — no reason is fabricated.")
+    note_jp = (f"対象{n}社 = 理由が特定できた{grounded}社 + 残余{residual}社（決算書類に明確な理由なし）。"
+               f"全社を発表日の決算短信（{n_flash}社）または有報MD&A（{n_fb}社）から分類、理由の捏造なし。")
+    stats_block = (
+        '<div class="sector-stats-block">'
+        f'<div class="stats-header" data-en="Coverage — IT FY{YEAR} full-year" '
+        f'data-jp="カバレッジ — 情報・通信業 {YEAR}年 通期">カバレッジ — 情報・通信業 {YEAR}年 通期</div>'
+        '<div class="stats-counts">'
+        + _cell('Companies in this view', '本ビューの対象企業', n)
+        + _cell('Classified to a reason bucket', '理由バケットに分類', grounded, 'stat-qualifying')
+        + _cell('Residual — no clear report reason', '残余 — 決算に理由なし', residual, 'stat-excluded')
+        + _cell('Source: flash report / MD&A', '出典: 決算短信 / 有報MD&A', f'{n_flash} / {n_fb}')
+        + '</div>'
+        f'<div class="stats-math-note" data-en="{esc(note_en)}" data-jp="{esc(note_jp)}">{esc(note_jp)}</div>'
+        '</div>')
+
     banner_jp = ('⚠️ PROVISIONAL — 構造提案（中町氏の承認待ち）。コミットなし・取り消し容易。'
                  '【整合の象限（R+S+ / R−S−）】事業理由（specific_bucket）が見出し＝株価理由も兼ねる。'
                  '【乖離の象限（R+S− / R−S+）】見出しは「なぜ株価が動いたか」（弱いガイダンス／採算悪化／一過性／'
@@ -365,7 +400,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="subtitle" data-en="Information &amp; Communication · FY{YEAR} full-year · {len(comps)} companies · stock move verified (Tempest) · R±×S× × specific_bucket × overlay (guidance/event)" data-jp="情報・通信業 · {YEAR}年 通期 · {len(comps)}社 · 株価検証済み(Tempest) · R±×S× × specific_bucket × overlay(guidance/event)">情報・通信業 · {YEAR}年 通期 · {len(comps)}社 · 株価検証済み(Tempest) · R±×S× × specific_bucket × overlay(guidance/event)</div>
   <div class="lang-toggle"><button class="lang-btn" data-lang="en">EN</button><button class="lang-btn active" data-lang="jp">日本語</button></div>
 </header>
-<div class="container"><div class="sector-pane" style="display:block;">{banner}
+<div class="container"><div class="sector-pane" style="display:block;">{banner}{stats_block}
   <div class="tabs" role="tablist">{''.join(tabs)}</div>
   <div class="tab-content" data-active="true">{''.join(panes)}</div>
 </div></div>

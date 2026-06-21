@@ -36,7 +36,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 from anthropic import AnthropicBedrock
 from run_it_batch import num_summary               # verified-number block (reused)
 
-YEARS = {'2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
+YEARS = {'2022': '_pkts_2022_mdna', '2023': '_pkts_2023_mdna', '2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
 
 # ── the approved 26-bucket SPECIFIC vocabulary (23 business/reason + 3 event) ──
 # guidance_* are intentionally NOT primary buckets here (decision 6 → overlay).

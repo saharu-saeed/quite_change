@@ -26,7 +26,7 @@ sys.path.insert(0, str(ROOT / 'build'))
 sys.stdout.reconfigure(encoding='utf-8')
 from anthropic import AnthropicBedrock
 
-YEARS = {'2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
+YEARS = {'2022': '_pkts_2022_mdna', '2023': '_pkts_2023_mdna', '2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
 EVENT_PRIMARY = {'contract_win', 'contract_loss_churn', 'backlog_shift'}
 # non-event primaries the re-derive may choose from
 NON_EVENT = [
@@ -97,10 +97,12 @@ def main():
         aws_secret_key=os.environ['AWS_SECRET_ACCESS_KEY'],
         aws_session_token=os.environ.get('AWS_SESSION_TOKEN') or None)
 
+    yrs = [sys.argv[sys.argv.index('--year') + 1]] if '--year' in sys.argv else list(YEARS)
     staged = {y: json.loads((ROOT / 'data' / 'quarterly' / f'it_q4_{y}.staged.json').read_text(encoding='utf-8'))
-              for y in YEARS}
+              for y in yrs}
     jobs = []
-    for y, d in YEARS.items():
+    for y in yrs:
+        d = YEARS[y]
         comps = staged[y]['companies']
         for f in glob.glob(str(ROOT / 'data' / 'quarterly' / d / '*.json')):
             pk = json.loads(Path(f).read_text(encoding='utf-8'))
@@ -142,7 +144,7 @@ def main():
     if dry:
         print('\n(--dry: staged NOT modified)')
         return
-    for y in YEARS:
+    for y in yrs:
         p = ROOT / 'data' / 'quarterly' / f'it_q4_{y}.staged.json'
         p.write_text(json.dumps(staged[y], ensure_ascii=False, indent=2), encoding='utf-8')
     print('\nApplied event_overlay to staged (committed untouched). backlog_shift dropped (0).')

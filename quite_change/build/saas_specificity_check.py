@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / 'build'))
 sys.stdout.reconfigure(encoding='utf-8')
 from anthropic import AnthropicBedrock
 
-YEARS = {'2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
+YEARS = {'2022': '_pkts_2022_mdna', '2023': '_pkts_2023_mdna', '2024': '_pkts_2024_mdna', '2025': '_pkts_mdna'}
 MORE_SPECIFIC = ['cybersecurity_investment_demand', 'sap_erp_renewal_demand',
                  'public_sector_it_demand', 'cloud_migration_growth',
                  'invoice_electronic_ledger_demand', 'manufacturing_plm_it_demand']
@@ -66,9 +66,10 @@ PROMPT = """この企業は暫定で「saas_arr_expansion（SaaS・ARR拡大）�
 返却(JSON): ticker="{t}", verdict, rehome_bucket, primary_driver_quote（主因の該当箇所を短く引用）, confidence"""
 
 
-def load_saas():
+def load_saas(yrs):
     out = []
-    for y, d in YEARS.items():
+    for y in yrs:
+        d = YEARS[y]
         staged = json.loads((ROOT / 'data' / 'quarterly' / f'it_q4_{y}.staged.json').read_text(encoding='utf-8'))['companies']
         saas = {t for t, c in staged.items() if c.get('specific_bucket') == 'saas_arr_expansion'}
         for f in glob.glob(str(ROOT / 'data' / 'quarterly' / d / '*.json')):
@@ -96,7 +97,8 @@ def main():
         aws_region=os.environ['AWS_REGION'], aws_access_key=os.environ['AWS_ACCESS_KEY_ID'],
         aws_secret_key=os.environ['AWS_SECRET_ACCESS_KEY'],
         aws_session_token=os.environ.get('AWS_SESSION_TOKEN') or None)
-    saas = load_saas()
+    yrs = [sys.argv[sys.argv.index('--year') + 1]] if '--year' in sys.argv else list(YEARS)
+    saas = load_saas(yrs)
     print(f'Checking {len(saas)} saas_arr_expansion companies for absorbed specific reasons...\n')
     rehomes = []
     with ThreadPoolExecutor(max_workers=6) as ex:
@@ -116,7 +118,7 @@ def main():
         print('  (none — saas_arr_expansion is legitimately the most-specific grounded cause for all 34)')
 
     if not dry and rehomes:
-        for y in YEARS:
+        for y in yrs:
             p = ROOT / 'data' / 'quarterly' / f'it_q4_{y}.staged.json'
             data = json.loads(p.read_text(encoding='utf-8'))
             n = 0

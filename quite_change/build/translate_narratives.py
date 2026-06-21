@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / 'build'))
 sys.stdout.reconfigure(encoding='utf-8')
 from anthropic import AnthropicBedrock
 
-YEARS = ['2024', '2025']
+YEARS = ['2022', '2023', '2024', '2025']
 FIELDS = ['overview', 'about_business', 'why_business_moved', 'why_stock_moved']
 EVID = ['bucket_grounding', 'event_quote']
 
