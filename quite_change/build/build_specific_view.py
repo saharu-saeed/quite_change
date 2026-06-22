@@ -210,7 +210,13 @@ def card(c, pkt, head=None, biz_ctx=None):
     rev, op, net = num(pkt)
     sp = (pkt.get('prices', {}) or {}).get('pct_change')
     sp_txt = (('+' if (sp or 0) > 0 else '') + f'{sp}%') if sp is not None else '—'
-    name = pkt.get('name_jp') or pkt.get('name') or c.get('ticker')
+    def _cn(v):  # reject blank / boolean / literal "False" leaking from the name source
+        if v is None or v is True or v is False:
+            return ''
+        s = str(v).strip()
+        return '' if s.lower() in ('false', 'true', 'none', 'nan', 'null', '') else s
+    name = (_cn(pkt.get('name_official_jp')) or _cn(pkt.get('name_jp'))
+            or _cn(pkt.get('name_official')) or _cn(pkt.get('name')) or c.get('ticker'))
     SECS = [('会社について', 'About the company', 'overview'),
             ('業績について', 'Results this period', 'about_business'),
             ('業績が動いた理由', 'Why the business moved', 'why_business_moved'),

@@ -31,9 +31,9 @@ def title_period(title):
     """Return (year, month) the title's 通期 短信 covers — handles calendar (2024年3月期) and
     reiwa (令和6年3月期) and full-width digits."""
     s = title.translate(Z)
-    m = re.search(r'令和(\d+)年(\d+)月期', s)
+    m = re.search(r'令和(\d+)年度?(\d+)月期', s)
     if m: return 2018 + int(m.group(1)), int(m.group(2))
-    m = re.search(r'(20\d{2})年(\d+)月期', s)
+    m = re.search(r'(20\d{2})年度?(\d+)月期', s)
     if m: return int(m.group(1)), int(m.group(2))
     return None
 
@@ -44,8 +44,8 @@ def resolve(ticker, period_end):
         h = fetch(f'https://irbank.net/{ticker}/tdnet')
     except Exception:
         return None, None
-    for title, docid in re.findall(r'<a title="([^"]*決算短信[^"]*)" href="/\d{4}/(\d{14,18})"', h):
-        if '四半期' in title or '中間' in title:
+    for title, docid in re.findall(r'<a[^>]*?title="([^"]*決算短信[^"]*)" href="/\d{4}/(\d{14,18})"', h):
+        if '四半期' in title or '中間' in title or '補足' in title:
             continue  # 通期 only
         p = title_period(title)
         if p == (Y, M):
@@ -62,8 +62,8 @@ def resolve_all(ticker, period_end):
     except Exception:
         return []
     out = []
-    for title, docid in re.findall(r'<a title="([^"]*決算短信[^"]*)" href="/\d{4}/(\d{14,18})"', h):
-        if '四半期' in title or '中間' in title:
+    for title, docid in re.findall(r'<a[^>]*?title="([^"]*決算短信[^"]*)" href="/\d{4}/(\d{14,18})"', h):
+        if '四半期' in title or '中間' in title or '補足' in title:
             continue
         if title_period(title) == (Y, M):
             out.append((title, docid))

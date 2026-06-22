@@ -32,7 +32,10 @@ DELAY = 0.7  # gentle rate-limit between companies (good citizen)
 
 def db_init():
     FR.mkdir(parents=True, exist_ok=True); RUNLOG.mkdir(parents=True, exist_ok=True)
-    c = sqlite3.connect(DB)
+    c = sqlite3.connect(DB, timeout=120)
+    # WAL + busy timeout so 3 sharded workers can write the same DB without "database is locked".
+    c.execute("PRAGMA journal_mode=WAL")
+    c.execute("PRAGMA busy_timeout=120000")
     c.execute("""CREATE TABLE IF NOT EXISTS reports (
         ticker TEXT, company_name TEXT, fiscal_year_end TEXT, fy TEXT, cover_date TEXT,
         tdnet_doc_id TEXT UNIQUE, doc_type TEXT, source_mirror TEXT, file_path TEXT,
@@ -76,7 +79,9 @@ def cover_date(t):
 
 def extract_text(data):
     with pdfplumber.open(io.BytesIO(data)) as pdf:
-        txt = '\n'.join((p.extract_text() or '') for p in pdf.pages[:3])
+        # read up to 8 pages: some 短信 lead with a cover + table-of-contents, so the
+        # results table (百万円) — which is_real_report() checks for — sits on page 4+.
+        txt = '\n'.join((p.extract_text() or '') for p in pdf.pages[:8])
     if '決算短信' not in txt[:300]:
         dd = re.sub(r'(.)\1{2,}', r'\1', txt)
         if '決算短信' in dd[:300]:
@@ -147,7 +152,7 @@ def process(c, ticker, fy, period_end, name):
             if is_auth: final_status = 'miss:parse'
             continue
         head = txt[:400]; got = '決算短信' in head; raw = len(txt)
-        identity = ticker in txt[:1500].translate(_Z)
+        identity = ticker in txt[:1500].translate(_Z).replace(' ', '').replace('　', '')  # covers spaced-digit covers "8 2 1 9"
         quarterly = any(q in head for q in ('第１四半期', '第２四半期', '第３四半期', '四半期決算短信', '中間決算短信'))
         cd = cover_date(txt)
         gates = {'identity': identity, 'doctype_tsuki': bool(got and not quarterly), 'cover_date': bool(cd), 'readable': raw > 1000, 'real_report': real}
@@ -169,7 +174,10 @@ def process(c, ticker, fy, period_end, name):
 
 def main():
     c = db_init()
-    runlog = RUNLOG / f'run_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'
+    shard = next((a for a in sys.argv if '/' in a and a.replace('/', '').isdigit()), None)
+    sk, sn = (int(shard.split('/')[0]), int(shard.split('/')[1])) if shard else (0, 1)
+    stag = f'_shard{sk}of{sn}' if shard else ''
+    runlog = RUNLOG / f'run_{datetime.now().strftime("%Y%m%d_%H%M%S")}{stag}.log'
     log = runlog.open('w', encoding='utf-8')
     def L(m):
         print(m); log.write(m + '\n'); log.flush()
@@ -185,6 +193,9 @@ def main():
                 p = json.loads(f.read_text(encoding='utf-8'))
                 universe.append((p['ticker'], fy, p['period_end'], pick_name(p)))
         scope = 'committed IT set (95+99)'
+    if sn > 1:
+        universe = universe[sk::sn]   # this worker's disjoint slice
+        scope += f' shard {sk}/{sn}'
     L(f'START {datetime.now().isoformat()} | universe {len(universe)} reports ({scope})')
     wall0 = time.monotonic()
     ok = 0; fails = []; times = []
