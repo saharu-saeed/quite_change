@@ -158,6 +158,8 @@ STOCK_DIV = {
 def stock_div_key(c, cat):
     """Stock-reason-led bucket key for the divergent quadrants (R+S−, R−S+); else None."""
     bk = c.get('specific_bucket'); g = c.get('guidance_overlay'); st = c.get('stock_reason_tag')
+    if st == 'delayed_unexplained':   # timing says the move came later, not from the print → enrichment
+        return 'sd_no_report_reason' if cat == 'RpSm' else ('su_no_report_reason' if cat == 'RmSp' else None)
     if cat == 'RpSm':          # revenue up, stock DOWN → why did it fall?
         if g == 'disappointment': return 'sd_weak_guidance'
         if bk == 'margin_compression_cost_investment': return 'sd_margin_squeeze'
@@ -204,6 +206,68 @@ def chips(c):
     if e in EVT:
         out.append(f'<span class="ov-chip chip-event" data-en="{EVT[e][0]}" data-jp="{EVT[e][1]}">{EVT[e][1]}</span>')
     return ' '.join(out)
+
+
+# ── 14-day path features (from the combined stock-side pass) → sparkline + timing ──
+TIMING_LBL = {
+    'on_print':    ('Reacted on the print', '決算発表時に反応'),
+    'delayed':     ('Moved later — not the print', '発表後に遅れて反応'),
+    'accumulated': ('Built up over the 2 weeks', '2週間かけて累積'),
+    'mixed':       ('Partly on the print, partly later', '一部は発表時・一部は後日'),
+}
+SHAPE_LBL = {
+    'immediate_and_held':  ('jumped on the print, then held', '発表直後に動いて以後横ばい'),
+    'delayed':             ('flat first, moved later', '初動は小さく後日動いた'),
+    'pop_then_faded':      ('popped, then faded', '上昇後に戻した'),
+    'drop_then_recovered': ('dropped, then recovered', '下落後に戻した'),
+    'round_trip_volatile': ('swung both ways', '上下に往復'),
+    'steady_drift':        ('gradual drift', '緩やかに推移'),
+    'muted_flat':          ('barely moved', 'ほぼ無反応'),
+}
+
+
+def spark_svg(vals):
+    if not vals or len(vals) < 2:
+        return ''
+    w, h, pad = 132, 30, 3
+    hi = max(max(vals), 0.0); lo = min(min(vals), 0.0); rng = (hi - lo) or 1.0
+    n = len(vals)
+    X = lambda i: pad + i / (n - 1) * (w - 2 * pad)
+    Y = lambda v: pad + (hi - v) / rng * (h - 2 * pad)
+    pts = ' '.join(f'{X(i):.1f},{Y(v):.1f}' for i, v in enumerate(vals))
+    net = vals[-1]
+    col = '#1f7a4a' if net > 0 else ('#c0392b' if net < 0 else '#888')
+    y0 = Y(0.0)
+    return (f'<svg class="spark" viewBox="0 0 {w} {h}" width="{w}" height="{h}" preserveAspectRatio="none">'
+            f'<line x1="{pad}" y1="{y0:.1f}" x2="{w-pad}" y2="{y0:.1f}" stroke="#ccd" stroke-width="0.7" stroke-dasharray="2,2"/>'
+            f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="1.6" stroke-linejoin="round"/>'
+            f'<circle cx="{X(n-1):.1f}" cy="{Y(net):.1f}" r="2.2" fill="{col}"/></svg>')
+
+
+def path_strip(c):
+    pp = c.get('path_pct')
+    if not pp or len(pp) < 2:
+        return ''
+    tb = c.get('timing_basis'); sh = c.get('path_shape')
+    net = pp[-1]; react = pp[2] if len(pp) > 2 else net
+    cap_en = f"14-day path · initial {react:+.1f}% → net {net:+.1f}%"
+    cap_jp = f"14日間の値動き · 初動 {react:+.1f}% → ネット {net:+.1f}%"
+    pe, pj = [], []
+    if tb in TIMING_LBL:
+        pe.append(TIMING_LBL[tb][0]); pj.append(TIMING_LBL[tb][1])
+    if sh in SHAPE_LBL:
+        pe.append(SHAPE_LBL[sh][0]); pj.append(SHAPE_LBL[sh][1])
+    chip = ''
+    if pe:
+        chip = (f'<span class="timing-chip" data-en="{esc(" · ".join(pe))}" '
+                f'data-jp="{esc(" · ".join(pj))}">{esc(" · ".join(pj))}</span>')
+    enr = ''
+    if c.get('needs_enrichment'):
+        enr = ('<span class="enrich-badge" data-en="Enrichment — the move came later; the report names no cause" '
+               'data-jp="enrichment候補 — 値動きは後日発生・決算に理由なし">enrichment候補</span>')
+    return (f'<div class="path-strip">{spark_svg(pp)}'
+            f'<div class="path-meta"><span class="path-cap" data-en="{esc(cap_en)}" data-jp="{esc(cap_jp)}">{esc(cap_jp)}</span>'
+            f'{chip}{enr}</div></div>')
 
 
 def card(c, pkt, head=None, biz_ctx=None):
@@ -281,7 +345,7 @@ def card(c, pkt, head=None, biz_ctx=None):
         <span class="data-item"><span class="data-label">Net:</span> {esc(pct(net))}</span>
         <span class="data-item"><span class="data-label">Stock:</span> <b>{esc(sp_txt)}</b></span>
       </div>
-      <div class="reason-block">{head_line}{ov}{ev_block}{mech}</div>
+      <div class="reason-block">{head_line}{ov}{path_strip(c)}{ev_block}{mech}</div>
       <div class="company-body"><div class="genuine-research"><div class="genuine-body">{body}</div></div></div>
     </div>'''
 
@@ -429,6 +493,12 @@ document.addEventListener('DOMContentLoaded',function(){
 .mech-tag{{font-size:10px;color:#aab;margin-top:5px;font-family:monospace;}}
 .reason-bucket > summary .bucket-title{{font-size:14.5px;font-weight:700;color:#16314a;line-height:1.5;white-space:normal;}}
 .bucket-shorttag{{display:inline-block;font-size:10.5px;color:#789;background:#eef2f5;border-radius:9px;padding:1px 8px;margin-left:8px;font-weight:600;vertical-align:middle;}}
+.path-strip{{display:flex;align-items:center;gap:10px;margin-top:7px;border-top:1px dashed #dde;padding-top:6px;flex-wrap:wrap;}}
+.spark{{flex:0 0 auto;background:#fbfdfc;border:1px solid #eef;border-radius:3px;}}
+.path-meta{{display:flex;flex-direction:column;gap:3px;}}
+.path-cap{{font-size:11px;color:#667;font-family:monospace;}}
+.timing-chip{{font-size:11px;color:#46607a;font-weight:600;}}
+.enrich-badge{{display:inline-block;font-size:10.5px;background:#fff3e0;color:#b5651d;border:1px solid #f0c891;border-radius:9px;padding:1px 8px;font-weight:700;width:fit-content;}}
 </style></head>{body}'''
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(out_html, encoding='utf-8')
