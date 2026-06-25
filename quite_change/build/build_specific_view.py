@@ -249,7 +249,9 @@ def path_strip(c):
     if not pp or len(pp) < 2:
         return ''
     tb = c.get('timing_basis'); sh = c.get('path_shape')
-    net = pp[-1]; react = pp[2] if len(pp) > 2 else net
+    net = pp[-1]
+    # 初動 = bigger of day-1 / day-2 (a day-1 spike that reverts by day-2 must not be hidden)
+    react = max((pp[1], pp[2]), key=abs) if len(pp) > 2 else (pp[1] if len(pp) > 1 else net)
     cap_en = f"14-day path · initial {react:+.1f}% → net {net:+.1f}%"
     cap_jp = f"14日間の値動き · 初動 {react:+.1f}% → ネット {net:+.1f}%"
     pe, pj = [], []
@@ -265,9 +267,14 @@ def path_strip(c):
     if c.get('needs_enrichment'):
         enr = ('<span class="enrich-badge" data-en="Enrichment — the move came later; the report names no cause" '
                'data-jp="enrichment候補 — 値動きは後日発生・決算に理由なし">enrichment候補</span>')
+    rt = ''
+    if c.get('muted_round_trip'):
+        ex = (c.get('round_trip_excursion') or {}).get('exc')
+        rt = (f'<span class="enrich-badge" data-en="Net is flat but it swung {ex:+.0f}% intra-window then round-tripped — not a quiet tape" '
+              f'data-jp="ネットはフラットだが期中に{ex:+.0f}%往復 — 無反応ではない">往復してフラット</span>')
     return (f'<div class="path-strip">{spark_svg(pp)}'
             f'<div class="path-meta"><span class="path-cap" data-en="{esc(cap_en)}" data-jp="{esc(cap_jp)}">{esc(cap_jp)}</span>'
-            f'{chip}{enr}</div></div>')
+            f'{chip}{enr}{rt}</div></div>')
 
 
 def card(c, pkt, head=None, biz_ctx=None):

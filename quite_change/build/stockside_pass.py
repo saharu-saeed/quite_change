@@ -52,6 +52,46 @@ SHAPE_JP = {
 }
 
 
+def _features_from_cum(cum):
+    """Shape/timing features from the cumulative %-from-P0 daily series (cum[0]==0).
+
+    Fixes vs the original:
+      • react = the bigger of day-1 / day-2 (a day-1 spike that reverts by day-2 is no longer
+        hidden — old code only looked at day-2).
+      • pop_then_faded / drop_then_recovered no longer gated on the net sign: a path that
+        dives then round-trips back to ~flat/positive (OBC-type) is now caught as a real
+        drawdown instead of falling through to 'steady_drift'. The excursion (mx≥2.5 / mn≤-2.5)
+        plus the give-back (mx-net / net-mn ≥2.5) is what defines the shape, not the endpoint.
+    """
+    net = cum[-1]
+    react_d1 = cum[1] if len(cum) > 1 else net          # 1営業日目
+    react_d2 = cum[2] if len(cum) > 2 else react_d1      # 2営業日目
+    react = max((react_d1, react_d2), key=abs)           # 初動 = 1〜2日目で大きい方(初日スパイクを隠さない)
+    mx, mn = max(cum), min(cum)
+    i_mx, i_mn = cum.index(mx), cum.index(mn)
+    rng = mx - mn
+    a = abs(net)
+    ratio = abs(react) / max(a, 0.1)
+    if a < 1.5 and rng < 3:
+        shape = 'muted_flat'                             # 全期間を通じて小動き(本当に無反応)
+    elif mx >= 2 and mn <= -2:
+        shape = 'round_trip_volatile'                    # 上下どちらにも大きく振れた
+    elif mx >= 2.5 and (mx - net) >= 2.5:
+        shape = 'pop_then_faded'                         # 高値をつけてから戻した(終値の符号は問わない)
+    elif mn <= -2.5 and (net - mn) >= 2.5:
+        shape = 'drop_then_recovered'                    # 安値をつけてから戻した(OBC型の往復下落を捕捉)
+    elif a >= 1.5 and ratio >= 0.6:
+        shape = 'immediate_and_held'
+    elif a >= 1.5 and ratio <= 0.35:
+        shape = 'delayed'
+    else:
+        shape = 'steady_drift'
+    return {'net': round(net, 2), 'react_d1': round(react_d1, 2), 'react_d2': round(react_d2, 2),
+            'react_2d': round(react, 2), 'ratio': round(ratio * 100),
+            'max_up': round(mx, 2), 'max_up_day': i_mx, 'max_dn': round(mn, 2), 'max_dn_day': i_mn,
+            'shape': shape, 'path_pct': [round(x, 2) for x in cum], 'n_days': len(cum)}
+
+
 def path_features(series):
     items = sorted(series.items())
     if len(items) < 4:
@@ -59,29 +99,7 @@ def path_features(series):
     c = [v for _, v in items]
     p0 = c[0]
     cum = [(x / p0 - 1) * 100 for x in c]
-    net = cum[-1]
-    react = cum[2] if len(cum) > 2 else cum[-1]
-    mx, mn = max(cum), min(cum)
-    i_mx, i_mn = cum.index(mx), cum.index(mn)
-    rng = mx - mn
-    a = abs(net)
-    if a < 1.5 and rng < 3:
-        shape = 'muted_flat'
-    elif mx >= 2 and mn <= -2:
-        shape = 'round_trip_volatile'
-    elif net > 0 and (mx - net) >= 2.5:
-        shape = 'pop_then_faded'
-    elif net < 0 and (net - mn) >= 2.5:
-        shape = 'drop_then_recovered'
-    elif a >= 1.5 and abs(react) / max(a, 0.1) >= 0.6:
-        shape = 'immediate_and_held'
-    elif a >= 1.5 and abs(react) / max(a, 0.1) <= 0.35:
-        shape = 'delayed'
-    else:
-        shape = 'steady_drift'
-    return {'net': round(net, 2), 'react_2d': round(react, 2), 'ratio': round(abs(react) / max(a, 0.1) * 100),
-            'max_up': round(mx, 2), 'max_up_day': i_mx, 'max_dn': round(mn, 2), 'max_dn_day': i_mn,
-            'shape': shape, 'path_pct': [round(x, 2) for x in cum], 'n_days': len(cum)}
+    return _features_from_cum(cum)
 
 
 TAGS = ['rerating_on_growth', 'guidance_disappointment', 'consensus_miss',
@@ -103,8 +121,9 @@ SCHEMA = {
 
 
 def build_prompt(ticker, name, pr, f, num, guid, ground):
-    when = (f"最大{'上昇' if abs(f['max_up']) >= abs(f['max_dn']) else '下落'}は"
-            f"{max(f['max_up_day'], f['max_dn_day'])}営業日目付近")
+    up_bigger = abs(f['max_up']) >= abs(f['max_dn'])
+    when = (f"最大{'上昇' if up_bigger else '下落'}は"
+            f"{f['max_up_day'] if up_bigger else f['max_dn_day']}営業日目付近")
     py = (num or {}).get('prior_year_yoy', {}) or {}
     return f"""あなたは日本株アナリスト。{ticker} {name} の決算後の株価反応を再評価する。
 目的(2つ): (A) why_stock_moved を「14日間の値動きの形・タイミング」を踏まえて書き直す。
@@ -116,7 +135,7 @@ P0={pr.get('p0_date')}({pr.get('p0')}円) → P1={pr.get('p1_date')}({pr.get('p1
 
 【14日間の値動きの形(株価データから機械算出した事実)】
 形: {SHAPE_JP.get(f['shape'], f['shape'])}
-初動(発表後1〜2営業日): {f['react_2d']}%（netの約{f['ratio']}%を初動が占める）
+初動: 1営業日目 {f['react_d1']}% / 2営業日目 {f['react_d2']}%（初動がnetの約{f['ratio']}%を占める。1営業日目と2営業日目の差が大きい時は初日に動いて戻したことを示す）
 期間中 最大上昇{f['max_up']}% / 最大下落{f['max_dn']}%（{when}）
 
 【今期実績(beat/raise材料・決算短信の数値)】
